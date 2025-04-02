@@ -14,3 +14,7 @@ config/name="deckship"
 run/main_scene="uid://b55cq8460wwgo"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://assets/icon.svg"
+
+[global_group]
+
+player=""

@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_onrkg"]
 size = Vector2(32, 32)
 
-[node name="player" type="Node2D" groups=["player"]]
+[node name="player" type="Node2D"]
 
 [node name="ship" type="RigidBody2D" parent="."]
 position = Vector2(379, 297)
