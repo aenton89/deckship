@@ -13,7 +13,11 @@ config_version=5
 config/name="deckship"
 run/main_scene="uid://b55cq8460wwgo"
 config/features=PackedStringArray("4.4", "Forward Plus")
-config/icon="res://assets/icon.svg"
+config/icon="uid://dlp4yjuopowty"
+
+[autoload]
+
+_global="*res://scritps/global.gd"
 
 [global_group]
 

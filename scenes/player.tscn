@@ -1,29 +1,27 @@
-[gd_scene load_steps=4 format=3 uid="uid://2bbk1qjegcs4"]
+[gd_scene load_steps=3 format=3 uid="uid://2bbk1qjegcs4"]
 
-[ext_resource type="Texture2D" uid="uid://bg28d7fqbw2vh" path="res://assets/icon.svg" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://bbq6o0cs6omi5" path="res://scritps/ship.gd" id="1_g2els"]
+[ext_resource type="Texture2D" uid="uid://dlp4yjuopowty" path="res://assets/ship.png" id="2_g2els"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_onrkg"]
-size = Vector2(32, 32)
-
-[node name="player" type="Node2D" groups=["player"]]
-
-[node name="ship" type="RigidBody2D" parent="."]
-position = Vector2(379, 297)
+[node name="ship" type="RigidBody2D" groups=["player"]]
 input_pickable = true
 script = ExtResource("1_g2els")
 metadata/_custom_type_script = "uid://bbq6o0cs6omi5"
-metadata/_edit_group_ = true
 
-[node name="collision shape" type="CollisionShape2D" parent="ship"]
-position = Vector2(0, 5)
+[node name="collision shape" type="CollisionPolygon2D" parent="."]
+position = Vector2(0.5, 5.5)
 scale = Vector2(2, 2)
-shape = SubResource("RectangleShape2D_onrkg")
+polygon = PackedVector2Array(-1.75, -12.25, -3.25, -10.75, -4.75, -7.75, -7.75, -1.75, -10.75, 4.25, -10.75, 10.25, 10.25, 10.25, 10.25, 4.25, 7.25, -1.75, 4.25, -7.75, 2.75, -10.75, 1.25, -12.25)
 
-[node name="sprite" type="Sprite2D" parent="ship"]
+[node name="sprite" type="Sprite2D" parent="."]
+texture_filter = 1
 position = Vector2(0, 5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_3vyb7")
+scale = Vector2(3, 3)
+texture = ExtResource("2_g2els")
 
-[connection signal="mouse_entered" from="ship" to="ship" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="ship" to="ship" method="_on_mouse_exited"]
+[node name="shooting marker" type="Marker2D" parent="."]
+position = Vector2(0, -19)
+gizmo_extents = 4.0
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
