@@ -1,17 +1,25 @@
-[gd_scene load_steps=4 format=3 uid="uid://c5otxn8jswrwk"]
+[gd_scene load_steps=5 format=3 uid="uid://c5otxn8jswrwk"]
 
-[ext_resource type="Texture2D" uid="uid://bg28d7fqbw2vh" path="res://assets/icon.svg" id="1_1di36"]
 [ext_resource type="Script" uid="uid://baa2h0doffex3" path="res://scritps/rock.gd" id="1_mek2u"]
+[ext_resource type="Texture2D" uid="uid://cy45qrte7tapy" path="res://assets/rock.png" id="2_872ht"]
+[ext_resource type="Script" uid="uid://gd7nxm7ds0mv" path="res://scritps/hp_component.gd" id="4_p2d0s"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mek2u"]
+size = Vector2(13, 13.5)
 
-[node name="rock" type="RigidBody2D"]
+[node name="rock" type="RigidBody2D" groups=["destructable"]]
 script = ExtResource("1_mek2u")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="rock sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_872ht")
+
+[node name="rock collision shape" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
 scale = Vector2(2, 2)
 shape = SubResource("RectangleShape2D_mek2u")
 
-[node name="Icon" type="Sprite2D" parent="."]
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("1_1di36")
+[node name="hp component" type="Node" parent="."]
+script = ExtResource("4_p2d0s")
+max_health = 20.0
+metadata/_custom_type_script = "uid://gd7nxm7ds0mv"

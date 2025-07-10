@@ -5,6 +5,9 @@
 .import/
 export.cfg
 export_credentials.cfg
+*.tscn*.tmp
+*.tres*.tmp
+*.uid
 
 # Imported translations (automatically generated from CSV files)
 *.translation

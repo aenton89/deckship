@@ -19,6 +19,12 @@ config/icon="uid://dlp4yjuopowty"
 
 _global="*res://scritps/global.gd"
 
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+
 [global_group]
 
 player=""
+destructable=""

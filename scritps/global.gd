@@ -7,6 +7,5 @@ extends Node
 # menu
 # 
 
-
 # test purposes
-var x = 3
+var game_paused: bool = false 

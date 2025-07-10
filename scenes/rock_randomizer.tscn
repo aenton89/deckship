@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://dck7rit32cs1o"]
+
+[ext_resource type="Script" uid="uid://b26nctp0vhsal" path="res://scritps/rock_randomizer.gd" id="1_ywwje"]
+
+[node name="rock randomizer" type="Node2D"]
+script = ExtResource("1_ywwje")
+size = null
+density = null
+initial_iterations = null
+
+[node name="output sprite" type="Sprite2D" parent="."]
+position = Vector2(645, 291)

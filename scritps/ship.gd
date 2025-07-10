@@ -1,5 +1,5 @@
 extends RigidBody2D
-class_name ship
+class_name Ship
 
 ### TODO:
 # health, damage system
@@ -24,20 +24,18 @@ var normal: Vector2 = Vector2.ZERO
 @onready var rotate_to_mouse: bool = false
 # shooting vars
 @onready var shoot_force: Vector2 = Vector2.ZERO
-# hp vars
-@onready var hp: float = hp_max
 
 ## export variables
 # shooting vars
 @export var shooting_angle: float = PI/4
-# hp vars
-@export var hp_max: float = 100.0
 # rotation vars
 @export var rotate_speed: float = 5.0
-
+# hp component
+@export var hp: HPComponent
 
 
 ### FUNCTIONS
+## premade functions
 func _ready() -> void:
 	set_gravity_scale(0.0)
 
@@ -60,7 +58,6 @@ func _physics_process(delta: float) -> void:
 		var rotate_step = clamp(angle_diff, -max_step, max_step)
 		rotate(rotate_step)
 
-
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT:
@@ -74,7 +71,6 @@ func _input(event: InputEvent) -> void:
 				was_lmb_pressed = false
 			elif event.pressed and not is_mouse_inside:
 				print("fire!")
-				print(_global.x)
 				shoot()
 		
 		if event.button_index == MOUSE_BUTTON_RIGHT:
@@ -86,24 +82,27 @@ func _input(event: InputEvent) -> void:
 				rotate_to_mouse = false
 
 
+## signal handlers
 func _on_mouse_entered() -> void:
 	is_mouse_inside = true
-	#print("mouse entered")
 
 func _on_mouse_exited() -> void:
 	is_mouse_inside = false
-	#print("mouse exited")
 
 
+## my functions
 func shoot() -> void:
 	var dir = (get_global_mouse_position() - global_position).normalized()
 	var angle = normal.angle_to(dir)
-	var bt: bullet = bllt.instantiate()
+	var bt: Bullet = bllt.instantiate()
 	
 	# ograniczenie kąta strzału
 	if abs(angle) > shooting_angle:
 		var bounded_angle = sign(angle) * shooting_angle
 		dir = normal.rotated(bounded_angle)
+	
+	# obrót pocisku żeby pasował do strzału
+	bt.rotate(dir.angle() + PI/2)
 	
 	bt.direction = dir
 	bt.global_position = marker.global_position
