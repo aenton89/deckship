@@ -1,0 +1,82 @@
+[gd_scene load_steps=6 format=3 uid="uid://b55cq8460wwgo"]
+
+[ext_resource type="Script" uid="uid://cjjdyqj1kdc3f" path="res://scritps/system/main.gd" id="1_5m258"]
+[ext_resource type="PackedScene" uid="uid://2bbk1qjegcs4" path="res://scenes/player/player.tscn" id="1_6awnf"]
+[ext_resource type="PackedScene" uid="uid://c5otxn8jswrwk" path="res://scenes/obstacles/rock.tscn" id="2_ii55j"]
+[ext_resource type="Texture2D" uid="uid://bg28d7fqbw2vh" path="res://assets/icon.svg" id="4_5m258"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_628vv"]
+size = Vector2(512, 19)
+
+[node name="Main Scene" type="Node2D" node_paths=PackedStringArray("multiplayer_ui")]
+script = ExtResource("1_5m258")
+multiplayer_ui = NodePath("Multiplayer UI")
+
+[node name="Player" parent="." instance=ExtResource("1_6awnf")]
+
+[node name="Rock" parent="." instance=ExtResource("2_ii55j")]
+position = Vector2(343, 175)
+
+[node name="Rock 2" parent="." instance=ExtResource("2_ii55j")]
+position = Vector2(410, 155)
+hp = 1000.0
+
+[node name="Multiplayer UI" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="Multiplayer" type="Control" parent="Multiplayer UI"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Multiplayer UI/Multiplayer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="Multiplayer UI/Multiplayer/VBoxContainer"]
+layout_mode = 2
+text = "Multiplayer"
+
+[node name="Host" type="Button" parent="Multiplayer UI/Multiplayer/VBoxContainer"]
+layout_mode = 2
+text = "Host"
+
+[node name="Join" type="Button" parent="Multiplayer UI/Multiplayer/VBoxContainer"]
+layout_mode = 2
+text = "Join"
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(107, -248)
+
+[node name="Icon" type="Sprite2D" parent="StaticBody2D"]
+position = Vector2(243, 0)
+scale = Vector2(4, 0.15)
+texture = ExtResource("4_5m258")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(243, 0)
+shape = SubResource("RectangleShape2D_628vv")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+position = Vector2(107, -137)
+
+[node name="Icon" type="Sprite2D" parent="StaticBody2D2"]
+position = Vector2(243, 0)
+scale = Vector2(4, 0.15)
+texture = ExtResource("4_5m258")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(243, 0)
+shape = SubResource("RectangleShape2D_628vv")
+
+[connection signal="pressed" from="Multiplayer UI/Multiplayer/VBoxContainer/Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="Multiplayer UI/Multiplayer/VBoxContainer/Join" to="." method="_on_join_pressed"]

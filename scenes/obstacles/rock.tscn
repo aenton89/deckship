@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://c5otxn8jswrwk"]
+
+[ext_resource type="Script" uid="uid://dnqhbxgnfjo8a" path="res://scritps/obstacles/rock.gd" id="1_mek2u"]
+[ext_resource type="Texture2D" uid="uid://cy45qrte7tapy" path="res://assets/rock.png" id="2_872ht"]
+[ext_resource type="Script" uid="uid://hq1bo2dtf216" path="res://scritps/components/components.gd" id="3_n8xt6"]
+[ext_resource type="Script" uid="uid://c72xg0cl1g6l2" path="res://scritps/components/hp_component.gd" id="4_p2d0s"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mek2u"]
+size = Vector2(13, 13.5)
+
+[node name="Rock" type="RigidBody2D" node_paths=PackedStringArray("hp_component") groups=["destructable"]]
+script = ExtResource("1_mek2u")
+hp_component = NodePath("Components/HP Component")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_872ht")
+
+[node name="Collision Shape" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+scale = Vector2(2, 2)
+shape = SubResource("RectangleShape2D_mek2u")
+
+[node name="Components" type="Node" parent="."]
+script = ExtResource("3_n8xt6")
+metadata/_custom_type_script = "uid://hq1bo2dtf216"
+
+[node name="HP Component" type="Node" parent="Components"]
+script = ExtResource("4_p2d0s")

@@ -9,3 +9,5 @@ extends Node
 
 # test purposes
 var game_paused: bool = false 
+var player: Player
+var main: Node2D

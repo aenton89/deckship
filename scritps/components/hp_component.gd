@@ -7,17 +7,14 @@ class_name HPComponent
 # youtube.com/watch?v=74y6zWZfQKk
 #
 
-### VARIABLES
-## export variables
+
+
 @export var max_health: float = 100.0
 
-## onready variables
 @onready var health: float = max_health
 
 
 
-### FUNCTIONS
-## my functions
 func damage(amount: float) -> void:
 	health -= amount
 	print("health: ", health)

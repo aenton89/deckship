@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://2bbk1qjegcs4"]
+
+[ext_resource type="Script" uid="uid://dvyehard432xd" path="res://scritps/player/player.gd" id="1_g2els"]
+[ext_resource type="Texture2D" uid="uid://dlp4yjuopowty" path="res://assets/ship.png" id="2_g2els"]
+[ext_resource type="Script" uid="uid://hq1bo2dtf216" path="res://scritps/components/components.gd" id="3_lvxji"]
+[ext_resource type="Script" uid="uid://c72xg0cl1g6l2" path="res://scritps/components/hp_component.gd" id="3_qhqgy"]
+[ext_resource type="PackedScene" uid="uid://l8fyderrn8e8" path="res://scenes/system/user_interface.tscn" id="5_p47bc"]
+
+[node name="Player" type="RigidBody2D" node_paths=PackedStringArray("shooting_marker", "hp_component", "UI") groups=["destructable", "player"]]
+input_pickable = true
+script = ExtResource("1_g2els")
+shooting_marker = NodePath("Shooting Marker")
+hp_component = NodePath("Components/HP Component")
+UI = NodePath("User Interface")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, 5)
+scale = Vector2(3, 3)
+texture = ExtResource("2_g2els")
+
+[node name="Collision Shape" type="CollisionPolygon2D" parent="."]
+position = Vector2(0.5, 5.5)
+scale = Vector2(2, 2)
+polygon = PackedVector2Array(-1.75, -12.25, -3.25, -10.75, -4.75, -7.75, -7.75, -1.75, -10.75, 4.25, -10.75, 10.25, 10.25, 10.25, 10.25, 4.25, 7.25, -1.75, 4.25, -7.75, 2.75, -10.75, 1.25, -12.25)
+
+[node name="Shooting Marker" type="Marker2D" parent="."]
+position = Vector2(0, -32)
+gizmo_extents = 4.0
+
+[node name="Camera Rig" type="Node2D" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="Camera Rig"]
+position_smoothing_enabled = true
+
+[node name="Components" type="Node" parent="."]
+script = ExtResource("3_lvxji")
+
+[node name="HP Component" type="Node" parent="Components"]
+script = ExtResource("3_qhqgy")
+
+[node name="User Interface" parent="." instance=ExtResource("5_p47bc")]
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
