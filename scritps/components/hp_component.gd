@@ -8,6 +8,7 @@ class_name HPComponent
 #
 
 
+signal player_died
 
 @export var max_health: float = 100.0
 
@@ -20,4 +21,6 @@ func damage(amount: float) -> void:
 	print("health: ", health)
 	
 	if health <= 0:
-		get_parent().queue_free()
+		if get_parent().get_parent() == Global.player:
+			emit_signal("player_died")
+		get_parent().get_parent().queue_free()

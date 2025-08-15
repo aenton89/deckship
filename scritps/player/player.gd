@@ -9,20 +9,21 @@ class_name Player
 
 
 
-@export_category("Ship Details")
-@export var shooting_angle: float = PI/4
-@export var rotate_speed: float = 5.0
-
+#@export_category("Ship Details")
+#@export var shooting_angle: float = PI/4
+#@export var rotate_speed: float = 5.0
+#@export_category("Player Stats")
+#@export var crit_chance: float = 0.1
+#@export var crit_amount: float = 1.2
+#@export var bounce_amount: int = 1
+#@export var dmg: float = 10.0
+#@export var bullet_speed: float = 500.0
+@export_category("Player Stats")
+@export var stats: PlayerStats
 @export_category("References")
 @export var shooting_marker: Marker2D
 @export var hp_component: HPComponent
 @export var UI: UserInterface
-@export_category("Player Stats")
-@export var crit_chance: float = 0.1
-@export var crit_amount: float = 1.2
-@export var bounce_amount: int = 1
-@export var dmg: float = 10.0
-@export var bullet_speed: float = 500.0
 @export_category("Imports")
 @export var bullet_scene: PackedScene = preload("res://scenes/player/bullet.tscn")
 
@@ -103,8 +104,8 @@ func shoot() -> void:
 	var bt: Bullet = bullet_scene.instantiate()
 	
 	# ograniczenie kąta strzału
-	if abs(angle) > shooting_angle:
-		var bounded_angle = sign(angle) * shooting_angle
+	if abs(angle) > stats.shooting_angle:
+		var bounded_angle = sign(angle) * stats.shooting_angle
 		dir = normal.rotated(bounded_angle)
 	
 	# obrót pocisku żeby pasował do strzału
@@ -118,7 +119,7 @@ func rotate_ship(delta: float) -> void:
 	if rotate_to_mouse:
 		var to_mouse_angle = (get_global_mouse_position() - global_position).angle()
 		var angle_diff = wrapf(to_mouse_angle - rotation + PI/2, -PI, PI)
-		var max_step = rotate_speed * delta
+		var max_step = stats.rotate_speed * delta
 		
 		# clamp to max_step so it seems smooth?
 		var rotate_step = clamp(angle_diff, -max_step, max_step)

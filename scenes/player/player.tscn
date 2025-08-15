@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://2bbk1qjegcs4"]
+[gd_scene load_steps=7 format=3 uid="uid://2bbk1qjegcs4"]
 
 [ext_resource type="Script" uid="uid://dvyehard432xd" path="res://scritps/player/player.gd" id="1_g2els"]
+[ext_resource type="Resource" uid="uid://bbcd71wuwii2l" path="res://resources/player/default_player_stats.tres" id="2_75vfm"]
 [ext_resource type="Texture2D" uid="uid://dlp4yjuopowty" path="res://assets/ship.png" id="2_g2els"]
 [ext_resource type="Script" uid="uid://hq1bo2dtf216" path="res://scritps/components/components.gd" id="3_lvxji"]
 [ext_resource type="Script" uid="uid://c72xg0cl1g6l2" path="res://scritps/components/hp_component.gd" id="3_qhqgy"]
@@ -9,6 +10,7 @@
 [node name="Player" type="RigidBody2D" node_paths=PackedStringArray("shooting_marker", "hp_component", "UI") groups=["destructable", "player"]]
 input_pickable = true
 script = ExtResource("1_g2els")
+stats = ExtResource("2_75vfm")
 shooting_marker = NodePath("Shooting Marker")
 hp_component = NodePath("Components/HP Component")
 UI = NodePath("User Interface")

@@ -10,6 +10,7 @@ class_name Bullet
 @export_category("Bullet Details")
 # life time of bullet
 @export var life_span: float = 3.0
+@export var raycast_margin: float = 2.0
 
 # specifies if bullet should bounce after collision
 var bounce: int = 1
@@ -29,17 +30,44 @@ func _ready() -> void:
 	life_timer.one_shot = true
 	life_timer.start(life_span)
 	
-	bounce = Global.player.bounce_amount
-	speed = Global.player.bullet_speed
-	dmg  = Global.player.dmg
-
-func _physics_process(delta: float) -> void:
-	position += speed * direction * delta
-
-
+	bounce = Global.player.stats.bounce_amount
+	speed = Global.player.stats.bullet_speed
+	dmg  = Global.player.stats.dmg
 
 # na trafienie czegokolwiek (nawet siebie) zadać obrażenia; jeśli tamto coś nie zostanie zniszczone, to odbijamy pocisk (tylko 1 odbicie, nie więcej)
-func _on_body_entered(body: Node2D) -> void:
+func _physics_process(delta: float) -> void:
+	#position += speed * direction * delta
+	var motion = speed * direction * delta
+	var space_state = get_world_2d().direct_space_state
+	
+	var query = PhysicsRayQueryParameters2D.create(global_position, global_position + motion.normalized() * (motion.length() + raycast_margin))
+	query.exclude = [self]  # ignorujemy pocisk
+	
+	var result = space_state.intersect_ray(query)
+	
+	if result:
+		var hit_body = result.collider
+		apply_dmg(hit_body)
+		
+		if bounce > 0:
+			var collision_normal = result.normal
+			direction = direction.bounce(collision_normal).normalized()
+			rotation = direction.angle() + PI / 2
+			bounce -= 1
+		else:
+			queue_free()
+	else:
+		position += motion
+
+
+
+# pocisk nie może istnieć w nieskończoność
+func _on_life_timer_timeout() -> void:
+	queue_free()
+
+
+
+func apply_dmg(body: Node2D) -> void:
 	crit_label = false
 	dmg_amount = dmg
 	
@@ -59,8 +87,8 @@ func _on_body_entered(body: Node2D) -> void:
 		
 		if hp_component:
 			# apply crit
-			if randf() < Global.player.crit_chance:
-				dmg_amount = dmg * Global.player.crit_amount
+			if Global.player and randf() < Global.player.stats.crit_chance:
+				dmg_amount = dmg * Global.player.stats.crit_amount
 				crit_label = true
 			
 			hp_component.damage(dmg_amount)
@@ -73,22 +101,17 @@ func _on_body_entered(body: Node2D) -> void:
 				queue_free()
 				return
 	
-	# jeśli 1. raz coś trafimy i trafiony obiekt przeżył
-	if bounce > 0:
-		var collision_normal = (global_position - body.global_position).normalized()
-		direction = direction.bounce(collision_normal)
-		
-		rotation = direction.angle() + PI/2
-		
-		bounce = bounce - 1
-	else:
-		queue_free()
-
-# pocisk nie może istnieć w nieskończoność
-func _on_life_timer_timeout() -> void:
-	queue_free()
-
-
+	### TODO: przeniesione do _physics_process()
+	## jeśli 1. raz coś trafimy i trafiony obiekt przeżył
+	#if bounce > 0:
+		#var collision_normal = (global_position - body.global_position).normalized()
+		#direction = direction.bounce(collision_normal)
+		#
+		#rotation = direction.angle() + PI/2
+		#
+		#bounce = bounce - 1
+	#else:
+		#queue_free()
 
 func add_dmg_label(body: Node2D, amount: float) -> void:
 	# label od utraty hp
