@@ -5,6 +5,8 @@ class_name UserInterface
 
 @export_category("HUD")
 @export var hp_label: Label
+@export_category("Hand")
+@export var hand_control: Control
 
 
 
