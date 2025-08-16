@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c4fy6dwdm2nc0" path="res://scritps/system/user_interface.gd" id="1_jqr8t"]
 [ext_resource type="Script" uid="uid://cbd1id8plow2m" path="res://scritps/system/hand_ui.gd" id="2_bwudt"]
-[ext_resource type="Texture2D" uid="uid://corxqsq638tos" path="res://assets/card_01.png" id="2_s3ato"]
+[ext_resource type="PackedScene" uid="uid://dgct7pw1lx3q2" path="res://scenes/items/card.tscn" id="3_qrdmj"]
 
 [node name="User Interface" type="CanvasLayer" node_paths=PackedStringArray("hp_label", "hand_control")]
 script = ExtResource("1_jqr8t")
@@ -35,32 +35,12 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("2_bwudt")
 
-[node name="Card6" type="Node2D" parent="Hand"]
+[node name="Card" parent="Hand" instance=ExtResource("3_qrdmj")]
 
-[node name="Sprite2D" type="Sprite2D" parent="Hand/Card6"]
-scale = Vector2(1.5, 1.5)
-texture = ExtResource("2_s3ato")
+[node name="Card2" parent="Hand" instance=ExtResource("3_qrdmj")]
 
-[node name="Card7" type="Node2D" parent="Hand"]
+[node name="Card3" parent="Hand" instance=ExtResource("3_qrdmj")]
 
-[node name="Sprite2D" type="Sprite2D" parent="Hand/Card7"]
-scale = Vector2(1.5, 1.5)
-texture = ExtResource("2_s3ato")
+[node name="Card4" parent="Hand" instance=ExtResource("3_qrdmj")]
 
-[node name="Card8" type="Node2D" parent="Hand"]
-
-[node name="Sprite2D" type="Sprite2D" parent="Hand/Card8"]
-scale = Vector2(1.5, 1.5)
-texture = ExtResource("2_s3ato")
-
-[node name="Card9" type="Node2D" parent="Hand"]
-
-[node name="Sprite2D" type="Sprite2D" parent="Hand/Card9"]
-scale = Vector2(1.5, 1.5)
-texture = ExtResource("2_s3ato")
-
-[node name="Card10" type="Node2D" parent="Hand"]
-
-[node name="Sprite2D" type="Sprite2D" parent="Hand/Card10"]
-scale = Vector2(1.5, 1.5)
-texture = ExtResource("2_s3ato")
+[node name="Card5" parent="Hand" instance=ExtResource("3_qrdmj")]

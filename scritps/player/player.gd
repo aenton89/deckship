@@ -63,7 +63,7 @@ func _input(event: InputEvent) -> void:
 		if Input.is_action_just_pressed("exit"):
 			get_tree().quit()
 		# begin movement or shoot
-		if Input.is_action_just_pressed("shoot_and_move"):
+		if Input.is_action_just_pressed("shoot_and_move") and !Input.is_action_pressed("cards_interactions"):
 			# movement direction
 			if is_mouse_inside:
 				was_lmb_pressed = true
@@ -71,7 +71,7 @@ func _input(event: InputEvent) -> void:
 			else:
 				shoot()
 		# apply movement force
-		if Input.is_action_just_released("shoot_and_move"):
+		if Input.is_action_just_released("shoot_and_move") and !Input.is_action_pressed("cards_interactions"):
 			if was_lmb_pressed:
 				shoot_force = global_position - get_global_mouse_position()
 				was_lmb_pressed = false
