@@ -42,23 +42,23 @@ func _input(event):
 
 ### my functions
 ## generuje perlin noise
-#func generate_perlin_noise_image(width: int, height: int) -> Image:
-	#var noise = FastNoiseLite.new()
-	#noise.noise_type = FastNoiseLite.TYPE_PERLIN
-	#noise.seed = randi()
-	## im mniejsza wartość tym większe "wzorki"
-	#noise.frequency = 0.05
-	#
-	#var img = Image.create(width, height, false, Image.FORMAT_RGB8)
-	#
-	#for y in range(height):
-		#for x in range(width):
-			#var n = noise.get_noise_2d(x, y)
-			## skala z [-1, 1] na [0, 1]
-			#n = (n + 1.0) * 0.5
-			#img.set_pixel(x, y, Color(n, n, n))
-	#
-	#return img
+func generate_perlin_noise_image(width: int, height: int) -> Image:
+	var noise = FastNoiseLite.new()
+	noise.noise_type = FastNoiseLite.TYPE_PERLIN
+	noise.seed = randi()
+	# im mniejsza wartość tym większe "wzorki"
+	noise.frequency = 0.05
+	
+	var img = Image.create(width, height, false, Image.FORMAT_RGB8)
+	
+	for y in range(height):
+		for x in range(width):
+			var n = noise.get_noise_2d(x, y)
+			# skala z [-1, 1] na [0, 1]
+			n = (n + 1.0) * 0.5
+			img.set_pixel(x, y, Color(n, n, n))
+	
+	return img
 
 
 

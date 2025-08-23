@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b55cq8460wwgo"]
+[gd_scene load_steps=8 format=3 uid="uid://b55cq8460wwgo"]
 
 [ext_resource type="Script" uid="uid://cjjdyqj1kdc3f" path="res://scritps/system/main.gd" id="1_5m258"]
 [ext_resource type="PackedScene" uid="uid://2bbk1qjegcs4" path="res://scenes/player/player.tscn" id="1_6awnf"]
@@ -10,76 +10,9 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_628vv"]
 size = Vector2(512, 19)
 
-[sub_resource type="LabelSettings" id="LabelSettings_5m258"]
-font_size = 48
-
-[sub_resource type="Animation" id="Animation_628vv"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Control:modulate:a")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [1.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
-[sub_resource type="Animation" id="Animation_5m258"]
-resource_name = "death_screen_fade"
-length = 1.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Control:modulate:a")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1.5),
-"transitions": PackedFloat32Array(1, 1.8025),
-"update": 0,
-"values": [Color(0, 0, 0, 0), 1.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_xoti3"]
-_data = {
-&"RESET": SubResource("Animation_628vv"),
-&"death_screen_fade": SubResource("Animation_5m258")
-}
-
-[node name="Main Scene" type="Node2D" node_paths=PackedStringArray("multiplayer_ui", "death_screen", "player", "animations")]
+[node name="Main Scene" type="Node2D" node_paths=PackedStringArray("player")]
 script = ExtResource("1_5m258")
-multiplayer_ui = NodePath("Multiplayer UI")
-death_screen = NodePath("Death Screen")
 player = NodePath("Player")
-animations = NodePath("AnimationPlayer")
 
 [node name="Test Objects" type="Node2D" parent="."]
 position = Vector2(107, -137)
@@ -118,82 +51,6 @@ texture = ExtResource("4_5m258")
 position = Vector2(243, 0)
 shape = SubResource("RectangleShape2D_628vv")
 
-[node name="Multiplayer UI" type="CanvasLayer" parent="."]
-visible = false
-
-[node name="Multiplayer" type="Control" parent="Multiplayer UI"]
-layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Multiplayer UI/Multiplayer"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Title" type="Label" parent="Multiplayer UI/Multiplayer/VBoxContainer"]
-layout_mode = 2
-text = "Multiplayer"
-
-[node name="Host" type="Button" parent="Multiplayer UI/Multiplayer/VBoxContainer"]
-layout_mode = 2
-text = "Host"
-
-[node name="Join" type="Button" parent="Multiplayer UI/Multiplayer/VBoxContainer"]
-layout_mode = 2
-text = "Join"
-
-[node name="Death Screen" type="CanvasLayer" parent="."]
-visible = false
-
-[node name="Control" type="Control" parent="Death Screen"]
-self_modulate = Color(1, 1, 1, 0)
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Black Screen" type="ColorRect" parent="Death Screen/Control"]
-custom_minimum_size = Vector2(1280, 720)
-layout_mode = 0
-offset_right = 1280.0
-offset_bottom = 720.0
-color = Color(0, 0, 0, 1)
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Death Screen/Control"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 471.5
-offset_top = 306.5
-offset_right = 768.5
-offset_bottom = 373.5
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-
-[node name="Died" type="Label" parent="Death Screen/Control/VBoxContainer"]
-layout_mode = 2
-text = "PLAYER DIED"
-label_settings = SubResource("LabelSettings_5m258")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-root_node = NodePath("../Death Screen")
-libraries = {
-&"": SubResource("AnimationLibrary_xoti3")
-}
-
 [node name="Reward" parent="." instance=ExtResource("5_628vv")]
 position = Vector2(-518, 241)
 
@@ -211,6 +68,3 @@ scale = Vector2(2, 2)
 texture = ExtResource("6_uaibl")
 centered = false
 region_rect = Rect2(0, 0, 2048, 2048)
-
-[connection signal="pressed" from="Multiplayer UI/Multiplayer/VBoxContainer/Host" to="." method="_on_host_pressed"]
-[connection signal="pressed" from="Multiplayer UI/Multiplayer/VBoxContainer/Join" to="." method="_on_join_pressed"]

@@ -4,9 +4,6 @@
 
 [node name="Rock Randomizer" type="Node2D"]
 script = ExtResource("1_n5gd1")
-size = null
-density = null
-initial_iterations = null
 
 [node name="Output Sprite" type="Sprite2D" parent="."]
 position = Vector2(645, 291)

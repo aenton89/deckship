@@ -38,12 +38,13 @@ animations = [{
 "texture": SubResource("AtlasTexture_a0u3d")
 }],
 "loop": true,
-"name": &"default",
+"name": &"idle",
 "speed": 4.0
 }]
 
-[node name="Reward" type="Node2D"]
+[node name="Reward" type="Node2D" node_paths=PackedStringArray("animated_sprite")]
 script = ExtResource("1_iw13v")
+animated_sprite = NodePath("AnimatedSprite2D")
 
 [node name="Area2D" type="Area2D" parent="."]
 
@@ -52,13 +53,9 @@ position = Vector2(1, -1)
 shape = SubResource("RectangleShape2D_f1ba4")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_vsjww")
-frame_progress = 0.719984
-
-[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="."]
-position = Vector2(1, 0)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_vsjww")
-frame_progress = 0.903875
+animation = &"idle"
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_body_entered"]
