@@ -11,3 +11,4 @@ extends Node
 var game_paused: bool = false 
 var player: Player
 var main: Node2D
+var UI: UserInterface

@@ -5,6 +5,7 @@ class_name Card
 
 @export_category("References")
 @export var area: Area2D
+@export var sprite: Sprite2D
 @export_category("Hoover Actions")
 @export var y_change: float = 80.0
 @export_category("Tween")
@@ -13,6 +14,7 @@ class_name Card
 @export var trans: Tween.TransitionType = Tween.TRANS_SINE
 @export var ease: Tween.EaseType = Tween.EASE_IN_OUT
 
+var bonuses: Array[Bonus] = []
 var current_tween: Tween = null
 var base_y: float
 var hovered: bool = false
@@ -22,6 +24,7 @@ var hovered: bool = false
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("shoot_and_move") and hovered:
 		print("card pressed")
+		Global.UI.hand_control.apply_card(self)
 
 
 
@@ -33,6 +36,11 @@ func _on_area_2d_mouse_entered() -> void:
 func _on_area_2d_mouse_exited() -> void:
 	hovered = false
 	animate_to(base_y, down_duration)
+
+
+
+func setup(all_bonuses: Array[Bonus]) -> void:
+	bonuses = all_bonuses
 
 func animate_to(target_y: float, duration: float) -> void:
 	# jeśli istnieje stary tween → poczekaj

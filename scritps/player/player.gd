@@ -18,17 +18,18 @@ class_name Player
 #@export var bounce_amount: int = 1
 #@export var dmg: float = 10.0
 #@export var bullet_speed: float = 500.0
-@export_category("Player Stats")
-@export var stats: PlayerStats
+@export_category("Player Base Stats")
+@export var stats: PlayerStats = preload("res://resources/player/default_player_stats.tres")
 @export_category("References")
 @export var shooting_marker: Marker2D
 @export var hp_component: HPComponent
 @export var UI: UserInterface
+@export var interaction_area: Area2D
 @export_category("Imports")
 @export var bullet_scene: PackedScene = preload("res://scenes/player/bullet.tscn")
 
 # normal vector - ship's facing direction
-var normal: Vector2 = Vector2.ZERO
+@onready var normal: Vector2 = Vector2.ZERO
 # user input
 @onready var is_mouse_inside: bool = false
 @onready var was_lmb_pressed: bool = false
@@ -38,9 +39,16 @@ var normal: Vector2 = Vector2.ZERO
 
 
 
+
+
 func _ready() -> void:
 	Global.player = self
 	set_gravity_scale(0.0)
+	
+	# coś się zepsuło
+	if stats == null:
+		print("but why null?")
+		stats = PlayerStats.new()
 
 func _process(delta: float) -> void:
 	queue_redraw()

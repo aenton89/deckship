@@ -36,11 +36,16 @@ mouse_filter = 2
 script = ExtResource("2_bwudt")
 
 [node name="Card" parent="Hand" instance=ExtResource("3_qrdmj")]
+visible = false
 
 [node name="Card2" parent="Hand" instance=ExtResource("3_qrdmj")]
+visible = false
 
 [node name="Card3" parent="Hand" instance=ExtResource("3_qrdmj")]
+visible = false
 
 [node name="Card4" parent="Hand" instance=ExtResource("3_qrdmj")]
+visible = false
 
 [node name="Card5" parent="Hand" instance=ExtResource("3_qrdmj")]
+visible = false
