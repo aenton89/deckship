@@ -16,9 +16,9 @@ var cards: Array[Card] = []
 
 
 
-func add_card(bonuses: Array[Bonus]) -> void:
+func add_card(preset: Dictionary) -> void:
 	var card: Card = card_scene.instantiate() as Card
-	card.setup(bonuses)
+	card.setup(preset)
 	add_child(card)
 	cards.append(card)
 	update_card_positions()
@@ -54,12 +54,12 @@ func update_card_positions():
 		var x_offset = x_offset_diff * i
 		var y_offset = y_offset_diff * i * i
 		
-		print("angle: ", angle, " x_offset: ", x_offset, " y_offset: ", y_offset)
+		#print("angle: ", angle, " x_offset: ", x_offset, " y_offset: ", y_offset)
 		
 		card.base_y = size.y - y_default + y_offset
 		card.position = Vector2(size.x/2 + x_offset, card.base_y)
 		card.rotation = angle
 		
-		print("pos: ", card.position, " rot: ", card.rotation_degrees)
+		#print("pos: ", card.position, " rot: ", card.rotation_degrees)
 		
 		i += 1

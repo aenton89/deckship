@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://c5otxn8jswrwk"]
 
 [ext_resource type="Script" uid="uid://dnqhbxgnfjo8a" path="res://scritps/obstacles/rock.gd" id="1_mek2u"]
-[ext_resource type="Texture2D" uid="uid://cy45qrte7tapy" path="res://assets/rock.png" id="2_872ht"]
+[ext_resource type="Texture2D" uid="uid://cy45qrte7tapy" path="res://assets/world/rock.png" id="2_872ht"]
 [ext_resource type="Script" uid="uid://hq1bo2dtf216" path="res://scritps/components/components.gd" id="3_n8xt6"]
 [ext_resource type="Script" uid="uid://c72xg0cl1g6l2" path="res://scritps/components/hp_component.gd" id="4_p2d0s"]
 

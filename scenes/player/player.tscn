@@ -1,10 +1,10 @@
 [gd_scene load_steps=7 format=3 uid="uid://2bbk1qjegcs4"]
 
 [ext_resource type="Script" uid="uid://dvyehard432xd" path="res://scritps/player/player.gd" id="1_g2els"]
-[ext_resource type="Texture2D" uid="uid://dlp4yjuopowty" path="res://assets/ship.png" id="2_g2els"]
+[ext_resource type="Texture2D" uid="uid://dlp4yjuopowty" path="res://assets/player/ship.png" id="2_g2els"]
 [ext_resource type="Script" uid="uid://hq1bo2dtf216" path="res://scritps/components/components.gd" id="3_lvxji"]
 [ext_resource type="Script" uid="uid://c72xg0cl1g6l2" path="res://scritps/components/hp_component.gd" id="3_qhqgy"]
-[ext_resource type="PackedScene" uid="uid://l8fyderrn8e8" path="res://scenes/system/user_interface.tscn" id="5_p47bc"]
+[ext_resource type="PackedScene" uid="uid://l8fyderrn8e8" path="res://scenes/system/ui/user_interface.tscn" id="5_p47bc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_75vfm"]
 radius = 100.0

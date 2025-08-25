@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://u4s6adky3qmb"
-path="res://.godot/imported/loot_box.png-268a3ab78a0b67a5efaa3406a17d7561.ctex"
+uid="uid://cy45qrte7tapy"
+path="res://.godot/imported/rock.png-32cb861fdcf6e5a629940086ab2bc183.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/loot_box.png"
-dest_files=["res://.godot/imported/loot_box.png-268a3ab78a0b67a5efaa3406a17d7561.ctex"]
+source_file="res://assets/world/rock.png"
+dest_files=["res://.godot/imported/rock.png-32cb861fdcf6e5a629940086ab2bc183.ctex"]
 
 [params]
 

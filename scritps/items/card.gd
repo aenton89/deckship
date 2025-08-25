@@ -22,7 +22,7 @@ var hovered: bool = false
 
 
 func _input(event: InputEvent) -> void:
-	if Input.is_action_just_pressed("shoot_and_move") and hovered:
+	if Input.is_action_just_pressed("shoot_and_move") and Input.is_action_pressed("cards_interactions") and hovered:
 		print("card pressed")
 		Global.UI.hand_control.apply_card(self)
 
@@ -39,8 +39,16 @@ func _on_area_2d_mouse_exited() -> void:
 
 
 
-func setup(all_bonuses: Array[Bonus]) -> void:
-	bonuses = all_bonuses
+func setup(preset: Dictionary) -> void:
+	# ustaw bonusy
+	bonuses = []
+	for bonus_data in preset["bonuses"]:
+		var b = Bonus.new(bonus_data["type"], bonus_data["value"])
+		bonuses.append(b)
+	
+	# ustaw grafikę
+	if preset.has("sprite") and sprite:
+		sprite.texture = load(preset["sprite"])
 
 func animate_to(target_y: float, duration: float) -> void:
 	# jeśli istnieje stary tween → poczekaj

@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://cg2oma2ltfkkx"]
 
-[ext_resource type="Texture2D" uid="uid://u4s6adky3qmb" path="res://assets/loot_box.png" id="1_f1ba4"]
+[ext_resource type="Texture2D" uid="uid://u4s6adky3qmb" path="res://assets/world/loot_box.png" id="1_f1ba4"]
 [ext_resource type="Script" uid="uid://bmkf1hwdh2wma" path="res://scritps/items/reward.gd" id="1_iw13v"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f1ba4"]

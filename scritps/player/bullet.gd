@@ -36,12 +36,12 @@ func _ready() -> void:
 
 # na trafienie czegokolwiek (nawet siebie) zadać obrażenia; jeśli tamto coś nie zostanie zniszczone, to odbijamy pocisk (tylko 1 odbicie, nie więcej)
 func _physics_process(delta: float) -> void:
-	#position += speed * direction * delta
 	var motion = speed * direction * delta
 	var space_state = get_world_2d().direct_space_state
 	
 	var query = PhysicsRayQueryParameters2D.create(global_position, global_position + motion.normalized() * (motion.length() + raycast_margin))
-	query.exclude = [self]  # ignorujemy pocisk
+	 # ignorujemy pocisk
+	query.exclude = [self]
 	
 	var result = space_state.intersect_ray(query)
 	
@@ -100,18 +100,6 @@ func apply_dmg(body: Node2D) -> void:
 				body.queue_free()
 				queue_free()
 				return
-	
-	### TODO: przeniesione do _physics_process()
-	## jeśli 1. raz coś trafimy i trafiony obiekt przeżył
-	#if bounce > 0:
-		#var collision_normal = (global_position - body.global_position).normalized()
-		#direction = direction.bounce(collision_normal)
-		#
-		#rotation = direction.angle() + PI/2
-		#
-		#bounce = bounce - 1
-	#else:
-		#queue_free()
 
 func add_dmg_label(body: Node2D, amount: float) -> void:
 	# label od utraty hp
