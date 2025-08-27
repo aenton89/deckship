@@ -34,6 +34,7 @@ class_name Player
 
 func _ready() -> void:
 	Global.player = self
+	Global.emit_signal("player_ready", self)
 	set_gravity_scale(0.0)
 	
 	# coś się zepsuło

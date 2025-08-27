@@ -1,7 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://l8fyderrn8e8"]
+[gd_scene load_steps=10 format=3 uid="uid://l8fyderrn8e8"]
 
 [ext_resource type="Script" uid="uid://c4fy6dwdm2nc0" path="res://scritps/system/ui/user_interface.gd" id="1_rd21x"]
+[ext_resource type="Texture2D" uid="uid://bgjxehteuqdm6" path="res://assets/ui/hp_bar_under.png" id="2_1pekg"]
 [ext_resource type="Script" uid="uid://cbd1id8plow2m" path="res://scritps/system/ui/hand_ui.gd" id="2_s5p0m"]
+[ext_resource type="Texture2D" uid="uid://dctg37thv2o8" path="res://assets/ui/hp_bar_over.png" id="3_ke1dt"]
+[ext_resource type="Texture2D" uid="uid://b2dwfaer0w2s5" path="res://assets/ui/hp_bar_progress.png" id="4_0a560"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_s3ato"]
 font_size = 48
@@ -67,9 +70,9 @@ _data = {
 &"death_screen_fade": SubResource("Animation_s3ato")
 }
 
-[node name="User Interface" type="CanvasLayer" node_paths=PackedStringArray("hp_label", "hand_control", "death_screen", "animation_player")]
+[node name="User Interface" type="CanvasLayer" node_paths=PackedStringArray("hp_bar", "hand_control", "death_screen", "animation_player")]
 script = ExtResource("1_rd21x")
-hp_label = NodePath("HUD/HP Label")
+hp_bar = NodePath("HUD/HP Bar")
 hand_control = NodePath("Hand")
 death_screen = NodePath("DeathScreen")
 animation_player = NodePath("AnimationPlayer")
@@ -84,11 +87,16 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="HP Label" type="Label" parent="HUD"]
-layout_mode = 1
-offset_right = 40.0
-offset_bottom = 23.0
-text = "HP:"
+[node name="HP Bar" type="TextureProgressBar" parent="HUD"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 138.0
+offset_bottom = 26.0
+scale = Vector2(3, 3)
+texture_under = ExtResource("2_1pekg")
+texture_over = ExtResource("3_ke1dt")
+texture_progress = ExtResource("4_0a560")
 
 [node name="Hand" type="Control" parent="."]
 layout_mode = 3

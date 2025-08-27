@@ -7,6 +7,10 @@ extends Node
 # menu
 # 
 
+
+
+signal player_ready(player)
+
 # test purposes
 var game_paused: bool = false 
 var player: Player

@@ -3,12 +3,12 @@
 [ext_resource type="Script" uid="uid://cjjdyqj1kdc3f" path="res://scritps/system/main.gd" id="1_5m258"]
 [ext_resource type="PackedScene" uid="uid://2bbk1qjegcs4" path="res://scenes/player/player.tscn" id="1_6awnf"]
 [ext_resource type="PackedScene" uid="uid://c5otxn8jswrwk" path="res://scenes/obstacles/rock.tscn" id="2_ii55j"]
-[ext_resource type="Texture2D" uid="uid://bg28d7fqbw2vh" path="res://assets/icon.svg" id="4_5m258"]
+[ext_resource type="Texture2D" uid="uid://dynw422w5tdpa" path="res://assets/world/long_obstacle.png" id="3_xoti3"]
 [ext_resource type="PackedScene" uid="uid://cg2oma2ltfkkx" path="res://scenes/items/reward.tscn" id="5_628vv"]
 [ext_resource type="Texture2D" uid="uid://bqgxx1xslxk1n" path="res://assets/world/space.png" id="6_uaibl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_628vv"]
-size = Vector2(512, 19)
+size = Vector2(512, 64)
 
 [node name="Main Scene" type="Node2D" node_paths=PackedStringArray("player")]
 script = ExtResource("1_5m258")
@@ -33,19 +33,20 @@ position = Vector2(0, -111)
 
 [node name="Icon" type="Sprite2D" parent="Test Objects/Others/StaticBody2D"]
 position = Vector2(243, 0)
-scale = Vector2(4, 0.15)
-texture = ExtResource("4_5m258")
+scale = Vector2(4, 4)
+texture = ExtResource("3_xoti3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Test Objects/Others/StaticBody2D"]
 position = Vector2(243, 0)
 shape = SubResource("RectangleShape2D_628vv")
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="Test Objects/Others"]
+position = Vector2(103, 4)
 
 [node name="Icon" type="Sprite2D" parent="Test Objects/Others/StaticBody2D2"]
 position = Vector2(243, 0)
-scale = Vector2(4, 0.15)
-texture = ExtResource("4_5m258")
+scale = Vector2(4, 4)
+texture = ExtResource("3_xoti3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Test Objects/Others/StaticBody2D2"]
 position = Vector2(243, 0)
