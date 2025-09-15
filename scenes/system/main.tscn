@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://b55cq8460wwgo"]
+[gd_scene load_steps=11 format=3 uid="uid://b55cq8460wwgo"]
 
 [ext_resource type="Script" uid="uid://cjjdyqj1kdc3f" path="res://scritps/system/main.gd" id="1_5m258"]
 [ext_resource type="PackedScene" uid="uid://2bbk1qjegcs4" path="res://scenes/player/player.tscn" id="1_6awnf"]
@@ -6,9 +6,35 @@
 [ext_resource type="Texture2D" uid="uid://dynw422w5tdpa" path="res://assets/world/long_obstacle.png" id="3_xoti3"]
 [ext_resource type="PackedScene" uid="uid://cg2oma2ltfkkx" path="res://scenes/items/reward.tscn" id="5_628vv"]
 [ext_resource type="Texture2D" uid="uid://bqgxx1xslxk1n" path="res://assets/world/space.png" id="6_uaibl"]
+[ext_resource type="Shader" uid="uid://bos2l3342irfu" path="res://resources/crt_shader.gdshader" id="7_uaibl"]
+[ext_resource type="PackedScene" uid="uid://bdoihx51gijw0" path="res://scenes/enemies/enemy.tscn" id="8_t1oto"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_628vv"]
 size = Vector2(512, 64)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t1oto"]
+shader = ExtResource("7_uaibl")
+shader_parameter/overlay = false
+shader_parameter/scanlines_opacity = 0.4
+shader_parameter/scanlines_width = 0.25
+shader_parameter/grille_opacity = 0.0
+shader_parameter/resolution = Vector2(1920, 1440)
+shader_parameter/pixelate = false
+shader_parameter/roll = false
+shader_parameter/roll_speed = 8.0
+shader_parameter/roll_size = 0.0
+shader_parameter/roll_variation = 0.1
+shader_parameter/distort_intensity = 0.05
+shader_parameter/noise_opacity = 0.4
+shader_parameter/noise_speed = 5.0
+shader_parameter/static_noise_intensity = 0.01
+shader_parameter/aberration = 0.01
+shader_parameter/brightness = 1.4
+shader_parameter/discolor = false
+shader_parameter/warp_amount = 0.4
+shader_parameter/clip_warp = false
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/vignette_opacity = 0.2
 
 [node name="Main Scene" type="Node2D" node_paths=PackedStringArray("player")]
 script = ExtResource("1_5m258")
@@ -69,3 +95,19 @@ scale = Vector2(2, 2)
 texture = ExtResource("6_uaibl")
 centered = false
 region_rect = Rect2(0, 0, 2048, 2048)
+
+[node name="Shader Layer" type="CanvasLayer" parent="."]
+layer = 128
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="Shader Layer"]
+material = SubResource("ShaderMaterial_t1oto")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Enemy" parent="." instance=ExtResource("8_t1oto")]
+position = Vector2(-627, -284)

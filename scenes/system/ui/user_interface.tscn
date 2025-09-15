@@ -89,10 +89,10 @@ mouse_filter = 2
 
 [node name="HP Bar" type="TextureProgressBar" parent="HUD"]
 layout_mode = 0
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 138.0
-offset_bottom = 26.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 148.0
+offset_bottom = 36.0
 scale = Vector2(3, 3)
 texture_under = ExtResource("2_1pekg")
 texture_over = ExtResource("3_ke1dt")

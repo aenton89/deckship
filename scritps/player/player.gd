@@ -31,7 +31,6 @@ class_name Player
 
 
 
-
 func _ready() -> void:
 	Global.player = self
 	Global.emit_signal("player_ready", self)
@@ -82,6 +81,9 @@ func _input(event: InputEvent) -> void:
 			rotate_to_mouse = false
 
 func _draw() -> void:
+	if Engine.is_editor_hint():
+		return
+	
 	if(was_lmb_pressed):
 		draw_line(Vector2.ZERO, get_local_mouse_position(), Color.CRIMSON, 2.0)
 	if(rotate_to_mouse):
