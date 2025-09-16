@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dlp4yjuopowty"
-path="res://.godot/imported/ship.png-1b7d3f608b849e4bab6ad7f2edd28e1f.ctex"
+uid="uid://cw2ssyc8aolmn"
+path="res://.godot/imported/bullet_enemy.png-fdf03799c5fec69c2684aea894356420.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/player/ship.png"
-dest_files=["res://.godot/imported/ship.png-1b7d3f608b849e4bab6ad7f2edd28e1f.ctex"]
+source_file="res://assets/enemies/bullet_enemy.png"
+dest_files=["res://.godot/imported/bullet_enemy.png-fdf03799c5fec69c2684aea894356420.ctex"]
 
 [params]
 

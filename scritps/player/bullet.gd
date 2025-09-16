@@ -6,7 +6,9 @@ class_name Bullet
 #
 
 
-
+@export_category("References")
+@export var shape: CollisionShape2D
+@export var sprite: Sprite2D
 @export_category("Bullet Details")
 # life time of bullet
 @export var life_span: float = 3.0

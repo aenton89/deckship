@@ -1,26 +1,53 @@
-[gd_scene load_steps=5 format=3 uid="uid://bdoihx51gijw0"]
+[gd_scene load_steps=8 format=3 uid="uid://bdoihx51gijw0"]
 
 [ext_resource type="Script" uid="uid://6ggi13rno4u5" path="res://scritps/enemies/enemy.gd" id="1_6xk8f"]
-[ext_resource type="Texture2D" uid="uid://bg28d7fqbw2vh" path="res://assets/icon.svg" id="2_8e3ao"]
+[ext_resource type="Texture2D" uid="uid://bnp80lbn4hnsq" path="res://assets/enemies/enemy.png" id="2_8e3ao"]
+[ext_resource type="Script" uid="uid://hq1bo2dtf216" path="res://scritps/components/components.gd" id="3_fcftc"]
+[ext_resource type="Script" uid="uid://c72xg0cl1g6l2" path="res://scritps/components/hp_component.gd" id="4_lu5c6"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8e3ao"]
 radius = 500.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_38ino"]
-size = Vector2(128, 128)
+[sub_resource type="CircleShape2D" id="CircleShape2D_38ino"]
+radius = 150.0
 
-[node name="Enemy" type="RigidBody2D" node_paths=PackedStringArray("detection_area", "detection_shape")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_38ino"]
+size = Vector2(52, 52)
+
+[node name="Enemy" type="RigidBody2D" node_paths=PackedStringArray("detection_area", "move_away_area", "detection_shape", "move_away_shape", "shooting_marker")]
 script = ExtResource("1_6xk8f")
 detection_area = NodePath("Detection Area")
+move_away_area = NodePath("Move Away Area")
 detection_shape = NodePath("Detection Area/CollisionShape2D")
+move_away_shape = NodePath("Move Away Area/CollisionShape2D")
+shooting_marker = NodePath("Shooting Marker")
 
 [node name="Detection Area" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Detection Area"]
 shape = SubResource("CircleShape2D_8e3ao")
 
+[node name="Move Away Area" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Move Away Area"]
+shape = SubResource("CircleShape2D_38ino")
+debug_color = Color(0.21780396, 0.9140625, 0.5060985, 0.41960785)
+
 [node name="Collision Shape" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_38ino")
 
 [node name="Icon" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
 texture = ExtResource("2_8e3ao")
+
+[node name="Shooting Marker" type="Marker2D" parent="."]
+position = Vector2(0, -40)
+
+[node name="Components" type="Node" parent="."]
+script = ExtResource("3_fcftc")
+metadata/_custom_type_script = "uid://hq1bo2dtf216"
+
+[node name="HPComponent" type="Node" parent="Components"]
+script = ExtResource("4_lu5c6")
+max_health = 50.0
+metadata/_custom_type_script = "uid://c72xg0cl1g6l2"

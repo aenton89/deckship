@@ -1,116 +1,210 @@
 extends RigidBody2D
 class_name Enemy
 ### TODO:
+# przenieść to na maszyne stanów
 # obracanie się do gracza (ale też z określoną prędkością)
-# strzelanie
-#
-
+# dodać dodatkowy obszar, w którym przeciwnik się nie rusza - ten w którym stara się utrzymać
+# firing - kanwa gdy gracz jest za blisko, 
+# move_away - przykładamy siłe przeciwną do gracza
+# 
 
 
 @export_category("References")
 @export var detection_area: Area2D
+@export var move_away_area: Area2D
 @export var detection_shape: CollisionShape2D
+@export var move_away_shape: CollisionShape2D
+@export var shooting_marker: Marker2D
+@export_category("Imports")
+@export var bullet_scene: PackedScene = preload("res://scenes/player/bullet.tscn")
+@export var bullet_icon: CompressedTexture2D = preload("res://assets/enemies/bullet_enemy.png")
+
 @export_category("Movement Stats")
 @export_subgroup("Movement Defaults")
-@export var detection_range: float = 500.0
+@export var detection_range: float = 1000.0
 @export var force_strength: float = 10.0
 # w sekundach
 @export var movement_cooldown: float = 1.0
 # treshold poniżej którego enemy dolatuje prosto do położenia gracza, a nie końca jego wektora prędkości
 @export var player_vel_treshold: float = 300.0
 @export_subgroup("Moving Away")
-@export var move_away_range: float = 150.0
-@export var move_away_force_scaling: float = 0.1
+@export var move_away_range: float = 200.0
+@export var move_away_force_scaling: float = 0.2
+
+@export_category("Shooting Stats")
+@export_subgroup("Shooting Defaults")
+@export var shooting_cooldown: float = 2.0
+@export var shooting_angle: float = PI / 4
+@export_subgroup("Move Away Firing")
+@export var firing_cooldown: float = 0.1
+@export var firing_amount: int = 5
+
 
 @onready var is_following: bool = false
-@onready var chase_force: Vector2 = Vector2.ZERO
+@onready var is_moving_away: bool = false
+@onready var movement_force: Vector2 = Vector2.ZERO
+@onready var can_move_on_own: bool = false
 # zmienne do śledzenia kierunku gracza
 @onready var last_player_direction: Vector2 = Vector2.ZERO
-@onready var last_force_time: float = 0.0
+@onready var shooting_timer: Timer = Timer.new()
+@onready var movement_timer: Timer = Timer.new()
+@onready var firing_timer: Timer = Timer.new()
+@onready var firing_counter: int = 0
 
 var target_point: Vector2
 
 
 
 func _ready():
-	detection_area.body_entered.connect(_on_body_entered)
-	detection_area.body_exited.connect(_on_body_exited)
+	detection_area.body_entered.connect(_on_detection_body_entered)
+	detection_area.body_exited.connect(_on_detection_body_exited)
+	move_away_area.body_entered.connect(_on_move_away_body_entered)
+	move_away_area.body_exited.connect(_on_move_away_body_exited)
 	set_gravity_scale(0.0)
 	
 	if detection_shape and detection_shape.shape is CircleShape2D:
 		detection_shape.shape.radius = detection_range
+	if move_away_shape and move_away_shape.shape is CircleShape2D:
+		move_away_shape.shape.radius = move_away_range
+	
+	shooting_timer.wait_time = shooting_cooldown
+	shooting_timer.autostart = false
+	shooting_timer.one_shot = true
+	shooting_timer.timeout.connect(_on_shooting_timer_timeout)
+	add_child(shooting_timer)
+	
+	movement_timer.wait_time = movement_cooldown
+	movement_timer.autostart = false
+	movement_timer.one_shot = true
+	movement_timer.timeout.connect(_on_movement_timer_timeout)
+	add_child(movement_timer)
+	
+	firing_timer.wait_time = firing_cooldown
+	firing_timer.autostart = false
+	firing_timer.one_shot = true
+	firing_timer.timeout.connect(_on_firing_timer_timeout)
+	add_child(firing_timer)
 
-func _process(_delta):
+func _process(delta: float):
 	# wymusza odświeżenie rysunku w każdej klatce
 	queue_redraw()
 
-func _physics_process(delta):
-	if is_following:
-		apply_movement()
-		calculate_chase_force()
+func _physics_process(delta: float):
+	if not Global.player: 
+		return
+	
+	apply_movement()
 
+
+func shoot() -> void:
+	if not Global.player or not bullet_scene or not shooting_marker:
+		return
+	
+	var dir = (Global.player.global_position - global_position).normalized()
+	var forward = (shooting_marker.global_position - global_position).normalized()
+	var angle = forward.angle_to(dir)
+	
+	# ograniczenie kąta strzału
+	if abs(angle) > shooting_angle:
+		var bounded_angle = sign(angle) * shooting_angle
+		dir = forward.rotated(bounded_angle)
+	
+	var bt: Bullet = bullet_scene.instantiate()
+	bt.sprite.texture = bullet_icon
+	bt.sprite.scale = Vector2(1.5, 1.5)
+	bt.global_position = shooting_marker.global_position
+	bt.direction = dir
+	bt.rotate(dir.angle() + PI/2)
+	get_tree().current_scene.add_child(bt)
+	
+	shooting_timer.start()
 
 func apply_movement() -> void:
-	if chase_force != Vector2.ZERO:
-		print("applied: ", chase_force)
-		apply_force(chase_force)
-		chase_force = Vector2.ZERO
+	chase()
+	move_away()
+	
+	if movement_force != Vector2.ZERO:
+		print("applied: ", movement_force)
+		apply_force(movement_force)
+		movement_force = Vector2.ZERO
 
-func calculate_chase_force() -> void:
-	if Global.player:
-		run_away()
-		chase()
-
-func run_away() -> void:
-	var distance_to_player = global_position.distance_to(Global.player.global_position)
-	if distance_to_player < move_away_range:
+func move_away() -> void:
+	if is_moving_away:
 		var direction_away = global_position - Global.player.global_position
-		chase_force = direction_away * force_strength * move_away_force_scaling
+		movement_force = direction_away * force_strength * move_away_force_scaling
 		
-		# aktualizuj zmienne czasowe i kierunek
-		var current_time = Time.get_ticks_msec() / 1000.0
+		# aktualizuj kierunek
+		var current_player_direction = Vector2.ZERO
+		if Global.player.linear_velocity.length() > 0:
+			current_player_direction = Global.player.linear_velocity.normalized()
+		last_player_direction = current_player_direction
+		
+		# reset dla timer'a
+		can_move_on_own = false
+		movement_timer.start()
+
+func chase() -> void:
+	if is_following and !is_moving_away:
+		# aktualny kierunek gracza (znormalizowany wektor prędkości)
 		var current_player_direction = Vector2.ZERO
 		if Global.player.linear_velocity.length() > 0:
 			current_player_direction = Global.player.linear_velocity.normalized()
 		
+		# czy kierunek gracza się zmienił
+		var direction_changed = current_player_direction.distance_to(last_player_direction) > 0.1
+		# aktualizacja ostatniego kierunku
 		last_player_direction = current_player_direction
-		last_force_time = current_time
-
-func chase() -> void:
-	# aktualny kierunek gracza (znormalizowany wektor prędkości)
-	var current_player_direction = Vector2.ZERO
-	if Global.player.linear_velocity.length() > 0:
-		current_player_direction = Global.player.linear_velocity.normalized()
-	
-	# czy minęła sekunda od ostatniego przyłożenia siły
-	var current_time = Time.get_ticks_msec() / 1000.0
-	var time_passed = current_time - last_force_time >= movement_cooldown
-	# czy kierunek gracza się zmienił
-	var direction_changed = current_player_direction.distance_to(last_player_direction) > 0.1
-	
-	# aplikuj siłę jeśli kierunek się zmienił lub minęła sekunda
-	if direction_changed or time_passed:
-		# punkt docelowy na końcu wektora prędkości gracza
-		if Global.player.linear_velocity.length() < player_vel_treshold:
-			target_point = Global.player.global_position
-		else:
-			target_point = Global.player.global_position + Global.player.linear_velocity
-		# kierunek do punktu docelowego - narazie nieznormalizowany w sumie
-		var direction_to_target = target_point - global_position
 		
-		# ustawianie siły
-		chase_force = direction_to_target * force_strength
-		last_player_direction = current_player_direction
-		last_force_time = current_time
+		# aplikuj siłę jeśli kierunek się zmienił lub minęła sekunda
+		if direction_changed or can_move_on_own:
+			# punkt docelowy na końcu wektora prędkości gracza
+			if Global.player.linear_velocity.length() < player_vel_treshold:
+				target_point = Global.player.global_position
+			else:
+				target_point = Global.player.global_position + Global.player.linear_velocity
+			# kierunek do punktu docelowego - narazie nieznormalizowany w sumie
+			var direction_to_target = target_point - global_position
+			
+			# ustawianie siły
+			movement_force = direction_to_target * force_strength
+			# reset dla timer'a
+			can_move_on_own = false
+			movement_timer.start()
 
 
-func _on_body_entered(body: Node2D) -> void:
+func _on_shooting_timer_timeout() -> void:
+	if is_following:
+		shooting_timer.start()
+		shoot()
+
+func _on_movement_timer_timeout() -> void:
+	can_move_on_own = true
+
+func _on_firing_timer_timeout() -> void:
+	if is_moving_away:
+		if firing_counter < firing_amount:
+			firing_counter += 1
+			shoot()
+			firing_timer.start()
+
+func _on_detection_body_entered(body: Node2D) -> void:
 	if body is Player:
+		shooting_timer.start()
 		is_following = true
 
-func _on_body_exited(body: Node2D) -> void:
+func _on_detection_body_exited(body: Node2D) -> void:
 	if body is Player:
+		shooting_timer.stop()
 		is_following = false
+
+func _on_move_away_body_entered(body: Node2D) -> void:
+	if body is Player:
+		is_moving_away = true
+		firing_timer.start()
+
+func _on_move_away_body_exited(body: Node2D) -> void:
+	if body is Player:
+		is_moving_away = false
 
 
 func _draw():
