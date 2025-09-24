@@ -1,9 +1,25 @@
-[gd_scene load_steps=8 format=3 uid="uid://bdoihx51gijw0"]
+[gd_scene load_steps=24 format=3 uid="uid://bdoihx51gijw0"]
 
 [ext_resource type="Script" uid="uid://6ggi13rno4u5" path="res://scritps/enemies/enemy.gd" id="1_6xk8f"]
 [ext_resource type="Texture2D" uid="uid://bnp80lbn4hnsq" path="res://assets/enemies/enemy.png" id="2_8e3ao"]
 [ext_resource type="Script" uid="uid://hq1bo2dtf216" path="res://scritps/components/components.gd" id="3_fcftc"]
 [ext_resource type="Script" uid="uid://c72xg0cl1g6l2" path="res://scritps/components/hp_component.gd" id="4_lu5c6"]
+[ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="5_lu5c6"]
+[ext_resource type="Script" uid="uid://by2pheoorddq5" path="res://scritps/enemies/state machine/enemy_state_machine.gd" id="5_qch6t"]
+[ext_resource type="Script" uid="uid://c1vp0ojjvaby1" path="res://addons/godot_state_charts/parallel_state.gd" id="6_n7575"]
+[ext_resource type="Script" uid="uid://bggn48fe052m2" path="res://scritps/enemies/state machine/states/idle_state.gd" id="6_tihwb"]
+[ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="7_qch6t"]
+[ext_resource type="Script" uid="uid://c5cjr5770rwkk" path="res://scritps/enemies/state machine/states/following_state.gd" id="7_smbsv"]
+[ext_resource type="Script" uid="uid://bovltjwwa1jd" path="res://scritps/enemies/state machine/states/following_far_state.gd" id="8_maese"]
+[ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="8_y5th1"]
+[ext_resource type="Script" uid="uid://h6owtth248m" path="res://scritps/enemies/state machine/states/following_mid_state.gd" id="9_4f0mh"]
+[ext_resource type="Script" uid="uid://d201henevq2eg" path="res://scritps/enemies/state machine/states/following_close_state.gd" id="10_gc4hx"]
+[ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="10_y5th1"]
+[ext_resource type="Script" uid="uid://btmv6h8mlj4xs" path="res://scritps/enemies/state machine/states/not_shooting_state.gd" id="11_f6y8w"]
+[ext_resource type="Script" uid="uid://pjcodhjvjswe" path="res://scritps/enemies/state machine/states/shooting_state.gd" id="12_y2gxb"]
+[ext_resource type="Script" uid="uid://b7fow4a7eweq" path="res://scritps/enemies/state machine/states/shooting_regular_state.gd" id="13_3xxyr"]
+[ext_resource type="Script" uid="uid://3ggvdwi3bdrx" path="res://scritps/enemies/state machine/states/shooting_canva_state.gd" id="14_xiois"]
+[ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="15_maese"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8e3ao"]
 radius = 500.0
@@ -14,13 +30,14 @@ radius = 150.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_38ino"]
 size = Vector2(52, 52)
 
-[node name="Enemy" type="RigidBody2D" node_paths=PackedStringArray("detection_area", "move_away_area", "detection_shape", "move_away_shape", "shooting_marker")]
+[node name="Enemy" type="RigidBody2D" node_paths=PackedStringArray("detection_area", "move_away_area", "detection_shape", "move_away_shape", "shooting_marker", "state_chart")]
 script = ExtResource("1_6xk8f")
 detection_area = NodePath("Detection Area")
 move_away_area = NodePath("Move Away Area")
 detection_shape = NodePath("Detection Area/CollisionShape2D")
 move_away_shape = NodePath("Move Away Area/CollisionShape2D")
 shooting_marker = NodePath("Shooting Marker")
+state_chart = NodePath("StateChart")
 
 [node name="Detection Area" type="Area2D" parent="."]
 
@@ -51,3 +68,163 @@ metadata/_custom_type_script = "uid://hq1bo2dtf216"
 script = ExtResource("4_lu5c6")
 max_health = 50.0
 metadata/_custom_type_script = "uid://c72xg0cl1g6l2"
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("enemy")]
+unique_name_in_owner = true
+script = ExtResource("5_qch6t")
+enemy = NodePath("..")
+
+[node name="MovementState" type="Node" parent="StateMachine"]
+
+[node name="IdleState" type="Node" parent="StateMachine/MovementState"]
+script = ExtResource("6_tihwb")
+
+[node name="FollowingState" type="Node" parent="StateMachine/MovementState"]
+script = ExtResource("7_smbsv")
+
+[node name="FollowingFar" type="Node" parent="StateMachine/MovementState/FollowingState"]
+script = ExtResource("8_maese")
+
+[node name="FollowingMid" type="Node" parent="StateMachine/MovementState/FollowingState"]
+script = ExtResource("9_4f0mh")
+
+[node name="FollowingClose" type="Node" parent="StateMachine/MovementState/FollowingState"]
+script = ExtResource("10_gc4hx")
+
+[node name="AtackingState" type="Node" parent="StateMachine"]
+
+[node name="NotShooting" type="Node" parent="StateMachine/AtackingState"]
+script = ExtResource("11_f6y8w")
+
+[node name="Shooting" type="Node" parent="StateMachine/AtackingState"]
+script = ExtResource("12_y2gxb")
+
+[node name="ShootingRegular" type="Node" parent="StateMachine/AtackingState/Shooting"]
+script = ExtResource("13_3xxyr")
+
+[node name="ShootingCanva" type="Node" parent="StateMachine/AtackingState/Shooting"]
+script = ExtResource("14_xiois")
+
+[node name="StateChartDebugger" parent="." instance=ExtResource("15_maese")]
+layout_direction = 1
+offset_left = 215.0
+offset_top = 1.0
+offset_right = 523.0
+offset_bottom = 404.0
+initial_node_to_watch = NodePath("../StateChart")
+
+[node name="StateChart" type="Node" parent="."]
+script = ExtResource("5_lu5c6")
+metadata/_custom_type_script = "uid://couw105c3bde4"
+
+[node name="Root" type="Node" parent="StateChart"]
+script = ExtResource("6_n7575")
+
+[node name="Movement" type="Node" parent="StateChart/Root"]
+script = ExtResource("7_qch6t")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateChart/Root/Movement"]
+script = ExtResource("8_y5th1")
+
+[node name="OnFollowing" type="Node" parent="StateChart/Root/Movement/Idle"]
+script = ExtResource("10_y5th1")
+to = NodePath("../../Following")
+event = &"on_following"
+delay_in_seconds = "0.0"
+
+[node name="Following" type="Node" parent="StateChart/Root/Movement"]
+script = ExtResource("7_qch6t")
+initial_state = NodePath("FollowingFar")
+
+[node name="FollowingFar" type="Node" parent="StateChart/Root/Movement/Following"]
+script = ExtResource("8_y5th1")
+
+[node name="FollowingMid" type="Node" parent="StateChart/Root/Movement/Following"]
+script = ExtResource("8_y5th1")
+
+[node name="FollowingClose" type="Node" parent="StateChart/Root/Movement/Following"]
+script = ExtResource("8_y5th1")
+
+[node name="OnFollowingFar" type="Node" parent="StateChart/Root/Movement/Following"]
+script = ExtResource("10_y5th1")
+to = NodePath("../FollowingFar")
+event = &"on_following_far"
+delay_in_seconds = "0.0"
+
+[node name="OnFollowingMid" type="Node" parent="StateChart/Root/Movement/Following"]
+script = ExtResource("10_y5th1")
+to = NodePath("../FollowingMid")
+event = &"on_following_mid"
+delay_in_seconds = "0.0"
+
+[node name="OnFollowingClose" type="Node" parent="StateChart/Root/Movement/Following"]
+script = ExtResource("10_y5th1")
+to = NodePath("../FollowingClose")
+event = &"on_following_close"
+delay_in_seconds = "0.0"
+
+[node name="OnIdle" type="Node" parent="StateChart/Root/Movement/Following"]
+script = ExtResource("10_y5th1")
+to = NodePath("../../Idle")
+event = &"on_idle"
+delay_in_seconds = "0.0"
+
+[node name="Attacking" type="Node" parent="StateChart/Root"]
+script = ExtResource("7_qch6t")
+initial_state = NodePath("NotShooting")
+
+[node name="NotShooting" type="Node" parent="StateChart/Root/Attacking"]
+script = ExtResource("8_y5th1")
+
+[node name="OnShooting" type="Node" parent="StateChart/Root/Attacking/NotShooting"]
+script = ExtResource("10_y5th1")
+to = NodePath("../../Shooting")
+event = &"on_shooting"
+delay_in_seconds = "0.0"
+
+[node name="Shooting" type="Node" parent="StateChart/Root/Attacking"]
+script = ExtResource("7_qch6t")
+initial_state = NodePath("ShootingRegular")
+
+[node name="ShootingRegular" type="Node" parent="StateChart/Root/Attacking/Shooting"]
+script = ExtResource("8_y5th1")
+
+[node name="ShootingCanva" type="Node" parent="StateChart/Root/Attacking/Shooting"]
+script = ExtResource("8_y5th1")
+
+[node name="OnNotShooting" type="Node" parent="StateChart/Root/Attacking/Shooting"]
+script = ExtResource("10_y5th1")
+to = NodePath("../../NotShooting")
+event = &"on_not_shooting"
+delay_in_seconds = "0.0"
+
+[node name="OnShootingRegular" type="Node" parent="StateChart/Root/Attacking/Shooting"]
+script = ExtResource("10_y5th1")
+to = NodePath("../ShootingRegular")
+event = &"on_shooting_regular"
+delay_in_seconds = "0.0"
+
+[node name="OnShootingCanva" type="Node" parent="StateChart/Root/Attacking/Shooting"]
+script = ExtResource("10_y5th1")
+to = NodePath("../ShootingCanva")
+event = &"on_shooting_canva"
+delay_in_seconds = "0.0"
+
+[connection signal="body_entered" from="Detection Area" to="StateMachine/MovementState/IdleState" method="_on_detection_area_body_entered"]
+[connection signal="body_entered" from="Detection Area" to="StateMachine/AtackingState/NotShooting" method="_on_detection_area_body_entered"]
+[connection signal="body_exited" from="Detection Area" to="StateMachine/MovementState/FollowingState" method="_on_detection_area_body_exited"]
+[connection signal="body_exited" from="Detection Area" to="StateMachine/AtackingState/Shooting" method="_on_detection_area_body_exited"]
+[connection signal="body_entered" from="Move Away Area" to="StateMachine/MovementState/FollowingState/FollowingFar" method="_on_move_away_area_body_entered"]
+[connection signal="body_entered" from="Move Away Area" to="StateMachine/AtackingState/Shooting/ShootingRegular" method="_on_move_away_area_body_entered"]
+[connection signal="body_exited" from="Move Away Area" to="StateMachine/MovementState/FollowingState/FollowingClose" method="_on_move_away_area_body_exited"]
+[connection signal="body_exited" from="Move Away Area" to="StateMachine/AtackingState/Shooting/ShootingCanva" method="_on_move_away_area_body_exited"]
+[connection signal="state_physics_processing" from="StateChart/Root/Movement/Idle" to="StateMachine/MovementState/IdleState" method="_on_idle_state_physics_processing"]
+[connection signal="state_physics_processing" from="StateChart/Root/Movement/Following" to="StateMachine/MovementState/FollowingState" method="_on_following_state_physics_processing"]
+[connection signal="state_physics_processing" from="StateChart/Root/Movement/Following/FollowingFar" to="StateMachine/MovementState/FollowingState/FollowingFar" method="_on_following_far_state_physics_processing"]
+[connection signal="state_physics_processing" from="StateChart/Root/Movement/Following/FollowingMid" to="StateMachine/MovementState/FollowingState/FollowingMid" method="_on_following_mid_state_physics_processing"]
+[connection signal="state_physics_processing" from="StateChart/Root/Movement/Following/FollowingClose" to="StateMachine/MovementState/FollowingState/FollowingClose" method="_on_following_close_state_physics_processing"]
+[connection signal="state_physics_processing" from="StateChart/Root/Attacking/NotShooting" to="StateMachine/AtackingState/NotShooting" method="_on_not_shooting_state_physics_processing"]
+[connection signal="state_physics_processing" from="StateChart/Root/Attacking/Shooting" to="StateMachine/AtackingState/Shooting" method="_on_shooting_state_physics_processing"]
+[connection signal="state_physics_processing" from="StateChart/Root/Attacking/Shooting/ShootingRegular" to="StateMachine/AtackingState/Shooting/ShootingRegular" method="_on_shooting_regular_state_physics_processing"]
+[connection signal="state_physics_processing" from="StateChart/Root/Attacking/Shooting/ShootingCanva" to="StateMachine/AtackingState/Shooting/ShootingCanva" method="_on_shooting_canva_state_physics_processing"]

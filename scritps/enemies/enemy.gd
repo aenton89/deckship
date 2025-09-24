@@ -1,9 +1,9 @@
 extends RigidBody2D
 class_name Enemy
 ### TODO:
-# przenieść to na maszyne stanów
-# obracanie się do gracza (ale też z określoną prędkością)
-# dodać dodatkowy obszar, w którym przeciwnik się nie rusza - ten w którym stara się utrzymać
+## przenieść to na maszyne stanów
+## obracanie się do gracza (ale też z określoną prędkością)
+## dodać dodatkowy obszar, w którym przeciwnik się nie rusza - ten w którym stara się utrzymać
 # firing - kanwa gdy gracz jest za blisko, 
 # move_away - przykładamy siłe przeciwną do gracza
 # 
@@ -15,12 +15,14 @@ class_name Enemy
 @export var detection_shape: CollisionShape2D
 @export var move_away_shape: CollisionShape2D
 @export var shooting_marker: Marker2D
+@export var state_chart: StateChart
 @export_category("Imports")
 @export var bullet_scene: PackedScene = preload("res://scenes/player/bullet.tscn")
 @export var bullet_icon: CompressedTexture2D = preload("res://assets/enemies/bullet_enemy.png")
 
 @export_category("Movement Stats")
 @export_subgroup("Movement Defaults")
+@export var max_speed: float = 8000.0
 @export var detection_range: float = 1000.0
 @export var force_strength: float = 10.0
 # w sekundach
@@ -124,6 +126,7 @@ func apply_movement() -> void:
 	move_away()
 	
 	if movement_force != Vector2.ZERO:
+		movement_force = movement_force.clampf(-max_speed, max_speed)
 		print("applied: ", movement_force)
 		apply_force(movement_force)
 		movement_force = Vector2.ZERO
