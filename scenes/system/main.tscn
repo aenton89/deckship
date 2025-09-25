@@ -90,11 +90,12 @@ motion_scale = Vector2(0.1, 0.1)
 motion_mirroring = Vector2(2048, 2048)
 
 [node name="Space" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
-texture_repeat = 3
+texture_repeat = 2
 scale = Vector2(2, 2)
 texture = ExtResource("6_uaibl")
 centered = false
-region_rect = Rect2(0, 0, 2048, 2048)
+region_enabled = true
+region_rect = Rect2(0, 0, 7680, 4320)
 
 [node name="Shader Layer" type="CanvasLayer" parent="."]
 layer = 128

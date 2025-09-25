@@ -8,4 +8,5 @@ func _on_not_shooting_state_physics_processing(delta: float) -> void:
 
 func _on_detection_area_body_entered(body: Node2D) -> void:
 	if body is Player:
+		enemy.set_attacking_state(EnemyStateMachine.EnemyAtackingState.SHOOTING_REGULAR)
 		enemy.state_chart.send_event("on_shooting")

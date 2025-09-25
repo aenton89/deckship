@@ -8,4 +8,5 @@ func _on_following_close_state_physics_processing(delta: float) -> void:
 
 func _on_move_away_area_body_exited(body: Node2D) -> void:
 	if body is Player:
-		enemy.state_chart.send_event("on_following_far")
+		enemy.set_movement_state(EnemyStateMachine.EnemyMovementState.FOLLOWING_MID)
+		enemy.state_chart.send_event("on_following_mid")

@@ -8,4 +8,5 @@ func _on_following_state_physics_processing(delta: float) -> void:
 
 func _on_detection_area_body_exited(body: Node2D) -> void:
 	if body is Player:
+		enemy.set_movement_state(EnemyStateMachine.EnemyMovementState.IDLE)
 		enemy.state_chart.send_event("on_idle")

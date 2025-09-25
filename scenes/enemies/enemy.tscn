@@ -19,13 +19,15 @@
 [ext_resource type="Script" uid="uid://pjcodhjvjswe" path="res://scritps/enemies/state machine/states/shooting_state.gd" id="12_y2gxb"]
 [ext_resource type="Script" uid="uid://b7fow4a7eweq" path="res://scritps/enemies/state machine/states/shooting_regular_state.gd" id="13_3xxyr"]
 [ext_resource type="Script" uid="uid://3ggvdwi3bdrx" path="res://scritps/enemies/state machine/states/shooting_canva_state.gd" id="14_xiois"]
-[ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="15_maese"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8e3ao"]
-radius = 500.0
+radius = 1000.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_maese"]
+radius = 600.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_38ino"]
-radius = 150.0
+radius = 300.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_38ino"]
 size = Vector2(52, 52)
@@ -43,6 +45,11 @@ state_chart = NodePath("StateChart")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Detection Area"]
 shape = SubResource("CircleShape2D_8e3ao")
+
+[node name="Perfect Area" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Perfect Area"]
+shape = SubResource("CircleShape2D_maese")
 
 [node name="Move Away Area" type="Area2D" parent="."]
 
@@ -66,7 +73,7 @@ metadata/_custom_type_script = "uid://hq1bo2dtf216"
 
 [node name="HPComponent" type="Node" parent="Components"]
 script = ExtResource("4_lu5c6")
-max_health = 50.0
+max_health = 200.0
 metadata/_custom_type_script = "uid://c72xg0cl1g6l2"
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("enemy")]
@@ -104,14 +111,6 @@ script = ExtResource("13_3xxyr")
 
 [node name="ShootingCanva" type="Node" parent="StateMachine/AtackingState/Shooting"]
 script = ExtResource("14_xiois")
-
-[node name="StateChartDebugger" parent="." instance=ExtResource("15_maese")]
-layout_direction = 1
-offset_left = 215.0
-offset_top = 1.0
-offset_right = 523.0
-offset_bottom = 404.0
-initial_node_to_watch = NodePath("../StateChart")
 
 [node name="StateChart" type="Node" parent="."]
 script = ExtResource("5_lu5c6")
@@ -215,7 +214,9 @@ delay_in_seconds = "0.0"
 [connection signal="body_entered" from="Detection Area" to="StateMachine/AtackingState/NotShooting" method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="Detection Area" to="StateMachine/MovementState/FollowingState" method="_on_detection_area_body_exited"]
 [connection signal="body_exited" from="Detection Area" to="StateMachine/AtackingState/Shooting" method="_on_detection_area_body_exited"]
-[connection signal="body_entered" from="Move Away Area" to="StateMachine/MovementState/FollowingState/FollowingFar" method="_on_move_away_area_body_entered"]
+[connection signal="body_entered" from="Perfect Area" to="StateMachine/MovementState/FollowingState/FollowingFar" method="_on_perfect_area_body_entered"]
+[connection signal="body_exited" from="Perfect Area" to="StateMachine/MovementState/FollowingState/FollowingMid" method="_on_perfect_area_body_exited"]
+[connection signal="body_entered" from="Move Away Area" to="StateMachine/MovementState/FollowingState/FollowingMid" method="_on_move_away_area_body_entered"]
 [connection signal="body_entered" from="Move Away Area" to="StateMachine/AtackingState/Shooting/ShootingRegular" method="_on_move_away_area_body_entered"]
 [connection signal="body_exited" from="Move Away Area" to="StateMachine/MovementState/FollowingState/FollowingClose" method="_on_move_away_area_body_exited"]
 [connection signal="body_exited" from="Move Away Area" to="StateMachine/AtackingState/Shooting/ShootingCanva" method="_on_move_away_area_body_exited"]

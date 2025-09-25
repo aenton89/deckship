@@ -129,5 +129,6 @@ func rotate_ship(delta: float) -> void:
 
 func apply_movement() -> void:
 	if shoot_force != Vector2.ZERO:
-		apply_force(shoot_force * 50)
+		print("PLAYER applied force: ", shoot_force * 20)
+		apply_force(shoot_force * 20)
 		shoot_force = Vector2.ZERO

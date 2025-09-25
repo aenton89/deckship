@@ -4,7 +4,9 @@ class_name Reward
 
 @export_category("References")
 @export var animated_sprite: AnimatedSprite2D
-@export_category("REWARD CHANCES")
+@export_category("Reward Stats")
+@export var number_of_drops: int = 4
+@export_category("Reward Chances")
 @export var multi_chance: float = 0.3
 
 
@@ -47,3 +49,10 @@ func _on_body_entered(body: Node2D) -> void:
 		var tween = create_tween()
 		tween.tween_property(self, "position:y", position.y - 50, 0.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 		tween.tween_property(self, "position:y", original_y, 0.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+		
+		number_of_drops -= 1
+		# jeśli to był ostatni drop, usuń dopiero po skończeniu tweena
+		if number_of_drops == 0:
+			tween.finished.connect(func():
+				queue_free()
+			)

@@ -21,8 +21,9 @@ Global="*res://scritps/globals/global.gd"
 
 [display]
 
-window/size/viewport_width=1920
-window/size/viewport_height=1080
+window/size/viewport_width=3840
+window/size/viewport_height=2160
+window/size/mode=3
 
 [editor_plugins]
 

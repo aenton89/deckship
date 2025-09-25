@@ -3,7 +3,8 @@ class_name Bullet
 
 ### TODO: 
 # constructor that sets speed and dmg
-#
+# wciąż to co na górze - w _physics_process() jest brane Global.player.sats.bullet_speed
+# no i jeszcze uwzględnić jakoś prędkość poruszającego się statku który strzela
 
 
 @export_category("References")
@@ -38,7 +39,7 @@ func _ready() -> void:
 
 # na trafienie czegokolwiek (nawet siebie) zadać obrażenia; jeśli tamto coś nie zostanie zniszczone, to odbijamy pocisk (tylko 1 odbicie, nie więcej)
 func _physics_process(delta: float) -> void:
-	var motion = speed * direction * delta
+	var motion = Global.player.stats.bullet_speed * direction * delta
 	var space_state = get_world_2d().direct_space_state
 	
 	var query = PhysicsRayQueryParameters2D.create(global_position, global_position + motion.normalized() * (motion.length() + raycast_margin))
