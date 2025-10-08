@@ -53,6 +53,4 @@ func _on_body_entered(body: Node2D) -> void:
 		number_of_drops -= 1
 		# jeśli to był ostatni drop, usuń dopiero po skończeniu tweena
 		if number_of_drops == 0:
-			tween.finished.connect(func():
-				queue_free()
-			)
+			tween.finished.connect(func(): queue_free())

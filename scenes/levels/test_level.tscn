@@ -1,0 +1,58 @@
+[gd_scene load_steps=6 format=3 uid="uid://ccbd3vi5s7y35"]
+
+[ext_resource type="PackedScene" uid="uid://c5otxn8jswrwk" path="res://scenes/obstacles/rock.tscn" id="1_fr1um"]
+[ext_resource type="Texture2D" uid="uid://dynw422w5tdpa" path="res://assets/world/long_obstacle.png" id="2_v45ci"]
+[ext_resource type="PackedScene" uid="uid://cg2oma2ltfkkx" path="res://scenes/items/reward.tscn" id="3_48ne7"]
+[ext_resource type="PackedScene" uid="uid://bdoihx51gijw0" path="res://scenes/enemies/enemy.tscn" id="4_v45ci"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6xh4u"]
+size = Vector2(512, 64)
+
+[node name="TestLevel" type="Node2D"]
+
+[node name="Test Objects" type="Node2D" parent="."]
+position = Vector2(107, -137)
+
+[node name="Rocks" type="Node2D" parent="Test Objects"]
+
+[node name="Rock" parent="Test Objects/Rocks" instance=ExtResource("1_fr1um")]
+position = Vector2(236, 312)
+
+[node name="Rock 2" parent="Test Objects/Rocks" instance=ExtResource("1_fr1um")]
+position = Vector2(303, 292)
+hp = 1000.0
+
+[node name="Others" type="Node2D" parent="Test Objects"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Test Objects/Others"]
+position = Vector2(0, -111)
+
+[node name="Icon" type="Sprite2D" parent="Test Objects/Others/StaticBody2D"]
+position = Vector2(243, 0)
+scale = Vector2(4, 4)
+texture = ExtResource("2_v45ci")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Test Objects/Others/StaticBody2D"]
+position = Vector2(243, 0)
+shape = SubResource("RectangleShape2D_6xh4u")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="Test Objects/Others"]
+position = Vector2(103, 4)
+
+[node name="Icon" type="Sprite2D" parent="Test Objects/Others/StaticBody2D2"]
+position = Vector2(243, 0)
+scale = Vector2(4, 4)
+texture = ExtResource("2_v45ci")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Test Objects/Others/StaticBody2D2"]
+position = Vector2(243, 0)
+shape = SubResource("RectangleShape2D_6xh4u")
+
+[node name="Reward" parent="." instance=ExtResource("3_48ne7")]
+position = Vector2(-518, 241)
+
+[node name="Enemy" parent="." instance=ExtResource("4_v45ci")]
+position = Vector2(-627, -284)
+
+[node name="Enemy2" parent="." instance=ExtResource("4_v45ci")]
+position = Vector2(1365, 468)

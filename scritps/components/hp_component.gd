@@ -8,7 +8,10 @@ class_name HPComponent
 #
 
 
+
 signal player_died
+signal player_took_dmg
+signal player_healed
 
 @export var max_health: float = 100.0
 
@@ -16,11 +19,24 @@ signal player_died
 
 
 
+func init(amout: float) -> void:
+	max_health = amout
+	health = amout
+
+func heal(amount: float) -> void:
+	health += amount
+	
+	if get_parent().get_parent() == Global.player:
+		emit_signal("player_healed")
+
 func damage(amount: float) -> void:
 	health -= amount
-	print("health: ", health)
 	
-	if health <= 0:
-		if get_parent().get_parent() == Global.player:
+	if get_parent().get_parent() == Global.player:
+		if health <= 0:
 			emit_signal("player_died")
-		get_parent().get_parent().queue_free()
+		else:
+			emit_signal("player_took_dmg")
+	else:
+		if health <= 0:
+			get_parent().get_parent().queue_free()

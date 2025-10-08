@@ -32,13 +32,15 @@ radius = 300.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_38ino"]
 size = Vector2(52, 52)
 
-[node name="Enemy" type="RigidBody2D" node_paths=PackedStringArray("detection_area", "move_away_area", "detection_shape", "move_away_shape", "shooting_marker", "state_chart")]
+[node name="Enemy" type="RigidBody2D" node_paths=PackedStringArray("detection_area", "move_away_area", "detection_shape", "move_away_shape", "perfect_distance_shape", "shooting_marker", "hp_component", "state_chart")]
 script = ExtResource("1_6xk8f")
 detection_area = NodePath("Detection Area")
 move_away_area = NodePath("Move Away Area")
 detection_shape = NodePath("Detection Area/CollisionShape2D")
 move_away_shape = NodePath("Move Away Area/CollisionShape2D")
+perfect_distance_shape = NodePath("Perfect Area/CollisionShape2D")
 shooting_marker = NodePath("Shooting Marker")
+hp_component = NodePath("Components/HPComponent")
 state_chart = NodePath("StateChart")
 
 [node name="Detection Area" type="Area2D" parent="."]
@@ -73,7 +75,6 @@ metadata/_custom_type_script = "uid://hq1bo2dtf216"
 
 [node name="HPComponent" type="Node" parent="Components"]
 script = ExtResource("4_lu5c6")
-max_health = 200.0
 metadata/_custom_type_script = "uid://c72xg0cl1g6l2"
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("enemy")]

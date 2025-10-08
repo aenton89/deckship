@@ -39,28 +39,29 @@ func _ready() -> void:
 
 # na trafienie czegokolwiek (nawet siebie) zadać obrażenia; jeśli tamto coś nie zostanie zniszczone, to odbijamy pocisk (tylko 1 odbicie, nie więcej)
 func _physics_process(delta: float) -> void:
-	var motion = Global.player.stats.bullet_speed * direction * delta
-	var space_state = get_world_2d().direct_space_state
-	
-	var query = PhysicsRayQueryParameters2D.create(global_position, global_position + motion.normalized() * (motion.length() + raycast_margin))
-	 # ignorujemy pocisk
-	query.exclude = [self]
-	
-	var result = space_state.intersect_ray(query)
-	
-	if result:
-		var hit_body = result.collider
-		apply_dmg(hit_body)
+	if Global.player:
+		var motion = Global.player.stats.bullet_speed * direction * delta
+		var space_state = get_world_2d().direct_space_state
 		
-		if bounce > 0:
-			var collision_normal = result.normal
-			direction = direction.bounce(collision_normal).normalized()
-			rotation = direction.angle() + PI / 2
-			bounce -= 1
+		var query = PhysicsRayQueryParameters2D.create(global_position, global_position + motion.normalized() * (motion.length() + raycast_margin))
+		 # ignorujemy pocisk
+		query.exclude = [self]
+		
+		var result = space_state.intersect_ray(query)
+		
+		if result:
+			var hit_body = result.collider
+			apply_dmg(hit_body)
+			
+			if bounce > 0:
+				var collision_normal = result.normal
+				direction = direction.bounce(collision_normal).normalized()
+				rotation = direction.angle() + PI / 2
+				bounce -= 1
+			else:
+				queue_free()
 		else:
-			queue_free()
-	else:
-		position += motion
+			position += motion
 
 
 
@@ -100,7 +101,7 @@ func apply_dmg(body: Node2D) -> void:
 			
 			# jeśli obiekt już został zniszczony
 			if hp_component.health <= 0:
-				body.queue_free()
+				# body.queue_free()
 				queue_free()
 				return
 

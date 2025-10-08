@@ -12,6 +12,7 @@ class_name Player
 @export_category("Player Base Stats")
 @export var stats: PlayerStats = preload("res://resources/player/default_player_stats.tres")
 @export_category("References")
+@export var camera_rig: CameraRig
 @export var shooting_marker: Marker2D
 @export var hp_component: HPComponent
 @export var UI: UserInterface
@@ -30,11 +31,12 @@ class_name Player
 
 
 
-
 func _ready() -> void:
 	Global.player = self
 	Global.emit_signal("player_ready")
 	set_gravity_scale(0.0)
+	
+	hp_component.player_took_dmg.connect(_on_took_dmg)
 	
 	# coś się zepsuło
 	if stats == null:
@@ -98,6 +100,8 @@ func _on_mouse_entered() -> void:
 func _on_mouse_exited() -> void:
 	is_mouse_inside = false
 
+func _on_took_dmg() -> void:
+	camera_rig.shake_camera()
 
 
 func shoot() -> void:

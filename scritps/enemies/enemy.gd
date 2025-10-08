@@ -15,10 +15,14 @@ class_name Enemy
 @export var move_away_shape: CollisionShape2D
 @export var perfect_distance_shape: CollisionShape2D
 @export var shooting_marker: Marker2D
+@export var hp_component: HPComponent
 @export var state_chart: StateChart
 @export_category("Imports")
 @export var bullet_scene: PackedScene = preload("res://scenes/player/bullet.tscn")
 @export var bullet_icon: CompressedTexture2D = preload("res://assets/enemies/bullet_enemy.png")
+
+@export_category("Health")
+@export var max_hp: float = 50.0
 
 @export_category("Movement Stats")
 @export_subgroup("Movement Defaults")
@@ -71,6 +75,8 @@ var target_point: Vector2
 
 func _ready() -> void:
 	set_gravity_scale(0.0)
+	
+	hp_component.init(max_hp)
 	
 	if detection_shape and detection_shape.shape is CircleShape2D:
 		detection_shape.shape.radius = detection_range
@@ -250,20 +256,21 @@ func _draw():
 	if Engine.is_editor_hint():
 		return
 	
-	# okrąg reprezentujący zasięg wykrycia
-	draw_circle(Vector2.ZERO, detection_range, Color.RED, false, 2.0)
-	# okrąg reprezentujący idealny zasięg
-	draw_circle(Vector2.ZERO, perfect_range, Color.YELLOW, false, 2.0)
-	# okrąg reprezentujący zasięg, w którym uciekamy
-	draw_circle(Vector2.ZERO, move_away_range, Color.GREEN, false, 2.0)
-	
-	# rysowanie linii do gracza
-	if movement_state == EnemyStateMachine.EnemyMovementState.FOLLOWING_FAR or movement_state == EnemyStateMachine.EnemyMovementState.FOLLOWING_MID:
-		var distance = global_position.distance_to(Global.player.global_position)
-		if distance <= detection_range:
-			var local_player_pos = to_local(Global.player.global_position)
-			draw_line(Vector2.ZERO, local_player_pos, Color.YELLOW, 2.0)
-			
-			# punkt docelowy - punkt, do którego chcemy się dostać
-			var local_target = to_local(target_point)
-			draw_circle(local_target, 5, Color.WHITE, true)
+	if Global.player:
+		# okrąg reprezentujący zasięg wykrycia
+		draw_circle(Vector2.ZERO, detection_range, Color.RED, false, 2.0)
+		# okrąg reprezentujący idealny zasięg
+		draw_circle(Vector2.ZERO, perfect_range, Color.YELLOW, false, 2.0)
+		# okrąg reprezentujący zasięg, w którym uciekamy
+		draw_circle(Vector2.ZERO, move_away_range, Color.GREEN, false, 2.0)
+		
+		# rysowanie linii do gracza
+		if movement_state == EnemyStateMachine.EnemyMovementState.FOLLOWING_FAR or movement_state == EnemyStateMachine.EnemyMovementState.FOLLOWING_MID:
+			var distance = global_position.distance_to(Global.player.global_position)
+			if distance <= detection_range:
+				var local_player_pos = to_local(Global.player.global_position)
+				draw_line(Vector2.ZERO, local_player_pos, Color.YELLOW, 2.0)
+				
+				# punkt docelowy - punkt, do którego chcemy się dostać
+				var local_target = to_local(target_point)
+				draw_circle(local_target, 5, Color.WHITE, true)
