@@ -82,15 +82,6 @@ func _input(event: InputEvent) -> void:
 		if Input.is_action_just_released("rotate"):
 			rotate_to_mouse = false
 
-func _draw() -> void:
-	if Engine.is_editor_hint():
-		return
-	
-	if(was_lmb_pressed):
-		draw_line(Vector2.ZERO, get_local_mouse_position(), Color.CRIMSON, 2.0)
-	if(rotate_to_mouse):
-		draw_line(Vector2.ZERO, get_local_mouse_position(), Color.GREEN_YELLOW, 2.0)
-
 
 
 ## signal handlers
@@ -102,6 +93,7 @@ func _on_mouse_exited() -> void:
 
 func _on_took_dmg() -> void:
 	camera_rig.shake_camera()
+
 
 
 func shoot() -> void:
@@ -136,3 +128,15 @@ func apply_movement() -> void:
 		print("PLAYER applied force: ", shoot_force * 20)
 		apply_force(shoot_force * 20)
 		shoot_force = Vector2.ZERO
+
+
+
+func _draw() -> void:
+	if Global.draw_debug:
+		if Engine.is_editor_hint():
+			return
+		
+		if(was_lmb_pressed):
+			draw_line(Vector2.ZERO, get_local_mouse_position(), Color.CRIMSON, 2.0)
+		if(rotate_to_mouse):
+			draw_line(Vector2.ZERO, get_local_mouse_position(), Color.GREEN_YELLOW, 2.0)

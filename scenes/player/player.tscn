@@ -1,14 +1,14 @@
 [gd_scene load_steps=8 format=3 uid="uid://2bbk1qjegcs4"]
 
-[ext_resource type="Script" uid="uid://dvyehard432xd" path="res://scritps/player/player.gd" id="1_g2els"]
+[ext_resource type="Script" uid="uid://dvmnrduhp7gx7" path="res://scritps/player/player.gd" id="1_g2els"]
 [ext_resource type="Texture2D" uid="uid://dlp4yjuopowty" path="res://assets/player/ship.png" id="2_g2els"]
-[ext_resource type="Script" uid="uid://n2pn5k6c4byv" path="res://scritps/player/camera_rig.gd" id="3_75vfm"]
-[ext_resource type="Script" uid="uid://hq1bo2dtf216" path="res://scritps/components/components.gd" id="3_lvxji"]
-[ext_resource type="Script" uid="uid://c72xg0cl1g6l2" path="res://scritps/components/hp_component.gd" id="3_qhqgy"]
+[ext_resource type="Script" uid="uid://d4jiugl1w6xb3" path="res://scritps/player/camera_rig.gd" id="3_75vfm"]
+[ext_resource type="Script" uid="uid://b1ual06tou7g" path="res://scritps/components/components.gd" id="3_lvxji"]
+[ext_resource type="Script" uid="uid://cagl3ub6otl26" path="res://scritps/components/hp_component.gd" id="3_qhqgy"]
 [ext_resource type="PackedScene" uid="uid://l8fyderrn8e8" path="res://scenes/system/ui/user_interface.tscn" id="5_p47bc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_75vfm"]
-radius = 100.0
+radius = 200.0
 
 [node name="Player" type="RigidBody2D" node_paths=PackedStringArray("camera_rig", "shooting_marker", "hp_component", "UI", "interaction_area") groups=["destructable", "player"]]
 input_pickable = true
@@ -34,10 +34,12 @@ polygon = PackedVector2Array(-1.75, -12.25, -3.25, -10.75, -4.75, -7.75, -7.75, 
 position = Vector2(0, -32)
 gizmo_extents = 4.0
 
-[node name="Camera Rig" type="Node2D" parent="."]
+[node name="Camera Rig" type="Node2D" parent="." node_paths=PackedStringArray("camera")]
 script = ExtResource("3_75vfm")
+camera = NodePath("Camera2D")
 
 [node name="Camera2D" type="Camera2D" parent="Camera Rig"]
+zoom = Vector2(0.7, 0.7)
 position_smoothing_enabled = true
 
 [node name="Components" type="Node" parent="."]
@@ -45,9 +47,9 @@ script = ExtResource("3_lvxji")
 
 [node name="HP Component" type="Node" parent="Components"]
 script = ExtResource("3_qhqgy")
-max_health = 10.0
 
 [node name="User Interface" parent="." instance=ExtResource("5_p47bc")]
+visible = false
 
 [node name="InteractionArea" type="Area2D" parent="."]
 

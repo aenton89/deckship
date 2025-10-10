@@ -109,7 +109,8 @@ func add_dmg_label(body: Node2D, amount: float) -> void:
 	# label od utraty hp
 	var dmg_label = Label.new()
 	dmg_label.text = "-" + str(dmg_amount)
-	var body_size: Vector2 = Vector2(10, 20)
+	dmg_label.add_theme_font_size_override("font_size", 24)
+	var body_size: Vector2 = Vector2(20, 30)
 	
 	# randomowe usytuowanie label'a
 	for child in body.get_children():

@@ -12,7 +12,10 @@ extends Node
 signal player_ready(player)
 
 # test purposes
-var game_paused: bool = false 
+var game_paused: bool = false
+var draw_debug: bool = false
+
 var player: Player
 var main: Node2D
 var UI: UserInterface
+var camera: Camera2D

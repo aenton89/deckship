@@ -3,13 +3,20 @@ class_name CameraRig
 
 
 
+@export_category("References")
+@export var camera: Camera2D
 @export_category("Screen Shake Settings")
 @export var shake_duration: float = 0.8
 @export var shake_magnitude: float = 20.0
 
 
 
-func shake_camera():
+func _ready() -> void:
+	Global.camera = camera
+
+
+
+func shake_camera() -> void:
 	var tween: Tween = create_tween()
 	
 	for i in range(10):

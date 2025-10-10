@@ -33,10 +33,9 @@ func damage(amount: float) -> void:
 	health -= amount
 	
 	if get_parent().get_parent() == Global.player:
+		emit_signal("player_took_dmg")
 		if health <= 0:
 			emit_signal("player_died")
-		else:
-			emit_signal("player_took_dmg")
 	else:
 		if health <= 0:
 			get_parent().get_parent().queue_free()
