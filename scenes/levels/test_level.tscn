@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://ccbd3vi5s7y35"]
+[gd_scene load_steps=7 format=3 uid="uid://ccbd3vi5s7y35"]
 
 [ext_resource type="PackedScene" uid="uid://c5otxn8jswrwk" path="res://scenes/obstacles/rock.tscn" id="1_fr1um"]
 [ext_resource type="Texture2D" uid="uid://dynw422w5tdpa" path="res://assets/world/long_obstacle.png" id="2_v45ci"]
 [ext_resource type="PackedScene" uid="uid://cg2oma2ltfkkx" path="res://scenes/items/reward.tscn" id="3_48ne7"]
 [ext_resource type="PackedScene" uid="uid://bdoihx51gijw0" path="res://scenes/enemies/enemy.tscn" id="4_v45ci"]
+[ext_resource type="PackedScene" uid="uid://bjhuny8k8ibei" path="res://scenes/items/heal.tscn" id="5_48ne7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6xh4u"]
 size = Vector2(512, 64)
@@ -48,14 +49,21 @@ texture = ExtResource("2_v45ci")
 position = Vector2(243, 0)
 shape = SubResource("RectangleShape2D_6xh4u")
 
-[node name="Reward" parent="." instance=ExtResource("3_48ne7")]
-position = Vector2(-518, 241)
+[node name="Test Enemies" type="Node2D" parent="."]
 
-[node name="Enemy" parent="." instance=ExtResource("4_v45ci")]
+[node name="Enemy" parent="Test Enemies" instance=ExtResource("4_v45ci")]
 position = Vector2(-395, -229)
 
-[node name="Enemy2" parent="." instance=ExtResource("4_v45ci")]
+[node name="Enemy2" parent="Test Enemies" instance=ExtResource("4_v45ci")]
 position = Vector2(473, 193)
 
-[node name="Enemy3" parent="." instance=ExtResource("4_v45ci")]
+[node name="Enemy3" parent="Test Enemies" instance=ExtResource("4_v45ci")]
 position = Vector2(-162, 590)
+
+[node name="Test Collectables" type="Node2D" parent="."]
+
+[node name="Heal" parent="Test Collectables" instance=ExtResource("5_48ne7")]
+position = Vector2(55, -47)
+
+[node name="Reward" parent="Test Collectables" instance=ExtResource("3_48ne7")]
+position = Vector2(-518, 241)

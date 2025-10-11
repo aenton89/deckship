@@ -2,6 +2,7 @@ extends Area2D
 class_name Bullet
 
 ### TODO: 
+## zmienić, bo obrażenia są pobierane od gracza (dla wrogów też) a na dodatek jednorazowo xd, więc się nie aktualizują
 # constructor that sets speed and dmg
 # wciąż to co na górze - w _physics_process() jest brane Global.player.sats.bullet_speed
 # no i jeszcze uwzględnić jakoś prędkość poruszającego się statku który strzela
@@ -25,7 +26,7 @@ var dmg_amount: float
 var direction: Vector2 = Vector2.ZERO
 # time on earth (pray)
 @onready var life_timer: Timer = %"Life Time"
-@onready var crit_label: bool = false
+@onready var is_crit: bool = false
 
 
 
@@ -72,7 +73,7 @@ func _on_life_timer_timeout() -> void:
 
 
 func apply_dmg(body: Node2D) -> void:
-	crit_label = false
+	is_crit = false
 	dmg_amount = dmg
 	
 	var hp_component: HPComponent
@@ -93,11 +94,11 @@ func apply_dmg(body: Node2D) -> void:
 			# apply crit
 			if Global.player and randf() < Global.player.stats.crit_chance:
 				dmg_amount = dmg * Global.player.stats.crit_amount
-				crit_label = true
+				is_crit = true
 			
-			hp_component.damage(dmg_amount)
+			hp_component.damage(dmg_amount, is_crit)
 			
-			add_dmg_label(body, dmg_amount)
+			#add_dmg_label(body, dmg_amount)
 			
 			# jeśli obiekt już został zniszczony
 			if hp_component.health <= 0:
@@ -105,35 +106,35 @@ func apply_dmg(body: Node2D) -> void:
 				queue_free()
 				return
 
-func add_dmg_label(body: Node2D, amount: float) -> void:
-	# label od utraty hp
-	var dmg_label = Label.new()
-	dmg_label.text = "-" + str(dmg_amount)
-	dmg_label.add_theme_font_size_override("font_size", 24)
-	var body_size: Vector2 = Vector2(20, 30)
-	
-	# randomowe usytuowanie label'a
-	for child in body.get_children():
-		if child is CollisionShape2D:
-			body_size = child.shape.size
-	dmg_label.global_position = body.global_position - body_size + rand_label_range(body_size) 
-	
-	# kolor label'a 
-	if crit_label:
-		dmg_label.add_theme_color_override("font_color", Color.DARK_RED)
-	
-	# czas życia label'a
-	var timer = Timer.new()
-	timer.wait_time = 0.5
-	timer.one_shot = true
-	timer.autostart = true
-	timer.timeout.connect(func(): dmg_label.queue_free())
-	
-	dmg_label.add_child(timer)
-	get_tree().current_scene.add_child(dmg_label)
-
-func rand_label_range(dimension: Vector2) -> Vector2:
-	return Vector2(random_sign() * randi_range(dimension.x, dimension.x * 1.5), random_sign() * randi_range(dimension.y, dimension.y * 1.5))
-
-func random_sign() -> int:
-	return (randi() % 2) * 2 - 1
+#func add_dmg_label(body: Node2D, amount: float) -> void:
+	## label od utraty hp
+	#var dmg_label = Label.new()
+	#dmg_label.text = "-" + str(dmg_amount)
+	#dmg_label.add_theme_font_size_override("font_size", 24)
+	#var body_size: Vector2 = Vector2(20, 30)
+	#
+	## randomowe usytuowanie label'a
+	#for child in body.get_children():
+		#if child is CollisionShape2D:
+			#body_size = child.shape.size
+	#dmg_label.global_position = body.global_position - body_size + rand_label_range(body_size) 
+	#
+	## kolor label'a 
+	#if crit_label:
+		#dmg_label.add_theme_color_override("font_color", Color.DARK_RED)
+	#
+	## czas życia label'a
+	#var timer = Timer.new()
+	#timer.wait_time = 0.5
+	#timer.one_shot = true
+	#timer.autostart = true
+	#timer.timeout.connect(func(): dmg_label.queue_free())
+	#
+	#dmg_label.add_child(timer)
+	#get_tree().current_scene.add_child(dmg_label)
+#
+#func rand_label_range(dimension: Vector2) -> Vector2:
+	#return Vector2(random_sign() * randi_range(dimension.x, dimension.x * 1.5), random_sign() * randi_range(dimension.y, dimension.y * 1.5))
+#
+#func random_sign() -> int:
+	#return (randi() % 2) * 2 - 1

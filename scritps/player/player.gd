@@ -33,15 +33,18 @@ class_name Player
 
 func _ready() -> void:
 	Global.player = self
-	Global.emit_signal("player_ready")
 	set_gravity_scale(0.0)
 	
+	hp_component.init(stats.max_hp)
 	hp_component.player_took_dmg.connect(_on_took_dmg)
 	
 	# coś się zepsuło
 	if stats == null:
-		print("but why null?")
+		if Global.draw_debug:
+			print("but why null?")
 		stats = PlayerStats.new()
+	
+	Global.emit_signal("player_ready")
 
 func _process(delta: float) -> void:
 	queue_redraw()
@@ -125,7 +128,8 @@ func rotate_ship(delta: float) -> void:
 
 func apply_movement() -> void:
 	if shoot_force != Vector2.ZERO:
-		print("PLAYER applied force: ", shoot_force * 20)
+		if Global.draw_debug:
+			print("PLAYER applied force: ", shoot_force * 20)
 		apply_force(shoot_force * 20)
 		shoot_force = Vector2.ZERO
 

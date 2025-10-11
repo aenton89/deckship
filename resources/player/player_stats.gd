@@ -13,3 +13,4 @@ class_name PlayerStats
 @export_category("Ship Details")
 @export var shooting_angle: float = PI/4
 @export var rotate_speed: float = 5.0
+@export var max_hp: float = 100.0

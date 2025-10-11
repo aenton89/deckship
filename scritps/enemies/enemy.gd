@@ -163,7 +163,8 @@ func apply_movement(delta: float) -> void:
 	if movement_force != Vector2.ZERO:
 		movement_force = movement_force * force_multiplier
 		movement_force = movement_force.clampf(-max_speed, max_speed)
-		print("ENEMY applied force: ", movement_force)
+		if Global.draw_debug:
+			print("ENEMY applied force: ", movement_force)
 		apply_force(movement_force)
 		movement_force = Vector2.ZERO
 

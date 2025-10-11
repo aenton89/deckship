@@ -15,7 +15,7 @@ input_pickable = true
 script = ExtResource("1_g2els")
 camera_rig = NodePath("Camera Rig")
 shooting_marker = NodePath("Shooting Marker")
-hp_component = NodePath("Components/HP Component")
+hp_component = NodePath("Components/HPComponent")
 UI = NodePath("User Interface")
 interaction_area = NodePath("InteractionArea")
 
@@ -45,11 +45,10 @@ position_smoothing_enabled = true
 [node name="Components" type="Node" parent="."]
 script = ExtResource("3_lvxji")
 
-[node name="HP Component" type="Node" parent="Components"]
+[node name="HPComponent" type="Node" parent="Components"]
 script = ExtResource("3_qhqgy")
 
 [node name="User Interface" parent="." instance=ExtResource("5_p47bc")]
-visible = false
 
 [node name="InteractionArea" type="Area2D" parent="."]
 

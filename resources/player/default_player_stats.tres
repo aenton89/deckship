@@ -1,10 +1,8 @@
 [gd_resource type="Resource" script_class="PlayerStats" load_steps=2 format=3 uid="uid://bbcd71wuwii2l"]
 
-[ext_resource type="Script" uid="uid://dik6mv11yekoq" path="res://resources/player/player_stats.gd" id="1_ps2q2"]
+[ext_resource type="Script" uid="uid://ckgfr2britv6n" path="res://resources/player/player_stats.gd" id="1_ps2q2"]
 
 [resource]
 script = ExtResource("1_ps2q2")
 bounce_amount = 3
-bullet_speed = 1000.0
 shooting_angle = 0.785398
-metadata/_custom_type_script = "uid://dik6mv11yekoq"

@@ -10,7 +10,12 @@
 [ext_resource type="Script" uid="uid://c7tnyjs4mx43x" path="res://scritps/system/ui/arrow_container_ui.gd" id="8_kwcd6"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_s3ato"]
-font_size = 48
+font_size = 128
+font_color = Color(0, 0, 0, 1)
+outline_size = 8
+shadow_size = 32
+shadow_color = Color(0.23529412, 0.23529412, 0.23529412, 1)
+shadow_offset = Vector2(-8, 8)
 
 [sub_resource type="Animation" id="Animation_bwudt"]
 length = 0.001
@@ -171,7 +176,7 @@ size_flags_horizontal = 4
 
 [node name="Died" type="Label" parent="DeathScreen/VBoxContainer"]
 layout_mode = 2
-text = "PLAYER DIED"
+text = "YOU DIED"
 label_settings = SubResource("LabelSettings_s3ato")
 
 [node name="ArrowContainer" type="Control" parent="."]
