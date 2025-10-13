@@ -1,21 +1,23 @@
-[gd_scene load_steps=13 format=3 uid="uid://l8fyderrn8e8"]
+[gd_scene load_steps=17 format=3 uid="uid://l8fyderrn8e8"]
 
-[ext_resource type="Script" uid="uid://bgxfa3ka6m77f" path="res://scritps/system/ui/user_interface.gd" id="1_rd21x"]
-[ext_resource type="Script" uid="uid://cqni2xk031viy" path="res://scritps/system/ui/hud_ui.gd" id="2_0a560"]
+[ext_resource type="Script" uid="uid://c4fy6dwdm2nc0" path="res://scritps/system/ui/user_interface.gd" id="1_rd21x"]
+[ext_resource type="Script" uid="uid://ey1d7u6trrji" path="res://scritps/system/ui/hud_ui.gd" id="2_0a560"]
 [ext_resource type="Texture2D" uid="uid://bgjxehteuqdm6" path="res://assets/ui/hp_bar_under.png" id="2_1pekg"]
-[ext_resource type="Script" uid="uid://deg3vrqli4eh1" path="res://scritps/system/ui/hand_ui.gd" id="2_s5p0m"]
+[ext_resource type="Shader" uid="uid://b6i47ehbq617v" path="res://resources/ui/compass_strip.gdshader" id="2_76tsf"]
+[ext_resource type="Script" uid="uid://cbd1id8plow2m" path="res://scritps/system/ui/hand_ui.gd" id="2_s5p0m"]
+[ext_resource type="LabelSettings" uid="uid://medg1xofkil6" path="res://resources/ui/death_label_settings.tres" id="3_1n82y"]
 [ext_resource type="Texture2D" uid="uid://dctg37thv2o8" path="res://assets/ui/hp_bar_over.png" id="3_ke1dt"]
 [ext_resource type="Texture2D" uid="uid://b2dwfaer0w2s5" path="res://assets/ui/hp_bar_progress.png" id="4_0a560"]
-[ext_resource type="Script" uid="uid://c37j8bd7p1plx" path="res://scritps/system/ui/death_screen_ui.gd" id="6_ke1dt"]
-[ext_resource type="Script" uid="uid://c7tnyjs4mx43x" path="res://scritps/system/ui/arrow_container_ui.gd" id="8_kwcd6"]
+[ext_resource type="Script" uid="uid://eb3wi0by7xui" path="res://scritps/system/ui/death_screen_ui.gd" id="6_ke1dt"]
+[ext_resource type="Script" uid="uid://gcjnwt1pied" path="res://scritps/system/ui/arrow_container_ui.gd" id="8_kwcd6"]
+[ext_resource type="Script" uid="uid://hwvpe5cbvted" path="res://scritps/system/ui/compass_strip_ui.gd" id="9_ce4vw"]
+[ext_resource type="Texture2D" uid="uid://cjyhfc4hjco7f" path="res://assets/ui/compass_v1.png" id="10_bke8n"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_s3ato"]
-font_size = 128
-font_color = Color(0, 0, 0, 1)
-outline_size = 8
-shadow_size = 32
-shadow_color = Color(0.23529412, 0.23529412, 0.23529412, 1)
-shadow_offset = Vector2(-8, 8)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1n82y"]
+shader = ExtResource("2_76tsf")
+shader_parameter/offset_x = 0.0
+shader_parameter/visible_portion = 0.5
+shader_parameter/fade_width = 0.1
 
 [sub_resource type="Animation" id="Animation_bwudt"]
 length = 0.001
@@ -102,45 +104,14 @@ _data = {
 &"death_screen_fade": SubResource("Animation_s3ato")
 }
 
-[node name="User Interface" type="CanvasLayer" node_paths=PackedStringArray("hud", "hand_control", "death_screen", "arrow_container", "animation_player")]
+[node name="User Interface" type="CanvasLayer" node_paths=PackedStringArray("hud", "hand_control", "death_screen", "arrow_container", "compass_strip", "animation_player")]
 script = ExtResource("1_rd21x")
 hud = NodePath("HUD")
 hand_control = NodePath("Hand")
 death_screen = NodePath("DeathScreen")
 arrow_container = NodePath("ArrowContainer")
+compass_strip = NodePath("Compass")
 animation_player = NodePath("AnimationPlayer")
-
-[node name="HUD" type="Control" parent="." node_paths=PackedStringArray("hp_bar")]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("2_0a560")
-hp_bar = NodePath("HP Bar")
-
-[node name="HP Bar" type="TextureProgressBar" parent="HUD"]
-layout_mode = 0
-offset_left = 20.0
-offset_top = 20.0
-offset_right = 148.0
-offset_bottom = 36.0
-scale = Vector2(3, 3)
-texture_under = ExtResource("2_1pekg")
-texture_over = ExtResource("3_ke1dt")
-texture_progress = ExtResource("4_0a560")
-
-[node name="Hand" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("2_s5p0m")
 
 [node name="DeathScreen" type="Control" parent="."]
 self_modulate = Color(1, 1, 1, 0)
@@ -177,7 +148,55 @@ size_flags_horizontal = 4
 [node name="Died" type="Label" parent="DeathScreen/VBoxContainer"]
 layout_mode = 2
 text = "YOU DIED"
-label_settings = SubResource("LabelSettings_s3ato")
+label_settings = ExtResource("3_1n82y")
+
+[node name="Compass" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_1n82y")
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -80.0
+offset_right = 80.0
+offset_bottom = 16.0
+grow_horizontal = 2
+scale = Vector2(4, 4)
+pivot_offset = Vector2(80, 0)
+size_flags_horizontal = 0
+texture = ExtResource("10_bke8n")
+stretch_mode = 1
+script = ExtResource("9_ce4vw")
+
+[node name="HUD" type="Control" parent="." node_paths=PackedStringArray("hp_bar")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("2_0a560")
+hp_bar = NodePath("HP Bar")
+
+[node name="HP Bar" type="TextureProgressBar" parent="HUD"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 148.0
+offset_bottom = 36.0
+scale = Vector2(3, 3)
+texture_under = ExtResource("2_1pekg")
+texture_over = ExtResource("3_ke1dt")
+texture_progress = ExtResource("4_0a560")
+
+[node name="Hand" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("2_s5p0m")
 
 [node name="ArrowContainer" type="Control" parent="."]
 layout_mode = 3

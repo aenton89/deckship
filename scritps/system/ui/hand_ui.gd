@@ -54,12 +54,8 @@ func update_card_positions():
 		var x_offset = x_offset_diff * i
 		var y_offset = y_offset_diff * i * i
 		
-		#print("angle: ", angle, " x_offset: ", x_offset, " y_offset: ", y_offset)
-		
 		card.base_y = size.y - y_default + y_offset
 		card.position = Vector2(size.x/2 + x_offset, card.base_y)
 		card.rotation = angle
-		
-		#print("pos: ", card.position, " rot: ", card.rotation_degrees)
 		
 		i += 1

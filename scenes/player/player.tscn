@@ -1,23 +1,25 @@
-[gd_scene load_steps=8 format=3 uid="uid://2bbk1qjegcs4"]
+[gd_scene load_steps=9 format=3 uid="uid://2bbk1qjegcs4"]
 
-[ext_resource type="Script" uid="uid://dvmnrduhp7gx7" path="res://scritps/player/player.gd" id="1_g2els"]
+[ext_resource type="Script" uid="uid://dvyehard432xd" path="res://scritps/player/player.gd" id="1_g2els"]
 [ext_resource type="Texture2D" uid="uid://dlp4yjuopowty" path="res://assets/player/ship.png" id="2_g2els"]
-[ext_resource type="Script" uid="uid://d4jiugl1w6xb3" path="res://scritps/player/camera_rig.gd" id="3_75vfm"]
-[ext_resource type="Script" uid="uid://b1ual06tou7g" path="res://scritps/components/components.gd" id="3_lvxji"]
-[ext_resource type="Script" uid="uid://cagl3ub6otl26" path="res://scritps/components/hp_component.gd" id="3_qhqgy"]
+[ext_resource type="Script" uid="uid://n2pn5k6c4byv" path="res://scritps/player/camera_rig.gd" id="3_75vfm"]
+[ext_resource type="Script" uid="uid://hq1bo2dtf216" path="res://scritps/components/components.gd" id="3_lvxji"]
+[ext_resource type="Script" uid="uid://c72xg0cl1g6l2" path="res://scritps/components/hp_component.gd" id="3_qhqgy"]
 [ext_resource type="PackedScene" uid="uid://l8fyderrn8e8" path="res://scenes/system/ui/user_interface.tscn" id="5_p47bc"]
+[ext_resource type="Script" uid="uid://deotxf35m4h5n" path="res://scritps/components/money_component.gd" id="6_0owmy"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_75vfm"]
 radius = 200.0
 
-[node name="Player" type="RigidBody2D" node_paths=PackedStringArray("camera_rig", "shooting_marker", "hp_component", "UI", "interaction_area") groups=["destructable", "player"]]
+[node name="Player" type="RigidBody2D" node_paths=PackedStringArray("camera_rig", "shooting_marker", "UI", "interaction_area", "hp_component", "money_component") groups=["destructable", "player"]]
 input_pickable = true
 script = ExtResource("1_g2els")
 camera_rig = NodePath("Camera Rig")
 shooting_marker = NodePath("Shooting Marker")
-hp_component = NodePath("Components/HPComponent")
 UI = NodePath("User Interface")
 interaction_area = NodePath("InteractionArea")
+hp_component = NodePath("Components/HPComponent")
+money_component = NodePath("Components/MoneyComponent")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -47,6 +49,11 @@ script = ExtResource("3_lvxji")
 
 [node name="HPComponent" type="Node" parent="Components"]
 script = ExtResource("3_qhqgy")
+metadata/_custom_type_script = "uid://c72xg0cl1g6l2"
+
+[node name="MoneyComponent" type="Node" parent="Components"]
+script = ExtResource("6_0owmy")
+metadata/_custom_type_script = "uid://deotxf35m4h5n"
 
 [node name="User Interface" parent="." instance=ExtResource("5_p47bc")]
 

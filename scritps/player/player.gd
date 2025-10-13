@@ -14,9 +14,11 @@ class_name Player
 @export_category("References")
 @export var camera_rig: CameraRig
 @export var shooting_marker: Marker2D
-@export var hp_component: HPComponent
 @export var UI: UserInterface
 @export var interaction_area: Area2D
+@export_subgroup("Components")
+@export var hp_component: HPComponent
+@export var money_component: MoneyComponent
 @export_category("Imports")
 @export var bullet_scene: PackedScene = preload("res://scenes/player/bullet.tscn")
 

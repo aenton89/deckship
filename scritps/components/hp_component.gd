@@ -1,6 +1,5 @@
-extends Node
+extends Components
 class_name HPComponent
-
 ### TODO:
 # analogicznie AttackComponent oraz HitboxComponent (czy na pewno potrzebne???)
 # zamienić w damage amount: float na attack: AttackComponent
