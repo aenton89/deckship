@@ -16,6 +16,7 @@ class_name Enemy
 @export var perfect_distance_shape: CollisionShape2D
 @export var shooting_marker: Marker2D
 @export var hp_component: HPComponent
+@export var money_component: MoneyComponent
 @export var state_chart: StateChart
 @export_category("Imports")
 @export var bullet_scene: PackedScene = preload("res://scenes/player/bullet.tscn")

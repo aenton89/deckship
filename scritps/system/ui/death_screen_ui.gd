@@ -28,3 +28,4 @@ func _on_player_died() -> void:
 		Global.UI.hud.visible = false
 		Global.UI.hand_control.visible = false
 		Global.UI.compass_strip.visible = false
+		Global.UI.money_ui.visible = false

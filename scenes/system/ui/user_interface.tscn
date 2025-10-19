@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://l8fyderrn8e8"]
+[gd_scene load_steps=19 format=3 uid="uid://l8fyderrn8e8"]
 
 [ext_resource type="Script" uid="uid://c4fy6dwdm2nc0" path="res://scritps/system/ui/user_interface.gd" id="1_rd21x"]
 [ext_resource type="Script" uid="uid://ey1d7u6trrji" path="res://scritps/system/ui/hud_ui.gd" id="2_0a560"]
@@ -12,6 +12,8 @@
 [ext_resource type="Script" uid="uid://gcjnwt1pied" path="res://scritps/system/ui/arrow_container_ui.gd" id="8_kwcd6"]
 [ext_resource type="Script" uid="uid://hwvpe5cbvted" path="res://scritps/system/ui/compass_strip_ui.gd" id="9_ce4vw"]
 [ext_resource type="Texture2D" uid="uid://cjyhfc4hjco7f" path="res://assets/ui/compass_v1.png" id="10_bke8n"]
+[ext_resource type="Script" uid="uid://dhqugbyjoki8h" path="res://scritps/system/ui/money_ui.gd" id="13_scrt1"]
+[ext_resource type="LabelSettings" uid="uid://cr1046skf4tlm" path="res://resources/ui/money_label_settings.tres" id="14_svg3x"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1n82y"]
 shader = ExtResource("2_76tsf")
@@ -48,7 +50,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("DeathScreen/VBoxContainer/Died:modulate")
+tracks/2/path = NodePath("DeathScreen/VBoxContainer/DiedLabel:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -88,7 +90,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("DeathScreen/VBoxContainer/Died:modulate")
+tracks/2/path = NodePath("DeathScreen/VBoxContainer/DiedLabel:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -104,13 +106,14 @@ _data = {
 &"death_screen_fade": SubResource("Animation_s3ato")
 }
 
-[node name="User Interface" type="CanvasLayer" node_paths=PackedStringArray("hud", "hand_control", "death_screen", "arrow_container", "compass_strip", "animation_player")]
+[node name="User Interface" type="CanvasLayer" node_paths=PackedStringArray("hud", "hand_control", "death_screen", "arrow_container", "compass_strip", "money_ui", "animation_player")]
 script = ExtResource("1_rd21x")
 hud = NodePath("HUD")
 hand_control = NodePath("Hand")
 death_screen = NodePath("DeathScreen")
 arrow_container = NodePath("ArrowContainer")
 compass_strip = NodePath("Compass")
+money_ui = NodePath("MoneyUI")
 animation_player = NodePath("AnimationPlayer")
 
 [node name="DeathScreen" type="Control" parent="."]
@@ -145,7 +148,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 
-[node name="Died" type="Label" parent="DeathScreen/VBoxContainer"]
+[node name="DiedLabel" type="Label" parent="DeathScreen/VBoxContainer"]
 layout_mode = 2
 text = "YOU DIED"
 label_settings = ExtResource("3_1n82y")
@@ -209,3 +212,29 @@ script = ExtResource("8_kwcd6")
 libraries = {
 &"": SubResource("AnimationLibrary_qrdmj")
 }
+
+[node name="MoneyUI" type="Control" parent="." node_paths=PackedStringArray("label", "change_label")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("13_scrt1")
+label = NodePath("MoneyLabel")
+change_label = NodePath("MoneyLabel/MoneyChangeLabel")
+
+[node name="MoneyLabel" type="Label" parent="MoneyUI"]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 70.0
+offset_right = 85.0
+offset_bottom = 115.0
+text = "129"
+label_settings = ExtResource("14_svg3x")
+
+[node name="MoneyChangeLabel" type="Label" parent="MoneyUI/MoneyLabel"]
+layout_mode = 0
+offset_left = 95.0
+offset_right = 150.0
+offset_bottom = 45.0
+text = "321"
+label_settings = ExtResource("14_svg3x")
