@@ -2,6 +2,7 @@ extends Node2D
 class_name Reward
 
 
+
 @export_category("References")
 @export var animated_sprite: AnimatedSprite2D
 @export_category("Reward Stats")
@@ -17,10 +18,10 @@ func _ready() -> void:
 
 
 
-func generate_from_preset(preset: Dictionary) -> Array[Bonus]:
-	var result: Array[Bonus] = []
+func generate_from_preset(preset: Dictionary) -> Array[CardBonus]:
+	var result: Array[CardBonus] = []
 	for bonus_data in preset["bonuses"]:
-		var b = Bonus.new(bonus_data["type"], bonus_data["value"])
+		var b = CardBonus.new(bonus_data["type"], bonus_data["value"])
 		result.append(b)
 	return result
 
@@ -42,7 +43,7 @@ func _on_body_entered(body: Node2D) -> void:
 	
 		# debug bonusów:
 		for bonus_data in preset["bonuses"]:
-			print("Bonus: ", Bonus.StatBoosts.keys()[bonus_data["type"]], " = ", bonus_data["value"])
+			print("CardBonus: ", CardBonus.StatBoosts.keys()[bonus_data["type"]], " = ", bonus_data["value"])
 	
 		# animacja (tween w górę i powrót)
 		var original_y = position.y

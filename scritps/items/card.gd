@@ -14,7 +14,7 @@ class_name Card
 @export var trans: Tween.TransitionType = Tween.TRANS_SINE
 @export var ease: Tween.EaseType = Tween.EASE_IN_OUT
 
-var bonuses: Array[Bonus] = []
+var bonuses: Array[CardBonus] = []
 var current_tween: Tween = null
 var base_y: float
 var hovered: bool = false
@@ -43,7 +43,7 @@ func setup(preset: Dictionary) -> void:
 	# ustaw bonusy
 	bonuses = []
 	for bonus_data in preset["bonuses"]:
-		var b = Bonus.new(bonus_data["type"], bonus_data["value"])
+		var b = CardBonus.new(bonus_data["type"], bonus_data["value"])
 		bonuses.append(b)
 	
 	# ustaw grafikę

@@ -1,5 +1,5 @@
 extends Node
-class_name Bonus
+class_name CardBonus
 
 
 

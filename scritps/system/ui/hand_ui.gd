@@ -32,7 +32,7 @@ func remove_card(card_to_remove: Card) -> void:
 func apply_card(card: Card) -> void:
 	for bonus in card.bonuses:
 		match bonus.stat:
-			Bonus.StatBoosts.DMG:
+			CardBonus.StatBoosts.DMG:
 				Global.player.stats.dmg += bonus.value
 	
 	remove_card(card)

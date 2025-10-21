@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://bf4d0ynycabq3"]
+
+[ext_resource type="Texture2D" uid="uid://bg28d7fqbw2vh" path="res://assets/icon.svg" id="1_72ctr"]
+[ext_resource type="Script" uid="uid://1md38yamikv6" path="res://scritps/npc/merchant.gd" id="1_ss6c5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l0yq7"]
+size = Vector2(26, 26)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ss6c5"]
+radius = 60.0
+
+[node name="Merchant" type="StaticBody2D" node_paths=PackedStringArray("interaction_area")]
+script = ExtResource("1_ss6c5")
+interaction_area = NodePath("Interaction Area")
+
+[node name="Collision Shape" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_l0yq7")
+
+[node name="Icon" type="Sprite2D" parent="."]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_72ctr")
+
+[node name="Interaction Area" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interaction Area"]
+shape = SubResource("CircleShape2D_ss6c5")
+
+[connection signal="body_entered" from="Interaction Area" to="." method="_on_interaction_area_body_entered"]
+[connection signal="body_exited" from="Interaction Area" to="." method="_on_interaction_area_body_exited"]

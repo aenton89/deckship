@@ -57,5 +57,4 @@ scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_vsjww")
 animation = &"idle"
 
-[connection signal="area_entered" from="Area2D" to="." method="_on_area_entered"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_body_entered"]

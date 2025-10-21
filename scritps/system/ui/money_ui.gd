@@ -23,13 +23,14 @@ func _ready() -> void:
 
 
 func _on_player_ready() -> void:
-	label.visible = true
 	label.text = str(Global.player.money_component.money)
 	change_label.position.x = label.size.x + spacing
 	
 	Global.player.money_component.player_money_changed.connect(_on_money_changed)
 
 func _on_money_changed(amount: int) -> void:
+	label.visible = true
+	
 	var previous_amount = int(label.text)
 	var operation_sign: String = "+"
 	var await_time: float = change_time/amount
@@ -51,3 +52,6 @@ func _on_money_changed(amount: int) -> void:
 	change_label.position.x = label.size.x + spacing
 	
 	label.text = str(Global.player.money_component.money)
+	
+	await get_tree().create_timer(1.5).timeout
+	label.visible = false
