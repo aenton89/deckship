@@ -1,8 +1,0 @@
-[gd_resource type="Resource" script_class="PlayerStats" load_steps=2 format=3 uid="uid://bbcd71wuwii2l"]
-
-[ext_resource type="Script" uid="uid://ckgfr2britv6n" path="res://resources/player/player_stats.gd" id="1_ps2q2"]
-
-[resource]
-script = ExtResource("1_ps2q2")
-bounce_amount = 3
-shooting_angle = 0.785398

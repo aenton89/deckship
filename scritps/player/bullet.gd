@@ -1,6 +1,5 @@
 extends Area2D
 class_name Bullet
-
 ### TODO: 
 ## zmienić, bo obrażenia są pobierane od gracza (dla wrogów też) a na dodatek jednorazowo xd, więc się nie aktualizują
 # constructor that sets speed and dmg
@@ -8,9 +7,11 @@ class_name Bullet
 # no i jeszcze uwzględnić jakoś prędkość poruszającego się statku który strzela
 
 
+
 @export_category("References")
 @export var shape: CollisionShape2D
 @export var sprite: Sprite2D
+@export var life_timer: Timer
 @export_category("Bullet Details")
 # life time of bullet
 @export var life_span: float = 3.0
@@ -23,25 +24,16 @@ var speed: float = 500.0
 var dmg: float = 10.0
 var dmg_amount: float
 # direction vector
-var direction: Vector2 = Vector2.ZERO
-# time on earth (pray)
-@onready var life_timer: Timer = %"Life Time"
+var dir: Vector2 = Vector2.ZERO
+
 @onready var is_crit: bool = false
 
 
 
-func _ready() -> void:
-	life_timer.one_shot = true
-	life_timer.start(life_span)
-	
-	bounce = Global.player.stats.bounce_amount
-	speed = Global.player.stats.bullet_speed
-	dmg  = Global.player.stats.dmg
-
 # na trafienie czegokolwiek (nawet siebie) zadać obrażenia; jeśli tamto coś nie zostanie zniszczone, to odbijamy pocisk (tylko 1 odbicie, nie więcej)
 func _physics_process(delta: float) -> void:
 	if Global.player:
-		var motion = Global.player.stats.bullet_speed * direction * delta
+		var motion = Global.player.stats.bullet_speed * dir * delta
 		var space_state = get_world_2d().direct_space_state
 		
 		var query = PhysicsRayQueryParameters2D.create(global_position, global_position + motion.normalized() * (motion.length() + raycast_margin))
@@ -56,8 +48,8 @@ func _physics_process(delta: float) -> void:
 			
 			if bounce > 0:
 				var collision_normal = result.normal
-				direction = direction.bounce(collision_normal).normalized()
-				rotation = direction.angle() + PI / 2
+				dir = dir.bounce(collision_normal).normalized()
+				rotation = dir.angle() + PI / 2
 				bounce -= 1
 			else:
 				queue_free()
@@ -66,11 +58,24 @@ func _physics_process(delta: float) -> void:
 
 
 
-# pocisk nie może istnieć w nieskończoność
-func _on_life_timer_timeout() -> void:
-	queue_free()
-
-
+func init(direction: Vector2, position: Vector2, texture: Texture2D = null, scale: Vector2 = Vector2.ONE, velocity: float = -1, damage: float = -1, bounce_amount: int = -1) -> void:
+	dir = direction.normalized()
+	global_position = position
+	
+	if texture:
+		sprite.texture = texture
+	sprite.scale = scale
+	
+	if velocity > 0:
+		speed = velocity
+	if damage > 0:
+		dmg = damage
+	if bounce_amount >= 0:
+		bounce = bounce_amount
+	
+	rotation = direction.angle() + PI/2
+	life_timer.one_shot = true
+	life_timer.start(life_span)
 
 func apply_dmg(body: Node2D) -> void:
 	is_crit = false
@@ -103,3 +108,7 @@ func apply_dmg(body: Node2D) -> void:
 				# body.queue_free()
 				queue_free()
 				return
+
+# pocisk nie może istnieć w nieskończoność
+func _on_life_timer_timeout() -> void:
+	queue_free()

@@ -10,7 +10,7 @@ class_name Player
 
 
 @export_category("Player Base Stats")
-@export var stats: PlayerStats = preload("res://resources/player/default_player_stats.tres")
+@export var stats: ShipStats = preload("res://resources/stats/player_stats.tres")
 @export_category("References")
 @export var camera_rig: CameraRig
 @export var shooting_marker: Marker2D
@@ -37,14 +37,14 @@ func _ready() -> void:
 	Global.player = self
 	set_gravity_scale(0.0)
 	
-	hp_component.init(stats.max_hp)
-	hp_component.player_took_dmg.connect(_on_took_dmg)
-	
 	# coś się zepsuło
 	if stats == null:
 		if Global.draw_debug:
 			print("but why null?")
-		stats = PlayerStats.new()
+		stats = ShipStats.new()
+	
+	hp_component.init(stats.max_hp)
+	hp_component.player_took_dmg.connect(_on_took_dmg)
 	
 	Global.emit_signal("player_ready")
 
@@ -104,18 +104,22 @@ func _on_took_dmg() -> void:
 func shoot() -> void:
 	var dir = (get_global_mouse_position() - global_position).normalized()
 	var angle = normal.angle_to(dir)
-	var bt: Bullet = bullet_scene.instantiate()
 	
 	# ograniczenie kąta strzału
 	if abs(angle) > stats.shooting_angle:
 		var bounded_angle = sign(angle) * stats.shooting_angle
 		dir = normal.rotated(bounded_angle)
 	
-	# obrót pocisku żeby pasował do strzału
-	bt.rotate(dir.angle() + PI/2)
-	
-	bt.direction = dir
-	bt.global_position = shooting_marker.global_position
+	var bt: Bullet = bullet_scene.instantiate()
+	bt.init(
+		dir,
+		shooting_marker.global_position,
+		null,
+		Vector2(1.5, 1.5),
+		stats.bullet_speed,
+		stats.dmg,
+		stats.bounce_amount
+	)
 	get_tree().current_scene.add_child(bt)
 
 func rotate_ship(delta: float) -> void:

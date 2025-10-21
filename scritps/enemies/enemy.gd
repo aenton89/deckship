@@ -8,6 +8,9 @@ class_name Enemy
 # 
 
 
+
+@export_category("Enemy Base Stats")
+@export var stats: ShipStats = preload("res://resources/stats/enemy_stats.tres")
 @export_category("References")
 @export var detection_area: Area2D
 @export var move_away_area: Area2D
@@ -22,8 +25,9 @@ class_name Enemy
 @export var bullet_scene: PackedScene = preload("res://scenes/player/bullet.tscn")
 @export var bullet_icon: CompressedTexture2D = preload("res://assets/enemies/bullet_enemy.png")
 
-@export_category("Health")
-@export var max_hp: float = 50.0
+# TODO:
+#@export_category("Health")
+#@export var max_hp: float = 50.0
 
 @export_category("Movement Stats")
 @export_subgroup("Movement Defaults")
@@ -33,8 +37,10 @@ class_name Enemy
 @export var movement_cooldown: float = 1.0
 # treshold poniżej którego enemy dolatuje prosto do położenia gracza, a nie końca jego wektora prędkości
 @export var player_vel_treshold: float = 30.0
+
+# TODO:
 # radiany/sekunde
-@export var max_angular_speed: float = 3.0
+#@export var max_angular_speed: float = 3.0
 
 @export_subgroup("Following Far")
 @export var detection_range: float = 1000.0
@@ -49,7 +55,10 @@ class_name Enemy
 @export_category("Shooting Stats")
 @export_subgroup("Shooting Defaults")
 @export var shooting_cooldown: float = 2.0
-@export var shooting_angle: float = PI / 4
+
+# TODO:
+#@export var shooting_angle: float = PI / 4
+
 @export_subgroup("Move Away Firing")
 @export var firing_cooldown: float = 0.1
 @export var firing_amount: int = 5
@@ -77,7 +86,12 @@ var target_point: Vector2
 func _ready() -> void:
 	set_gravity_scale(0.0)
 	
-	hp_component.init(max_hp)
+	if stats == null:
+		if Global.draw_debug:
+			print("but why null? - enemy")
+		stats = ShipStats.new()
+	
+	hp_component.init(stats.max_hp)
 	
 	if detection_shape and detection_shape.shape is CircleShape2D:
 		detection_shape.shape.radius = detection_range
@@ -144,7 +158,7 @@ func rotate_towards_player(delta: float) -> void:
 	# różnica kątów znormalizowana do przedziału [-PI, PI]
 	var angle_diff = wrapf(desired_angle - current_angle, -PI, PI)
 	# ogranicz prędkość obrotu
-	var max_step = max_angular_speed * delta
+	var max_step = stats.rotate_speed * delta
 	var angle_step = clamp(angle_diff, -max_step, max_step)
 	
 	rotation += angle_step
@@ -219,16 +233,20 @@ func shoot() -> void:
 	var angle = forward.angle_to(dir)
 	
 	# ograniczenie kąta strzału
-	if abs(angle) > shooting_angle:
-		var bounded_angle = sign(angle) * shooting_angle
+	if abs(angle) > stats.shooting_angle:
+		var bounded_angle = sign(angle) * stats.shooting_angle
 		dir = forward.rotated(bounded_angle)
 	
 	var bt: Bullet = bullet_scene.instantiate()
-	bt.sprite.texture = bullet_icon
-	bt.sprite.scale = Vector2(1.5, 1.5)
-	bt.global_position = shooting_marker.global_position
-	bt.direction = dir
-	bt.rotate(dir.angle() + PI/2)
+	bt.init(
+		dir,
+		shooting_marker.global_position,
+		bullet_icon,
+		Vector2(1.5, 1.5),
+		stats.bullet_speed,
+		stats.dmg,
+		stats.bounce_amount
+	)
 	get_tree().current_scene.add_child(bt)
 	
 	shooting_timer.start()
