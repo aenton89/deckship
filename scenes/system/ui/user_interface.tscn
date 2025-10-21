@@ -208,11 +208,6 @@ offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("8_kwcd6")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_qrdmj")
-}
-
 [node name="MoneyUI" type="Control" parent="." node_paths=PackedStringArray("label", "change_label")]
 layout_mode = 3
 anchors_preset = 0
@@ -238,3 +233,8 @@ offset_right = 150.0
 offset_bottom = 45.0
 text = "321"
 label_settings = ExtResource("14_svg3x")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_qrdmj")
+}
