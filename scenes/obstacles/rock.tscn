@@ -27,4 +27,3 @@ metadata/_custom_type_script = "uid://hq1bo2dtf216"
 
 [node name="HP Component" type="Node" parent="Components"]
 script = ExtResource("4_p2d0s")
-max_health = 20.0

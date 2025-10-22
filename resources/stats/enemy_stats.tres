@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="ShipStats" load_steps=2 format=3 uid="uid://dqkuaof5vyvmi"]
 
-[ext_resource type="Script" uid="uid://ckgfr2britv6n" path="res://resources/stats/ship_stats.gd" id="1_utkvq"]
+[ext_resource type="Script" uid="uid://khddbyiqqyma" path="res://resources/stats/ship_stats.gd" id="1_utkvq"]
 
 [resource]
 script = ExtResource("1_utkvq")
 dmg = 5.0
 rotate_speed = 3.0
 max_hp = 50.0
-metadata/_custom_type_script = "uid://ckgfr2britv6n"
+metadata/_custom_type_script = "uid://khddbyiqqyma"

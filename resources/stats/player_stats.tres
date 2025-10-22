@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="ShipStats" load_steps=2 format=3 uid="uid://lgnemvg47gv5"]
 
-[ext_resource type="Script" uid="uid://ckgfr2britv6n" path="res://resources/stats/ship_stats.gd" id="1_7kogv"]
+[ext_resource type="Script" uid="uid://khddbyiqqyma" path="res://resources/stats/ship_stats.gd" id="1_7kogv"]
 
 [resource]
 script = ExtResource("1_7kogv")
 bounce_amount = 3
-metadata/_custom_type_script = "uid://ckgfr2britv6n"
+metadata/_custom_type_script = "uid://khddbyiqqyma"

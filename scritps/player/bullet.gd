@@ -22,6 +22,8 @@ var bounce: int = 1
 # specifies bullet statistics
 var speed: float = 500.0
 var dmg: float = 10.0
+var crit_chance: float = 0.1
+var crit_amount: float = 1.2
 var dmg_amount: float
 # direction vector
 var dir: Vector2 = Vector2.ZERO
@@ -33,7 +35,7 @@ var dir: Vector2 = Vector2.ZERO
 # na trafienie czegokolwiek (nawet siebie) zadać obrażenia; jeśli tamto coś nie zostanie zniszczone, to odbijamy pocisk (tylko 1 odbicie, nie więcej)
 func _physics_process(delta: float) -> void:
 	if Global.player:
-		var motion = Global.player.stats.bullet_speed * dir * delta
+		var motion = speed * dir * delta
 		var space_state = get_world_2d().direct_space_state
 		
 		var query = PhysicsRayQueryParameters2D.create(global_position, global_position + motion.normalized() * (motion.length() + raycast_margin))
@@ -58,7 +60,7 @@ func _physics_process(delta: float) -> void:
 
 
 
-func init(direction: Vector2, position: Vector2, texture: Texture2D = null, scale: Vector2 = Vector2.ONE, velocity: float = -1, damage: float = -1, bounce_amount: int = -1) -> void:
+func init(direction: Vector2, position: Vector2, texture: Texture2D = null, scale: Vector2 = Vector2.ONE, velocity: float = -1, damage: float = -1, bounce_amount: int = -1, critical_chance: float = -1, critical_amount: float = -1) -> void:
 	dir = direction.normalized()
 	global_position = position
 	
@@ -66,12 +68,16 @@ func init(direction: Vector2, position: Vector2, texture: Texture2D = null, scal
 		sprite.texture = texture
 	sprite.scale = scale
 	
-	if velocity > 0:
+	if velocity >= 0:
 		speed = velocity
-	if damage > 0:
+	if damage >= 0:
 		dmg = damage
 	if bounce_amount >= 0:
 		bounce = bounce_amount
+	if critical_chance >= 0:
+		crit_chance = critical_chance
+	if critical_amount >= 0:
+		crit_amount = critical_amount
 	
 	rotation = direction.angle() + PI/2
 	life_timer.one_shot = true
@@ -82,23 +88,23 @@ func apply_dmg(body: Node2D) -> void:
 	dmg_amount = dmg
 	
 	var hp_component: HPComponent
-	var components: Components
+	var component: Components
 	
 	for child in body.get_children():
 		if child is Components:
-			components = child
+			component = child
 			break
 	
-	if components:
-		for child in components.get_children():
+	if component:
+		for child in component.get_children():
 			if child is HPComponent:
 				hp_component = child
 				break
 		
 		if hp_component:
 			# apply crit
-			if Global.player and randf() < Global.player.stats.crit_chance:
-				dmg_amount = dmg * Global.player.stats.crit_amount
+			if Global.player and randf() < crit_chance:
+				dmg_amount = dmg * crit_amount
 				is_crit = true
 			
 			hp_component.damage(dmg_amount, is_crit)
