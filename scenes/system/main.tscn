@@ -1,10 +1,10 @@
 [gd_scene load_steps=7 format=3 uid="uid://b55cq8460wwgo"]
 
-[ext_resource type="Script" uid="uid://cjjdyqj1kdc3f" path="res://scritps/system/main.gd" id="1_5m258"]
+[ext_resource type="Script" uid="uid://bab0f1ap0m661" path="res://scritps/system/main.gd" id="1_5m258"]
 [ext_resource type="PackedScene" uid="uid://2bbk1qjegcs4" path="res://scenes/player/player.tscn" id="1_6awnf"]
 [ext_resource type="PackedScene" uid="uid://ccbd3vi5s7y35" path="res://scenes/levels/test_level.tscn" id="5_628vv"]
 [ext_resource type="Texture2D" uid="uid://bqgxx1xslxk1n" path="res://assets/world/space.png" id="6_uaibl"]
-[ext_resource type="Shader" uid="uid://bos2l3342irfu" path="res://resources/environment/crt_shader.gdshader" id="7_uaibl"]
+[ext_resource type="Shader" uid="uid://0v2npn0m2iya" path="res://resources/environment/crt_shader.gdshader" id="7_uaibl"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_t1oto"]
 shader = ExtResource("7_uaibl")
@@ -30,21 +30,21 @@ shader_parameter/clip_warp = false
 shader_parameter/vignette_intensity = 0.4
 shader_parameter/vignette_opacity = 0.2
 
-[node name="Main Scene" type="Node2D" node_paths=PackedStringArray("player")]
+[node name="Main Scene" type="Node2D" unique_id=937035620 node_paths=PackedStringArray("player")]
 script = ExtResource("1_5m258")
 player = NodePath("Player")
 
-[node name="TestLevel" parent="." instance=ExtResource("5_628vv")]
+[node name="TestLevel" parent="." unique_id=59530065 instance=ExtResource("5_628vv")]
 
-[node name="Player" parent="." instance=ExtResource("1_6awnf")]
+[node name="Player" parent="." unique_id=1945939046 instance=ExtResource("1_6awnf")]
 
-[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+[node name="ParallaxBackground" type="ParallaxBackground" parent="." unique_id=1257540869]
 
-[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground" unique_id=1641696136]
 motion_scale = Vector2(0.1, 0.1)
 motion_mirroring = Vector2(2048, 2048)
 
-[node name="Space" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+[node name="Space" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer" unique_id=128557742]
 texture_repeat = 2
 scale = Vector2(2, 2)
 texture = ExtResource("6_uaibl")
@@ -52,10 +52,11 @@ centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 7680, 4320)
 
-[node name="Shader Layer" type="CanvasLayer" parent="."]
+[node name="Shader Layer" type="CanvasLayer" parent="." unique_id=642498250]
 layer = 128
+visible = false
 
-[node name="ColorRect" type="ColorRect" parent="Shader Layer"]
+[node name="ColorRect" type="ColorRect" parent="Shader Layer" unique_id=226878678]
 material = SubResource("ShaderMaterial_t1oto")
 anchors_preset = 15
 anchor_right = 1.0

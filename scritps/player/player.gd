@@ -16,6 +16,8 @@ class_name Player
 @export var shooting_marker: Marker2D
 @export var UI: UserInterface
 @export var interaction_area: Area2D
+@export var dodge_timer: Timer
+@export var sprite: Sprite2D
 @export_subgroup("Components")
 @export var hp_component: HPComponent
 @export var money_component: MoneyComponent
@@ -30,6 +32,8 @@ class_name Player
 @onready var rotate_to_mouse: bool = false
 # shooting vars
 @onready var shoot_force: Vector2 = Vector2.ZERO
+# dodge cooldown
+@onready var dodges_available: int = stats.dodge_amount
 
 
 
@@ -45,6 +49,10 @@ func _ready() -> void:
 	
 	hp_component.init(stats.max_hp)
 	hp_component.player_took_dmg.connect(_on_took_dmg)
+	
+	dodge_timer.one_shot = true
+	dodge_timer.autostart = false
+	dodge_timer.timeout.connect(_on_dodge_cooldown)
 	
 	Global.emit_signal("player_ready")
 
@@ -86,6 +94,16 @@ func _input(event: InputEvent) -> void:
 			rotate_to_mouse = true
 		if Input.is_action_just_released("rotate"):
 			rotate_to_mouse = false
+		# dodging
+		if Input.is_action_just_pressed("dodge_left"):
+			dodge(Vector2.LEFT)
+		if Input.is_action_just_pressed("dodge_right"):
+			dodge(Vector2.RIGHT)
+		if Input.is_action_just_pressed("dodge_up"):
+			dodge(Vector2.UP)
+		if Input.is_action_just_pressed("dodge_down"):
+			dodge(Vector2.DOWN)
+
 
 
 
@@ -98,6 +116,12 @@ func _on_mouse_exited() -> void:
 
 func _on_took_dmg() -> void:
 	camera_rig.shake_camera()
+
+func _on_dodge_cooldown() -> void:
+	dodges_available += 1
+	
+	if dodges_available < stats.dodge_amount:
+		dodge_timer.start(stats.dodge_cooldown)
 
 
 
@@ -118,7 +142,8 @@ func shoot() -> void:
 		Vector2(1.5, 1.5),
 		stats.bullet_speed,
 		stats.dmg,
-		stats.bounce_amount
+		stats.bounce_amount,
+		stats.bullet_explosion_force
 	)
 	get_tree().current_scene.add_child(bt)
 
@@ -138,6 +163,33 @@ func apply_movement() -> void:
 			print("PLAYER applied force: ", shoot_force * 20)
 		apply_force(shoot_force * 20)
 		shoot_force = Vector2.ZERO
+
+func dodge(direction: Vector2) -> void:
+	if dodges_available > 0:
+		var dodge_vector: Vector2 = direction.rotated(rotation) * stats.dodge_strength
+		apply_impulse(dodge_vector)
+		
+		for i in range(3):
+			spawn_ghost_trail()
+			await get_tree().create_timer(0.1).timeout
+		
+		Global.UI.dodge_ui.start_cooldown(dodges_available - 1)
+		
+		dodges_available -= 1
+		dodge_timer.start(stats.dodge_cooldown)
+
+func spawn_ghost_trail():
+	var ghost: Sprite2D = Sprite2D.new()
+	ghost.texture = sprite.texture
+	ghost.global_position = sprite.global_position
+	ghost.global_rotation = sprite.global_rotation
+	ghost.scale = sprite.scale
+	
+	get_tree().current_scene.add_child(ghost)
+	
+	var tween: Tween = get_tree().create_tween()
+	tween.tween_property(ghost, "modulate:a", 0.0, 0.25)
+	tween.tween_callback(ghost.queue_free)
 
 
 

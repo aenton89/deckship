@@ -1,25 +1,25 @@
 [gd_scene load_steps=25 format=3 uid="uid://bdoihx51gijw0"]
 
-[ext_resource type="Script" uid="uid://6ggi13rno4u5" path="res://scritps/enemies/enemy.gd" id="1_6xk8f"]
+[ext_resource type="Script" uid="uid://di0rjhjsc3jkv" path="res://scritps/enemies/enemy.gd" id="1_6xk8f"]
 [ext_resource type="Texture2D" uid="uid://bnp80lbn4hnsq" path="res://assets/enemies/enemy.png" id="2_8e3ao"]
-[ext_resource type="Script" uid="uid://hq1bo2dtf216" path="res://scritps/components/components.gd" id="3_fcftc"]
-[ext_resource type="Script" uid="uid://c72xg0cl1g6l2" path="res://scritps/components/hp_component.gd" id="4_lu5c6"]
+[ext_resource type="Script" uid="uid://b1ual06tou7g" path="res://scritps/components/components.gd" id="3_fcftc"]
+[ext_resource type="Script" uid="uid://cagl3ub6otl26" path="res://scritps/components/hp_component.gd" id="4_lu5c6"]
 [ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="5_lu5c6"]
-[ext_resource type="Script" uid="uid://deotxf35m4h5n" path="res://scritps/components/money_component.gd" id="5_maese"]
-[ext_resource type="Script" uid="uid://by2pheoorddq5" path="res://scritps/enemies/state machine/enemy_state_machine.gd" id="5_qch6t"]
+[ext_resource type="Script" uid="uid://b58h1q2hlgxjt" path="res://scritps/components/money_component.gd" id="5_maese"]
+[ext_resource type="Script" uid="uid://cn3mrucqx7uia" path="res://scritps/enemies/state machine/enemy_state_machine.gd" id="5_qch6t"]
 [ext_resource type="Script" uid="uid://c1vp0ojjvaby1" path="res://addons/godot_state_charts/parallel_state.gd" id="6_n7575"]
-[ext_resource type="Script" uid="uid://bggn48fe052m2" path="res://scritps/enemies/state machine/states/enemy_idle_state.gd" id="6_tihwb"]
+[ext_resource type="Script" uid="uid://dd0r5rgrdk4ee" path="res://scritps/enemies/state machine/states/enemy_idle_state.gd" id="6_tihwb"]
 [ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="7_qch6t"]
-[ext_resource type="Script" uid="uid://c5cjr5770rwkk" path="res://scritps/enemies/state machine/states/enemy_following_state.gd" id="7_smbsv"]
-[ext_resource type="Script" uid="uid://bovltjwwa1jd" path="res://scritps/enemies/state machine/states/enemy_following_far_state.gd" id="8_maese"]
+[ext_resource type="Script" uid="uid://b5ptrgc8n1dsu" path="res://scritps/enemies/state machine/states/enemy_following_state.gd" id="7_smbsv"]
+[ext_resource type="Script" uid="uid://xwwkq0mj47gd" path="res://scritps/enemies/state machine/states/enemy_following_far_state.gd" id="8_maese"]
 [ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="8_y5th1"]
-[ext_resource type="Script" uid="uid://h6owtth248m" path="res://scritps/enemies/state machine/states/enemy_following_mid_state.gd" id="9_4f0mh"]
-[ext_resource type="Script" uid="uid://d201henevq2eg" path="res://scritps/enemies/state machine/states/enemy_following_close_state.gd" id="10_gc4hx"]
+[ext_resource type="Script" uid="uid://bdj0fhugakajh" path="res://scritps/enemies/state machine/states/enemy_following_mid_state.gd" id="9_4f0mh"]
+[ext_resource type="Script" uid="uid://csi0l5kyrdv6p" path="res://scritps/enemies/state machine/states/enemy_following_close_state.gd" id="10_gc4hx"]
 [ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="10_y5th1"]
-[ext_resource type="Script" uid="uid://btmv6h8mlj4xs" path="res://scritps/enemies/state machine/states/enemy_not_shooting_state.gd" id="11_f6y8w"]
-[ext_resource type="Script" uid="uid://pjcodhjvjswe" path="res://scritps/enemies/state machine/states/enemy_shooting_state.gd" id="12_y2gxb"]
-[ext_resource type="Script" uid="uid://b7fow4a7eweq" path="res://scritps/enemies/state machine/states/enemy_shooting_regular_state.gd" id="13_3xxyr"]
-[ext_resource type="Script" uid="uid://3ggvdwi3bdrx" path="res://scritps/enemies/state machine/states/enemy_shooting_canva_state.gd" id="14_xiois"]
+[ext_resource type="Script" uid="uid://cpy78g5id2tdq" path="res://scritps/enemies/state machine/states/enemy_not_shooting_state.gd" id="11_f6y8w"]
+[ext_resource type="Script" uid="uid://304n1rxnxpo6" path="res://scritps/enemies/state machine/states/enemy_shooting_state.gd" id="12_y2gxb"]
+[ext_resource type="Script" uid="uid://02welwg8p4aw" path="res://scritps/enemies/state machine/states/enemy_shooting_regular_state.gd" id="13_3xxyr"]
+[ext_resource type="Script" uid="uid://fd3adb37v3n2" path="res://scritps/enemies/state machine/states/enemy_shooting_canva_state.gd" id="14_xiois"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8e3ao"]
 radius = 1000.0
@@ -35,6 +35,7 @@ size = Vector2(52, 52)
 
 [node name="Enemy" type="RigidBody2D" node_paths=PackedStringArray("detection_area", "move_away_area", "detection_shape", "move_away_shape", "perfect_distance_shape", "shooting_marker", "hp_component", "money_component", "state_chart") groups=["destructable", "enemies", "has_money"]]
 script = ExtResource("1_6xk8f")
+stats = null
 detection_area = NodePath("Detection Area")
 move_away_area = NodePath("Move Away Area")
 detection_shape = NodePath("Detection Area/CollisionShape2D")
@@ -44,6 +45,18 @@ shooting_marker = NodePath("Shooting Marker")
 hp_component = NodePath("Components/HPComponent")
 money_component = NodePath("Components/MoneyComponent")
 state_chart = NodePath("StateChart")
+force_multiplier = null
+movement_cooldown = null
+player_vel_treshold = null
+detection_range = null
+max_speed_following_far = null
+perfect_range = null
+max_speed_following_mid = null
+move_away_range = null
+max_speed_moving_away = null
+shooting_cooldown = null
+firing_cooldown = null
+firing_amount = null
 
 [node name="Detection Area" type="Area2D" parent="."]
 

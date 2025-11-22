@@ -1,7 +1,7 @@
 extends Area2D
 class_name Bullet
 ### TODO: 
-## zmienić, bo obrażenia są pobierane od gracza (dla wrogów też) a na dodatek jednorazowo xd, więc się nie aktualizują
+## czy dodawać prędkość statku do prędkości pocisku???
 # constructor that sets speed and dmg
 # wciąż to co na górze - w _physics_process() jest brane Global.player.sats.bullet_speed
 # no i jeszcze uwzględnić jakoś prędkość poruszającego się statku który strzela
@@ -25,6 +25,7 @@ var dmg: float = 10.0
 var crit_chance: float = 0.1
 var crit_amount: float = 1.2
 var dmg_amount: float
+var explosion_force: float = 400.0
 # direction vector
 var dir: Vector2 = Vector2.ZERO
 
@@ -46,7 +47,7 @@ func _physics_process(delta: float) -> void:
 		
 		if result:
 			var hit_body = result.collider
-			apply_dmg(hit_body)
+			hit_target(hit_body)
 			
 			if bounce > 0:
 				var collision_normal = result.normal
@@ -60,7 +61,7 @@ func _physics_process(delta: float) -> void:
 
 
 
-func init(direction: Vector2, position: Vector2, texture: Texture2D = null, scale: Vector2 = Vector2.ONE, velocity: float = -1, damage: float = -1, bounce_amount: int = -1, critical_chance: float = -1, critical_amount: float = -1) -> void:
+func init(direction: Vector2, position: Vector2, texture: Texture2D = null, scale: Vector2 = Vector2.ONE, velocity: float = -1, damage: float = -1, bounce_amount: int = -1, critical_chance: float = -1, critical_amount: float = -1, force_of_explosion: float = -1) -> void:
 	dir = direction.normalized()
 	global_position = position
 	
@@ -78,15 +79,15 @@ func init(direction: Vector2, position: Vector2, texture: Texture2D = null, scal
 		crit_chance = critical_chance
 	if critical_amount >= 0:
 		crit_amount = critical_amount
+	if force_of_explosion >= 0:
+		explosion_force = force_of_explosion
 	
 	rotation = direction.angle() + PI/2
 	life_timer.one_shot = true
 	life_timer.start(life_span)
 
-func apply_dmg(body: Node2D) -> void:
-	is_crit = false
-	dmg_amount = dmg
-	
+
+func hit_target(body: Node2D) -> void:
 	var hp_component: HPComponent
 	var component: Components
 	
@@ -102,18 +103,35 @@ func apply_dmg(body: Node2D) -> void:
 				break
 		
 		if hp_component:
-			# apply crit
-			if Global.player and randf() < crit_chance:
-				dmg_amount = dmg * crit_amount
-				is_crit = true
-			
-			hp_component.damage(dmg_amount, is_crit)
+			# zadaj obrażenia
+			apply_dmg(body, hp_component)
 			
 			# jeśli obiekt już został zniszczony
 			if hp_component.health <= 0:
 				# body.queue_free()
 				queue_free()
 				return
+			
+			# jeśli nie został to jeszcze odbij
+			apply_explosion_force(body)
+
+func apply_dmg(body: Node2D, hp_component: HPComponent) -> void:
+	is_crit = false
+	dmg_amount = dmg
+	
+	# apply crit
+	if Global.player and randf() < crit_chance:
+		dmg_amount = dmg * crit_amount
+		is_crit = true
+	
+	hp_component.damage(dmg_amount, is_crit)
+
+func apply_explosion_force(body: Node2D) -> void:
+	if body is RigidBody2D:
+		var dir_from_bullet = (body.global_position - global_position).normalized()
+		body.apply_impulse(dir_from_bullet * explosion_force)
+
+
 
 # pocisk nie może istnieć w nieskończoność
 func _on_life_timer_timeout() -> void:

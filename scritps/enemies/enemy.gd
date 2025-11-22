@@ -245,7 +245,8 @@ func shoot() -> void:
 		Vector2(1.5, 1.5),
 		stats.bullet_speed,
 		stats.dmg,
-		stats.bounce_amount
+		stats.bounce_amount,
+		stats.bullet_explosion_force
 	)
 	get_tree().current_scene.add_child(bt)
 	

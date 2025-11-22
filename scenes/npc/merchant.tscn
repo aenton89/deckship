@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bf4d0ynycabq3"]
 
 [ext_resource type="Texture2D" uid="uid://bg28d7fqbw2vh" path="res://assets/icon.svg" id="1_72ctr"]
-[ext_resource type="Script" uid="uid://1md38yamikv6" path="res://scritps/npc/merchant.gd" id="1_ss6c5"]
+[ext_resource type="Script" uid="uid://doxxk24jps7id" path="res://scritps/npc/merchant.gd" id="1_ss6c5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l0yq7"]
 size = Vector2(26, 26)
