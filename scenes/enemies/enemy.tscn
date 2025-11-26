@@ -1,25 +1,25 @@
 [gd_scene load_steps=25 format=3 uid="uid://bdoihx51gijw0"]
 
-[ext_resource type="Script" uid="uid://di0rjhjsc3jkv" path="res://scritps/enemies/enemy.gd" id="1_6xk8f"]
+[ext_resource type="Script" uid="uid://6ggi13rno4u5" path="res://scritps/enemies/enemy.gd" id="1_6xk8f"]
 [ext_resource type="Texture2D" uid="uid://bnp80lbn4hnsq" path="res://assets/enemies/enemy.png" id="2_8e3ao"]
-[ext_resource type="Script" uid="uid://b1ual06tou7g" path="res://scritps/components/components.gd" id="3_fcftc"]
-[ext_resource type="Script" uid="uid://cagl3ub6otl26" path="res://scritps/components/hp_component.gd" id="4_lu5c6"]
+[ext_resource type="Script" uid="uid://hq1bo2dtf216" path="res://scritps/components/components.gd" id="3_fcftc"]
+[ext_resource type="Script" uid="uid://c72xg0cl1g6l2" path="res://scritps/components/hp_component.gd" id="4_lu5c6"]
 [ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="5_lu5c6"]
-[ext_resource type="Script" uid="uid://b58h1q2hlgxjt" path="res://scritps/components/money_component.gd" id="5_maese"]
-[ext_resource type="Script" uid="uid://cn3mrucqx7uia" path="res://scritps/enemies/state machine/enemy_state_machine.gd" id="5_qch6t"]
+[ext_resource type="Script" uid="uid://deotxf35m4h5n" path="res://scritps/components/money_component.gd" id="5_maese"]
+[ext_resource type="Script" uid="uid://by2pheoorddq5" path="res://scritps/enemies/state machine/enemy_state_machine.gd" id="5_qch6t"]
 [ext_resource type="Script" uid="uid://c1vp0ojjvaby1" path="res://addons/godot_state_charts/parallel_state.gd" id="6_n7575"]
-[ext_resource type="Script" uid="uid://dd0r5rgrdk4ee" path="res://scritps/enemies/state machine/states/enemy_idle_state.gd" id="6_tihwb"]
+[ext_resource type="Script" uid="uid://bggn48fe052m2" path="res://scritps/enemies/state machine/states/enemy_idle_state.gd" id="6_tihwb"]
 [ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="7_qch6t"]
-[ext_resource type="Script" uid="uid://b5ptrgc8n1dsu" path="res://scritps/enemies/state machine/states/enemy_following_state.gd" id="7_smbsv"]
-[ext_resource type="Script" uid="uid://xwwkq0mj47gd" path="res://scritps/enemies/state machine/states/enemy_following_far_state.gd" id="8_maese"]
+[ext_resource type="Script" uid="uid://c5cjr5770rwkk" path="res://scritps/enemies/state machine/states/enemy_following_state.gd" id="7_smbsv"]
+[ext_resource type="Script" uid="uid://bovltjwwa1jd" path="res://scritps/enemies/state machine/states/enemy_following_far_state.gd" id="8_maese"]
 [ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="8_y5th1"]
-[ext_resource type="Script" uid="uid://bdj0fhugakajh" path="res://scritps/enemies/state machine/states/enemy_following_mid_state.gd" id="9_4f0mh"]
-[ext_resource type="Script" uid="uid://csi0l5kyrdv6p" path="res://scritps/enemies/state machine/states/enemy_following_close_state.gd" id="10_gc4hx"]
+[ext_resource type="Script" uid="uid://h6owtth248m" path="res://scritps/enemies/state machine/states/enemy_following_mid_state.gd" id="9_4f0mh"]
+[ext_resource type="Script" uid="uid://d201henevq2eg" path="res://scritps/enemies/state machine/states/enemy_following_close_state.gd" id="10_gc4hx"]
 [ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="10_y5th1"]
-[ext_resource type="Script" uid="uid://cpy78g5id2tdq" path="res://scritps/enemies/state machine/states/enemy_not_shooting_state.gd" id="11_f6y8w"]
-[ext_resource type="Script" uid="uid://304n1rxnxpo6" path="res://scritps/enemies/state machine/states/enemy_shooting_state.gd" id="12_y2gxb"]
-[ext_resource type="Script" uid="uid://02welwg8p4aw" path="res://scritps/enemies/state machine/states/enemy_shooting_regular_state.gd" id="13_3xxyr"]
-[ext_resource type="Script" uid="uid://fd3adb37v3n2" path="res://scritps/enemies/state machine/states/enemy_shooting_canva_state.gd" id="14_xiois"]
+[ext_resource type="Script" uid="uid://btmv6h8mlj4xs" path="res://scritps/enemies/state machine/states/enemy_not_shooting_state.gd" id="11_f6y8w"]
+[ext_resource type="Script" uid="uid://pjcodhjvjswe" path="res://scritps/enemies/state machine/states/enemy_shooting_state.gd" id="12_y2gxb"]
+[ext_resource type="Script" uid="uid://b7fow4a7eweq" path="res://scritps/enemies/state machine/states/enemy_shooting_regular_state.gd" id="13_3xxyr"]
+[ext_resource type="Script" uid="uid://3ggvdwi3bdrx" path="res://scritps/enemies/state machine/states/enemy_shooting_canva_state.gd" id="14_xiois"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8e3ao"]
 radius = 1000.0
@@ -33,9 +33,8 @@ radius = 300.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_38ino"]
 size = Vector2(52, 52)
 
-[node name="Enemy" type="RigidBody2D" node_paths=PackedStringArray("detection_area", "move_away_area", "detection_shape", "move_away_shape", "perfect_distance_shape", "shooting_marker", "hp_component", "money_component", "state_chart") groups=["destructable", "enemies", "has_money"]]
+[node name="Enemy" type="RigidBody2D" unique_id=2056476605 node_paths=PackedStringArray("detection_area", "move_away_area", "detection_shape", "move_away_shape", "perfect_distance_shape", "shooting_marker", "hp_component", "money_component", "state_chart") groups=["destructable", "enemies", "has_money"]]
 script = ExtResource("1_6xk8f")
-stats = null
 detection_area = NodePath("Detection Area")
 move_away_area = NodePath("Move Away Area")
 detection_shape = NodePath("Detection Area/CollisionShape2D")
@@ -45,183 +44,171 @@ shooting_marker = NodePath("Shooting Marker")
 hp_component = NodePath("Components/HPComponent")
 money_component = NodePath("Components/MoneyComponent")
 state_chart = NodePath("StateChart")
-force_multiplier = null
-movement_cooldown = null
-player_vel_treshold = null
-detection_range = null
-max_speed_following_far = null
-perfect_range = null
-max_speed_following_mid = null
-move_away_range = null
-max_speed_moving_away = null
-shooting_cooldown = null
-firing_cooldown = null
-firing_amount = null
 
-[node name="Detection Area" type="Area2D" parent="."]
+[node name="Detection Area" type="Area2D" parent="." unique_id=1241544616]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Detection Area"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detection Area" unique_id=1022284775]
 shape = SubResource("CircleShape2D_8e3ao")
 
-[node name="Perfect Area" type="Area2D" parent="."]
+[node name="Perfect Area" type="Area2D" parent="." unique_id=1518215543]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Perfect Area"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Perfect Area" unique_id=1754165535]
 shape = SubResource("CircleShape2D_maese")
 
-[node name="Move Away Area" type="Area2D" parent="."]
+[node name="Move Away Area" type="Area2D" parent="." unique_id=1430490873]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Move Away Area"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Move Away Area" unique_id=1347725762]
 shape = SubResource("CircleShape2D_38ino")
 debug_color = Color(0.21780396, 0.9140625, 0.5060985, 0.41960785)
 
-[node name="Collision Shape" type="CollisionShape2D" parent="."]
+[node name="Collision Shape" type="CollisionShape2D" parent="." unique_id=380170884]
 shape = SubResource("RectangleShape2D_38ino")
 
-[node name="Icon" type="Sprite2D" parent="."]
+[node name="Icon" type="Sprite2D" parent="." unique_id=742035457]
 scale = Vector2(2, 2)
 texture = ExtResource("2_8e3ao")
 
-[node name="Shooting Marker" type="Marker2D" parent="."]
+[node name="Shooting Marker" type="Marker2D" parent="." unique_id=372027401]
 position = Vector2(0, -40)
 
-[node name="Components" type="Node" parent="."]
+[node name="Components" type="Node" parent="." unique_id=2096501790]
 script = ExtResource("3_fcftc")
 
-[node name="HPComponent" type="Node" parent="Components"]
+[node name="HPComponent" type="Node" parent="Components" unique_id=25125039]
 script = ExtResource("4_lu5c6")
 
-[node name="MoneyComponent" type="Node" parent="Components"]
+[node name="MoneyComponent" type="Node" parent="Components" unique_id=2010832187]
 script = ExtResource("5_maese")
 
-[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("enemy")]
+[node name="StateMachine" type="Node" parent="." unique_id=436278172 node_paths=PackedStringArray("enemy")]
 unique_name_in_owner = true
 script = ExtResource("5_qch6t")
 enemy = NodePath("..")
 
-[node name="MovementState" type="Node" parent="StateMachine"]
+[node name="MovementState" type="Node" parent="StateMachine" unique_id=1525081066]
 
-[node name="IdleState" type="Node" parent="StateMachine/MovementState"]
+[node name="IdleState" type="Node" parent="StateMachine/MovementState" unique_id=1817040712]
 script = ExtResource("6_tihwb")
 
-[node name="FollowingState" type="Node" parent="StateMachine/MovementState"]
+[node name="FollowingState" type="Node" parent="StateMachine/MovementState" unique_id=1758460797]
 script = ExtResource("7_smbsv")
 
-[node name="FollowingFar" type="Node" parent="StateMachine/MovementState/FollowingState"]
+[node name="FollowingFar" type="Node" parent="StateMachine/MovementState/FollowingState" unique_id=1697533413]
 script = ExtResource("8_maese")
 
-[node name="FollowingMid" type="Node" parent="StateMachine/MovementState/FollowingState"]
+[node name="FollowingMid" type="Node" parent="StateMachine/MovementState/FollowingState" unique_id=420657275]
 script = ExtResource("9_4f0mh")
 
-[node name="FollowingClose" type="Node" parent="StateMachine/MovementState/FollowingState"]
+[node name="FollowingClose" type="Node" parent="StateMachine/MovementState/FollowingState" unique_id=997947142]
 script = ExtResource("10_gc4hx")
 
-[node name="AtackingState" type="Node" parent="StateMachine"]
+[node name="AtackingState" type="Node" parent="StateMachine" unique_id=2007975066]
 
-[node name="NotShooting" type="Node" parent="StateMachine/AtackingState"]
+[node name="NotShooting" type="Node" parent="StateMachine/AtackingState" unique_id=1187163856]
 script = ExtResource("11_f6y8w")
 
-[node name="Shooting" type="Node" parent="StateMachine/AtackingState"]
+[node name="Shooting" type="Node" parent="StateMachine/AtackingState" unique_id=1521981795]
 script = ExtResource("12_y2gxb")
 
-[node name="ShootingRegular" type="Node" parent="StateMachine/AtackingState/Shooting"]
+[node name="ShootingRegular" type="Node" parent="StateMachine/AtackingState/Shooting" unique_id=1972152736]
 script = ExtResource("13_3xxyr")
 
-[node name="ShootingCanva" type="Node" parent="StateMachine/AtackingState/Shooting"]
+[node name="ShootingCanva" type="Node" parent="StateMachine/AtackingState/Shooting" unique_id=1411710100]
 script = ExtResource("14_xiois")
 
-[node name="StateChart" type="Node" parent="."]
+[node name="StateChart" type="Node" parent="." unique_id=618443828]
 script = ExtResource("5_lu5c6")
 metadata/_custom_type_script = "uid://couw105c3bde4"
 
-[node name="Root" type="Node" parent="StateChart"]
+[node name="Root" type="Node" parent="StateChart" unique_id=958221429]
 script = ExtResource("6_n7575")
 
-[node name="Movement" type="Node" parent="StateChart/Root"]
+[node name="Movement" type="Node" parent="StateChart/Root" unique_id=1518571826]
 script = ExtResource("7_qch6t")
 initial_state = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="StateChart/Root/Movement"]
+[node name="Idle" type="Node" parent="StateChart/Root/Movement" unique_id=1140904373]
 script = ExtResource("8_y5th1")
 
-[node name="OnFollowing" type="Node" parent="StateChart/Root/Movement/Idle"]
+[node name="OnFollowing" type="Node" parent="StateChart/Root/Movement/Idle" unique_id=1137900844]
 script = ExtResource("10_y5th1")
 to = NodePath("../../Following")
 event = &"on_following"
 delay_in_seconds = "0.0"
 
-[node name="Following" type="Node" parent="StateChart/Root/Movement"]
+[node name="Following" type="Node" parent="StateChart/Root/Movement" unique_id=710370932]
 script = ExtResource("7_qch6t")
 initial_state = NodePath("FollowingFar")
 
-[node name="FollowingFar" type="Node" parent="StateChart/Root/Movement/Following"]
+[node name="FollowingFar" type="Node" parent="StateChart/Root/Movement/Following" unique_id=614559461]
 script = ExtResource("8_y5th1")
 
-[node name="FollowingMid" type="Node" parent="StateChart/Root/Movement/Following"]
+[node name="FollowingMid" type="Node" parent="StateChart/Root/Movement/Following" unique_id=1066530214]
 script = ExtResource("8_y5th1")
 
-[node name="FollowingClose" type="Node" parent="StateChart/Root/Movement/Following"]
+[node name="FollowingClose" type="Node" parent="StateChart/Root/Movement/Following" unique_id=622213901]
 script = ExtResource("8_y5th1")
 
-[node name="OnFollowingFar" type="Node" parent="StateChart/Root/Movement/Following"]
+[node name="OnFollowingFar" type="Node" parent="StateChart/Root/Movement/Following" unique_id=2135147861]
 script = ExtResource("10_y5th1")
 to = NodePath("../FollowingFar")
 event = &"on_following_far"
 delay_in_seconds = "0.0"
 
-[node name="OnFollowingMid" type="Node" parent="StateChart/Root/Movement/Following"]
+[node name="OnFollowingMid" type="Node" parent="StateChart/Root/Movement/Following" unique_id=993732710]
 script = ExtResource("10_y5th1")
 to = NodePath("../FollowingMid")
 event = &"on_following_mid"
 delay_in_seconds = "0.0"
 
-[node name="OnFollowingClose" type="Node" parent="StateChart/Root/Movement/Following"]
+[node name="OnFollowingClose" type="Node" parent="StateChart/Root/Movement/Following" unique_id=2002256284]
 script = ExtResource("10_y5th1")
 to = NodePath("../FollowingClose")
 event = &"on_following_close"
 delay_in_seconds = "0.0"
 
-[node name="OnIdle" type="Node" parent="StateChart/Root/Movement/Following"]
+[node name="OnIdle" type="Node" parent="StateChart/Root/Movement/Following" unique_id=1206040918]
 script = ExtResource("10_y5th1")
 to = NodePath("../../Idle")
 event = &"on_idle"
 delay_in_seconds = "0.0"
 
-[node name="Attacking" type="Node" parent="StateChart/Root"]
+[node name="Attacking" type="Node" parent="StateChart/Root" unique_id=724273680]
 script = ExtResource("7_qch6t")
 initial_state = NodePath("NotShooting")
 
-[node name="NotShooting" type="Node" parent="StateChart/Root/Attacking"]
+[node name="NotShooting" type="Node" parent="StateChart/Root/Attacking" unique_id=1376826720]
 script = ExtResource("8_y5th1")
 
-[node name="OnShooting" type="Node" parent="StateChart/Root/Attacking/NotShooting"]
+[node name="OnShooting" type="Node" parent="StateChart/Root/Attacking/NotShooting" unique_id=1235253446]
 script = ExtResource("10_y5th1")
 to = NodePath("../../Shooting")
 event = &"on_shooting"
 delay_in_seconds = "0.0"
 
-[node name="Shooting" type="Node" parent="StateChart/Root/Attacking"]
+[node name="Shooting" type="Node" parent="StateChart/Root/Attacking" unique_id=2084115779]
 script = ExtResource("7_qch6t")
 initial_state = NodePath("ShootingRegular")
 
-[node name="ShootingRegular" type="Node" parent="StateChart/Root/Attacking/Shooting"]
+[node name="ShootingRegular" type="Node" parent="StateChart/Root/Attacking/Shooting" unique_id=1649898305]
 script = ExtResource("8_y5th1")
 
-[node name="ShootingCanva" type="Node" parent="StateChart/Root/Attacking/Shooting"]
+[node name="ShootingCanva" type="Node" parent="StateChart/Root/Attacking/Shooting" unique_id=890391667]
 script = ExtResource("8_y5th1")
 
-[node name="OnNotShooting" type="Node" parent="StateChart/Root/Attacking/Shooting"]
+[node name="OnNotShooting" type="Node" parent="StateChart/Root/Attacking/Shooting" unique_id=650799067]
 script = ExtResource("10_y5th1")
 to = NodePath("../../NotShooting")
 event = &"on_not_shooting"
 delay_in_seconds = "0.0"
 
-[node name="OnShootingRegular" type="Node" parent="StateChart/Root/Attacking/Shooting"]
+[node name="OnShootingRegular" type="Node" parent="StateChart/Root/Attacking/Shooting" unique_id=1714057491]
 script = ExtResource("10_y5th1")
 to = NodePath("../ShootingRegular")
 event = &"on_shooting_regular"
 delay_in_seconds = "0.0"
 
-[node name="OnShootingCanva" type="Node" parent="StateChart/Root/Attacking/Shooting"]
+[node name="OnShootingCanva" type="Node" parent="StateChart/Root/Attacking/Shooting" unique_id=1518176800]
 script = ExtResource("10_y5th1")
 to = NodePath("../ShootingCanva")
 event = &"on_shooting_canva"

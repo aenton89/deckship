@@ -238,6 +238,7 @@ func shoot() -> void:
 		dir = forward.rotated(bounded_angle)
 	
 	var bt: Bullet = bullet_scene.instantiate()
+	get_tree().current_scene.add_child(bt)
 	bt.init(
 		dir,
 		shooting_marker.global_position,
@@ -248,7 +249,6 @@ func shoot() -> void:
 		stats.bounce_amount,
 		stats.bullet_explosion_force
 	)
-	get_tree().current_scene.add_child(bt)
 	
 	shooting_timer.start()
 

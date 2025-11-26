@@ -1,20 +1,21 @@
-[gd_scene load_steps=23 format=3 uid="uid://l8fyderrn8e8"]
+[gd_scene load_steps=24 format=3 uid="uid://l8fyderrn8e8"]
 
-[ext_resource type="Script" uid="uid://bgxfa3ka6m77f" path="res://scritps/system/ui/user_interface.gd" id="1_rd21x"]
+[ext_resource type="Script" uid="uid://c4fy6dwdm2nc0" path="res://scritps/system/ui/user_interface.gd" id="1_rd21x"]
 [ext_resource type="Texture2D" uid="uid://bgjxehteuqdm6" path="res://assets/ui/hp_bar_under.png" id="2_1pekg"]
-[ext_resource type="Shader" uid="uid://3bnb6msr6wmb" path="res://resources/ui/compass_strip.gdshader" id="2_76tsf"]
-[ext_resource type="Script" uid="uid://deg3vrqli4eh1" path="res://scritps/system/ui/hand_ui.gd" id="2_s5p0m"]
+[ext_resource type="Shader" uid="uid://b6i47ehbq617v" path="res://resources/ui/compass_strip.gdshader" id="2_76tsf"]
+[ext_resource type="Script" uid="uid://cbd1id8plow2m" path="res://scritps/system/ui/hand_ui.gd" id="2_s5p0m"]
 [ext_resource type="LabelSettings" uid="uid://medg1xofkil6" path="res://resources/ui/death_label_settings.tres" id="3_1n82y"]
 [ext_resource type="Texture2D" uid="uid://dctg37thv2o8" path="res://assets/ui/hp_bar_over.png" id="3_ke1dt"]
 [ext_resource type="Texture2D" uid="uid://b2dwfaer0w2s5" path="res://assets/ui/hp_bar_progress.png" id="4_0a560"]
-[ext_resource type="Script" uid="uid://c37j8bd7p1plx" path="res://scritps/system/ui/death_screen_ui.gd" id="6_ke1dt"]
-[ext_resource type="Script" uid="uid://c7tnyjs4mx43x" path="res://scritps/system/ui/arrow_container_ui.gd" id="8_kwcd6"]
-[ext_resource type="Script" uid="uid://d2yrj7k5oxvr8" path="res://scritps/system/ui/compass_strip_ui.gd" id="9_ce4vw"]
-[ext_resource type="Texture2D" uid="uid://cjyhfc4hjco7f" path="res://assets/ui/compass_v1.png" id="10_bke8n"]
-[ext_resource type="Script" uid="uid://capuws1p40ga1" path="res://scritps/system/ui/hp_bar.gd" id="11_ciglq"]
-[ext_resource type="Script" uid="uid://y8rpg0gn8j4c" path="res://scritps/system/ui/money_ui.gd" id="13_scrt1"]
+[ext_resource type="Script" uid="uid://eb3wi0by7xui" path="res://scritps/system/ui/death_screen_ui.gd" id="6_ke1dt"]
+[ext_resource type="Script" uid="uid://gcjnwt1pied" path="res://scritps/system/ui/arrow_container_ui.gd" id="8_kwcd6"]
+[ext_resource type="Script" uid="uid://b1ymix22ai204" path="res://scritps/system/ui/compass_ui.gd" id="8_l0251"]
+[ext_resource type="Texture2D" uid="uid://xnfcoq3111kf" path="res://assets/ui/compass_v2.png" id="9_yvpgs"]
+[ext_resource type="Script" uid="uid://dtypc2rixloh" path="res://scritps/system/ui/hp_bar.gd" id="11_ciglq"]
+[ext_resource type="Texture2D" uid="uid://b86abri080k67" path="res://assets/ui/compass_needle.png" id="11_th5iw"]
+[ext_resource type="Script" uid="uid://dhqugbyjoki8h" path="res://scritps/system/ui/money_ui.gd" id="13_scrt1"]
 [ext_resource type="LabelSettings" uid="uid://cr1046skf4tlm" path="res://resources/ui/money_label_settings.tres" id="14_svg3x"]
-[ext_resource type="Script" uid="uid://cncjmgasm1ixt" path="res://scritps/system/ui/dodge_ui.gd" id="15_ciglq"]
+[ext_resource type="Script" uid="uid://c8bcm02firxh7" path="res://scritps/system/ui/dodge_ui.gd" id="15_ciglq"]
 [ext_resource type="Texture2D" uid="uid://c8l1xolxeypaj" path="res://assets/ui/dodge_under.png" id="16_yvpgs"]
 [ext_resource type="Texture2D" uid="uid://bdiu1wi3w3cl3" path="res://assets/ui/dodge_over.png" id="17_th5iw"]
 [ext_resource type="Texture2D" uid="uid://vchwtu6amdgq" path="res://assets/ui/dodge_progress.png" id="18_l0251"]
@@ -110,13 +111,13 @@ shader_parameter/offset_x = 0.0
 shader_parameter/visible_portion = 0.5
 shader_parameter/fade_width = 0.1
 
-[node name="User Interface" type="CanvasLayer" unique_id=862341109 node_paths=PackedStringArray("hp_bar", "hand_control", "death_screen", "arrow_container", "compass_strip", "money_ui", "dodge_ui")]
+[node name="User Interface" type="CanvasLayer" unique_id=862341109 node_paths=PackedStringArray("hp_bar", "hand_control", "death_screen", "arrow_container", "compass_ui", "money_ui", "dodge_ui")]
 script = ExtResource("1_rd21x")
 hp_bar = NodePath("HUD/HP Bar")
 hand_control = NodePath("HUD/Hand")
 death_screen = NodePath("DeathScreen")
 arrow_container = NodePath("HUD/ArrowContainer")
-compass_strip = NodePath("HUD/Compass")
+compass_ui = NodePath("HUD/CompassUI")
 money_ui = NodePath("HUD/MoneyUI")
 dodge_ui = NodePath("HUD/DodgeUI")
 
@@ -185,22 +186,39 @@ texture_over = ExtResource("3_ke1dt")
 texture_progress = ExtResource("4_0a560")
 script = ExtResource("11_ciglq")
 
-[node name="Compass" type="TextureRect" parent="HUD" unique_id=942368760]
+[node name="CompassUI" type="Control" parent="HUD" unique_id=1356820550 node_paths=PackedStringArray("compass", "needle")]
+anchors_preset = 0
+offset_left = 930.0
+offset_right = 930.0
+pivot_offset = Vector2(30, 0)
+script = ExtResource("8_l0251")
+compass = NodePath("Compass")
+needle = NodePath("Needle")
+
+[node name="Compass" type="TextureRect" parent="HUD/CompassUI" unique_id=942368760]
 material = SubResource("ShaderMaterial_1n82y")
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -80.0
-offset_right = 80.0
-offset_bottom = 16.0
+offset_top = 36.0
+offset_right = 60.000244
+offset_bottom = 43.00002
 grow_horizontal = 2
 scale = Vector2(4, 4)
-pivot_offset = Vector2(80, 0)
+pivot_offset = Vector2(30, 0)
 size_flags_horizontal = 0
-texture = ExtResource("10_bke8n")
-stretch_mode = 1
-script = ExtResource("9_ce4vw")
+texture = ExtResource("9_yvpgs")
+
+[node name="Needle" type="TextureRect" parent="HUD/CompassUI" unique_id=1940607233]
+layout_mode = 0
+offset_left = 26.0
+offset_top = 14.0
+offset_right = 34.0
+offset_bottom = 22.0
+scale = Vector2(2, 2)
+pivot_offset = Vector2(4, 0)
+texture = ExtResource("11_th5iw")
 
 [node name="Hand" type="Control" parent="HUD" unique_id=1421336857]
 layout_mode = 1
@@ -229,9 +247,9 @@ change_label = NodePath("MoneyLabel/MoneyChangeLabel")
 [node name="MoneyLabel" type="Label" parent="HUD/MoneyUI" unique_id=1466949937]
 layout_mode = 0
 offset_left = 30.0
-offset_top = 70.0
+offset_top = 120.0
 offset_right = 85.0
-offset_bottom = 115.0
+offset_bottom = 165.00002
 text = "129"
 label_settings = ExtResource("14_svg3x")
 
@@ -243,12 +261,12 @@ offset_bottom = 45.0
 text = "321"
 label_settings = ExtResource("14_svg3x")
 
-[node name="DodgeUI" type="Control" parent="HUD" unique_id=1146800957 node_paths=PackedStringArray("example_bar")]
+[node name="DodgeUI" type="Control" parent="HUD" unique_id=1146800957 node_paths=PackedStringArray("cooldown_bar")]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("15_ciglq")
-example_bar = NodePath("Cooldown Bar")
+cooldown_bar = NodePath("Cooldown Bar")
 
 [node name="Cooldown Bar" type="TextureProgressBar" parent="HUD/DodgeUI" unique_id=1997508967]
 layout_mode = 0
@@ -257,6 +275,7 @@ offset_top = 72.0
 offset_right = 44.000023
 offset_bottom = 88.00001
 scale = Vector2(3, 3)
+value = 100.0
 fill_mode = 3
 texture_under = ExtResource("16_yvpgs")
 texture_over = ExtResource("17_th5iw")

@@ -4,7 +4,7 @@ class_name DodgeUI
 
 
 # tekstura pasków
-@export var example_bar: TextureProgressBar
+@export var cooldown_bar: TextureProgressBar
 
 # ile pasków
 @onready var amount: int = 0
@@ -18,35 +18,32 @@ func _ready() -> void:
 
 
 func _on_player_ready() -> void:
-	add_bars()
+	add_bars(Global.player.stats.dodge_amount)
 
 
 
-func add_bars() -> void:
-	if Global.player.stats.dodge_amount > amount:
-		for i in range(Global.player.stats.dodge_amount - amount):
-			var bar: TextureProgressBar = example_bar.duplicate()
+func add_bars(how_many: int) -> void:
+	if amount + how_many <= Global.player.stats.dodge_amount and how_many > 0:
+		for i in range(how_many):
+			var bar: TextureProgressBar = cooldown_bar.duplicate()
 			bar.value = 100
-			bar.min_value = 0
-			bar.max_value = 100
-			bar.position = Vector2(example_bar.position.x + (amount + i) * (example_bar.size.x + 30), example_bar.position.y)
-			bar.size = example_bar.size
+			bar.scale = Vector2(1, 1)
+			bar.position = Vector2(2*cooldown_bar.position.x + 20 + (amount + i) * (bar.size.x + 5), cooldown_bar.position.y)
+			bar.size = cooldown_bar.size
 			
 			add_child(bar)
 			bars.append(bar)
-		amount = Global.player.stats.dodge_amount
+		amount += how_many
 
-func remove_bars() -> void:
-	if Global.player.stats.dodge_amount < amount:
-		for i in range(amount - Global.player.stats.dodge_amount):
-			bars.back().queue_free()
-		amount = Global.player.stats.dodge_amount
+func remove_bars(how_many: int) -> void:
+	if how_many >= 0 and how_many <= amount:
+		for i in range(how_many):
+			var last = bars.pop_back()
+			last.queue_free() 
+		amount -= how_many
 
-func start_cooldown(index: int) -> void:
-	if index < 0 or index >= bars.size():
-		return
-	
-	bars[index].value = 0
+func start_cooldown() -> void:
+	cooldown_bar.value = 0
 	
 	var tween: Tween = create_tween()
-	tween.tween_property(bars[index], "value", 100.0, Global.player.stats.dodge_cooldown)
+	tween.tween_property(cooldown_bar, "value", 100.0, Global.player.stats.dodge_cooldown)

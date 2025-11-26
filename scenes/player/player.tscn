@@ -1,27 +1,28 @@
-[gd_scene load_steps=19 format=3 uid="uid://2bbk1qjegcs4"]
+[gd_scene load_steps=20 format=3 uid="uid://2bbk1qjegcs4"]
 
-[ext_resource type="Script" uid="uid://dvmnrduhp7gx7" path="res://scritps/player/player.gd" id="1_g2els"]
+[ext_resource type="Script" uid="uid://dvyehard432xd" path="res://scritps/player/player.gd" id="1_g2els"]
 [ext_resource type="Texture2D" uid="uid://dlp4yjuopowty" path="res://assets/player/ship.png" id="2_g2els"]
-[ext_resource type="Script" uid="uid://d4jiugl1w6xb3" path="res://scritps/player/camera_rig.gd" id="3_75vfm"]
-[ext_resource type="Script" uid="uid://b1ual06tou7g" path="res://scritps/components/components.gd" id="3_lvxji"]
-[ext_resource type="Script" uid="uid://cagl3ub6otl26" path="res://scritps/components/hp_component.gd" id="3_qhqgy"]
+[ext_resource type="Script" uid="uid://n2pn5k6c4byv" path="res://scritps/player/camera_rig.gd" id="3_75vfm"]
+[ext_resource type="Script" uid="uid://hq1bo2dtf216" path="res://scritps/components/components.gd" id="3_lvxji"]
+[ext_resource type="Script" uid="uid://c72xg0cl1g6l2" path="res://scritps/components/hp_component.gd" id="3_qhqgy"]
+[ext_resource type="Texture2D" uid="uid://grk0aealwylr" path="res://assets/player/player_braking.png" id="3_uf5tr"]
 [ext_resource type="PackedScene" uid="uid://l8fyderrn8e8" path="res://scenes/system/ui/user_interface.tscn" id="5_p47bc"]
-[ext_resource type="Script" uid="uid://b58h1q2hlgxjt" path="res://scritps/components/money_component.gd" id="6_0owmy"]
+[ext_resource type="Script" uid="uid://deotxf35m4h5n" path="res://scritps/components/money_component.gd" id="6_0owmy"]
 [ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="8_5gtgg"]
-[ext_resource type="Script" uid="uid://d3tdt814gr5l8" path="res://scritps/player/state machine/state_machine.gd" id="8_fm80t"]
-[ext_resource type="Script" uid="uid://1q23eh6mf1ua" path="res://scritps/player/state machine/states/player_not_in_combat_state.gd" id="9_myrg7"]
-[ext_resource type="Script" uid="uid://b3akhjsd7s70w" path="res://scritps/player/state machine/states/player_roaming_state.gd" id="10_kvlxm"]
+[ext_resource type="Script" uid="uid://d308s777dyl4q" path="res://scritps/player/state machine/state_machine.gd" id="8_fm80t"]
+[ext_resource type="Script" uid="uid://cu0i7tom2xhv2" path="res://scritps/player/state machine/states/player_not_in_combat_state.gd" id="9_myrg7"]
+[ext_resource type="Script" uid="uid://bp0ylotpyglxt" path="res://scritps/player/state machine/states/player_roaming_state.gd" id="10_kvlxm"]
 [ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="11_gx1jg"]
-[ext_resource type="Script" uid="uid://cr26phcwe5xn" path="res://scritps/player/state machine/states/player_in_shopping_area_state.gd" id="11_uf5tr"]
-[ext_resource type="Script" uid="uid://daufotuu6pou3" path="res://scritps/player/state machine/states/player_shopping_state.gd" id="12_lgqa7"]
+[ext_resource type="Script" uid="uid://vapo7mo600ys" path="res://scritps/player/state machine/states/player_in_shopping_area_state.gd" id="11_uf5tr"]
+[ext_resource type="Script" uid="uid://bkcmehgqenv34" path="res://scritps/player/state machine/states/player_shopping_state.gd" id="12_lgqa7"]
 [ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="12_ugbui"]
-[ext_resource type="Script" uid="uid://c1qwuc5xt5gam" path="res://scritps/player/state machine/states/player_in_combat_state.gd" id="13_8ydkj"]
+[ext_resource type="Script" uid="uid://bgnc873rwvavo" path="res://scritps/player/state machine/states/player_in_combat_state.gd" id="13_8ydkj"]
 [ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="17_kvlxm"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_75vfm"]
 radius = 200.0
 
-[node name="Player" type="RigidBody2D" unique_id=1243833512 node_paths=PackedStringArray("camera_rig", "shooting_marker", "UI", "interaction_area", "dodge_timer", "sprite", "hp_component", "money_component") groups=["destructable", "has_money", "player"]]
+[node name="Player" type="RigidBody2D" unique_id=1243833512 node_paths=PackedStringArray("camera_rig", "shooting_marker", "UI", "interaction_area", "dodge_timer", "sprite", "braking_sprite", "hp_component", "money_component") groups=["destructable", "has_money", "player"]]
 input_pickable = true
 script = ExtResource("1_g2els")
 camera_rig = NodePath("Camera Rig")
@@ -30,6 +31,7 @@ UI = NodePath("User Interface")
 interaction_area = NodePath("InteractionArea")
 dodge_timer = NodePath("Dodge Timer")
 sprite = NodePath("Sprite")
+braking_sprite = NodePath("Sprite/Braking Sprite")
 hp_component = NodePath("Components/HPComponent")
 money_component = NodePath("Components/MoneyComponent")
 
@@ -38,6 +40,10 @@ texture_filter = 1
 position = Vector2(0, 5)
 scale = Vector2(3, 3)
 texture = ExtResource("2_g2els")
+
+[node name="Braking Sprite" type="Sprite2D" parent="Sprite" unique_id=1286439179]
+visible = false
+texture = ExtResource("3_uf5tr")
 
 [node name="Collision Shape" type="CollisionPolygon2D" parent="." unique_id=1788215498]
 position = Vector2(0.5, 5.5)

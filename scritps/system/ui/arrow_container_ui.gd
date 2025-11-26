@@ -62,7 +62,7 @@ func _process(_delta: float) -> void:
 		# wektor od środka ekranu do pozycji wroga
 		var dir: Vector2 = (screen_pos - screen_center).normalized()
 		# ustaw pozycję na krawędzi ekranu w kierunku dir
-		arrow.position = _get_point_on_screen_edge(dir, screen_size)
+		arrow.position = get_point_on_screen_edge(dir, screen_size)
 		# obróć grot w kierunku od środka ekranu (czyli wektor dir)
 		arrow.rotation = dir.angle() + PI/2
 
@@ -82,14 +82,14 @@ func world_to_screen(world_pos: Vector2) -> Vector2:
 	return screen_pos
 
 # ustawia punkt na krawędzi ekranu w kierunku dir (od środka)
-func _get_point_on_screen_edge(dir: Vector2, screen_size: Vector2) -> Vector2:
-	var half = screen_size / 2.0
-	var k = half.y / abs(dir.y)
+func get_point_on_screen_edge(dir: Vector2, screen_size: Vector2) -> Vector2:
+	var half: Vector2 = screen_size / 2.0
+	var k: float = half.y / abs(dir.y)
 	if abs(dir.x) * k > half.x:
 		k = half.x / abs(dir.x)
 	
 	# 0.95, żeby nie wychodziła poza ekran
-	var edge_pos = half + dir * k * 0.95
+	var edge_pos: Vector2 = half + dir * k * 0.95
 	
 	return edge_pos
 
@@ -106,5 +106,5 @@ func remove_arrow(enemy: Node2D) -> void:
 		arrows.erase(enemy)
 
 func get_clamped_to_screen_edge(pos: Vector2, screen_size: Vector2) -> Vector2:
-	var margin := 32.0
+	var margin: float = 32.0
 	return pos.clamp(Vector2(margin, margin), screen_size - Vector2(margin, margin))

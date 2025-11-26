@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cjyhfc4hjco7f"
-path="res://.godot/imported/compass_v1.png-74862b5f27eb9a652384cb3989585f78.ctex"
+uid="uid://grk0aealwylr"
+path="res://.godot/imported/player_braking.png-ce72c8579c0c768b4e0a628237fd9e68.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/compass_v1.png"
-dest_files=["res://.godot/imported/compass_v1.png-74862b5f27eb9a652384cb3989585f78.ctex"]
+source_file="res://assets/player/player_braking.png"
+dest_files=["res://.godot/imported/player_braking.png-ce72c8579c0c768b4e0a628237fd9e68.ctex"]
 
 [params]
 

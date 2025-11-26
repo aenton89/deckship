@@ -22,6 +22,10 @@ class_name ShipStats
 @export var dodge_amount: int = 0
 @export_subgroup("Rotation")
 @export var rotate_speed: float = 5.0
+@export_subgroup("Braking")
+@export var braking_strength: float = 8.0
+@export_subgroup("Speed")
+@export var speed: float = 200.0
 
 @export_category("Ship Details")
 @export var max_hp: float = 100.0

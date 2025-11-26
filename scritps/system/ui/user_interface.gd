@@ -8,7 +8,7 @@ class_name UserInterface
 @export var hand_control: HandControl
 @export var death_screen: DeathScreen
 @export var arrow_container: ArrowContainer
-@export var compass_strip: CompassStrip
+@export var compass_ui: CompassUI
 @export var money_ui: MoneyUI
 @export var dodge_ui: DodgeUI
 

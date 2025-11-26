@@ -18,6 +18,7 @@ class_name Player
 @export var interaction_area: Area2D
 @export var dodge_timer: Timer
 @export var sprite: Sprite2D
+@export var braking_sprite: Sprite2D
 @export_subgroup("Components")
 @export var hp_component: HPComponent
 @export var money_component: MoneyComponent
@@ -67,6 +68,8 @@ func _physics_process(delta: float) -> void:
 	apply_movement()
 	# rotation
 	rotate_ship(delta)
+	# braking
+	apply_brake(delta)
 
 func _input(event: InputEvent) -> void:
 	if is_multiplayer_authority():
@@ -106,7 +109,6 @@ func _input(event: InputEvent) -> void:
 
 
 
-
 ## signal handlers
 func _on_mouse_entered() -> void:
 	is_mouse_inside = true
@@ -119,9 +121,11 @@ func _on_took_dmg() -> void:
 
 func _on_dodge_cooldown() -> void:
 	dodges_available += 1
+	Global.UI.dodge_ui.add_bars(1)
 	
 	if dodges_available < stats.dodge_amount:
 		dodge_timer.start(stats.dodge_cooldown)
+		Global.UI.dodge_ui.start_cooldown()
 
 
 
@@ -135,6 +139,7 @@ func shoot() -> void:
 		dir = normal.rotated(bounded_angle)
 	
 	var bt: Bullet = bullet_scene.instantiate()
+	get_tree().current_scene.add_child(bt)
 	bt.init(
 		dir,
 		shooting_marker.global_position,
@@ -145,7 +150,6 @@ func shoot() -> void:
 		stats.bounce_amount,
 		stats.bullet_explosion_force
 	)
-	get_tree().current_scene.add_child(bt)
 
 func rotate_ship(delta: float) -> void:
 	if rotate_to_mouse:
@@ -173,10 +177,10 @@ func dodge(direction: Vector2) -> void:
 			spawn_ghost_trail()
 			await get_tree().create_timer(0.1).timeout
 		
-		Global.UI.dodge_ui.start_cooldown(dodges_available - 1)
-		
 		dodges_available -= 1
+		Global.UI.dodge_ui.remove_bars(1)
 		dodge_timer.start(stats.dodge_cooldown)
+		Global.UI.dodge_ui.start_cooldown()
 
 func spawn_ghost_trail():
 	var ghost: Sprite2D = Sprite2D.new()
@@ -191,6 +195,12 @@ func spawn_ghost_trail():
 	tween.tween_property(ghost, "modulate:a", 0.0, 0.25)
 	tween.tween_callback(ghost.queue_free)
 
+func apply_brake(delta: float) -> void:
+	if Input.is_action_pressed("brake"):
+		linear_velocity = linear_velocity.move_toward(Vector2.ZERO, stats.braking_strength * delta)
+		braking_sprite.visible = true
+	else:
+		braking_sprite.visible = false
 
 
 func _draw() -> void:
