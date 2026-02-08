@@ -19,5 +19,5 @@ func _ready() -> void:
 	visible = true
 	
 	# test purposes
-	var enemies_in_world = get_tree().get_nodes_in_group("enemies")
+	var enemies_in_world: Array[Node] = get_tree().get_nodes_in_group("enemies")
 	arrow_container.enemies = enemies_in_world

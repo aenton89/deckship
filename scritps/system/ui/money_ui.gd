@@ -31,7 +31,7 @@ func _on_player_ready() -> void:
 func _on_money_changed(amount: int) -> void:
 	label.visible = true
 	
-	var previous_amount = int(label.text)
+	var previous_amount: int = int(label.text)
 	var operation_sign: String = "+"
 	var await_time: float = change_time/amount
 	

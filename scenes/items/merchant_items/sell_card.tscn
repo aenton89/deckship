@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://bgd1351bpiqon"]
+
+[ext_resource type="Script" uid="uid://cwe0s7umb0wb3" path="res://scritps/items/merchant_items/sell_card.gd" id="1_dee24"]
+
+[node name="SellCard" type="Control" unique_id=1050514023]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_dee24")

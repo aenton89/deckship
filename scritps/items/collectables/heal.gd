@@ -11,6 +11,7 @@ class_name Heal
 @onready var used: bool = false
 
 
+
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if !used:
 		if body is Player:
@@ -18,8 +19,8 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			Global.player.hp_component.heal(heal_amount)
 			
 			# animacja (tween w górę i powrót)
-			var original_y = position.y
-			var tween = create_tween()
+			var original_y: float = position.y
+			var tween: Tween = create_tween()
 			tween.tween_property(self, "position:y", position.y - 50, 0.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 			tween.tween_property(self, "position:y", original_y, 0.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
 			

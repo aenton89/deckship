@@ -36,14 +36,14 @@ var dir: Vector2 = Vector2.ZERO
 # na trafienie czegokolwiek (nawet siebie) zadać obrażenia; jeśli tamto coś nie zostanie zniszczone, to odbijamy pocisk (tylko 1 odbicie, nie więcej)
 func _physics_process(delta: float) -> void:
 	if Global.player:
-		var motion = speed * dir * delta
-		var space_state = get_world_2d().direct_space_state
+		var motion: Vector2 = speed * dir * delta
+		var space_state: PhysicsDirectSpaceState2D = get_world_2d().direct_space_state
 		
 		var query = PhysicsRayQueryParameters2D.create(global_position, global_position + motion.normalized() * (motion.length() + raycast_margin))
 		 # ignorujemy pocisk
 		query.exclude = [self]
 		
-		var result = space_state.intersect_ray(query)
+		var result: Dictionary = space_state.intersect_ray(query)
 		
 		if result:
 			var hit_body = result.collider
@@ -128,7 +128,7 @@ func apply_dmg(body: Node2D, hp_component: HPComponent) -> void:
 
 func apply_explosion_force(body: Node2D) -> void:
 	if body is RigidBody2D:
-		var dir_from_bullet = (body.global_position - global_position).normalized()
+		var dir_from_bullet: Vector2 = (body.global_position - global_position).normalized()
 		body.apply_impulse(dir_from_bullet * explosion_force)
 
 

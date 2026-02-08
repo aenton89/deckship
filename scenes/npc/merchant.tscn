@@ -1,29 +1,36 @@
-[gd_scene load_steps=5 format=3 uid="uid://bf4d0ynycabq3"]
+[gd_scene load_steps=6 format=3 uid="uid://bf4d0ynycabq3"]
 
-[ext_resource type="Texture2D" uid="uid://bg28d7fqbw2vh" path="res://assets/icon.svg" id="1_72ctr"]
 [ext_resource type="Script" uid="uid://doxxk24jps7id" path="res://scritps/npc/merchant.gd" id="1_ss6c5"]
+[ext_resource type="Texture2D" uid="uid://domyxg7akyl7g" path="res://assets/npc/merchant/merchant.png" id="2_owqti"]
+[ext_resource type="Texture2D" uid="uid://c80qn6bflis1q" path="res://assets/npc/merchant/merchant_area.png" id="3_0hxj3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l0yq7"]
-size = Vector2(26, 26)
+size = Vector2(40, 40)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ss6c5"]
-radius = 60.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_owqti"]
+size = Vector2(320, 160)
 
-[node name="Merchant" type="StaticBody2D" node_paths=PackedStringArray("interaction_area")]
+[node name="Merchant" type="StaticBody2D" unique_id=1524075770 node_paths=PackedStringArray("interaction_area")]
 script = ExtResource("1_ss6c5")
 interaction_area = NodePath("Interaction Area")
 
-[node name="Collision Shape" type="CollisionShape2D" parent="."]
+[node name="Merchant Collision" type="CollisionShape2D" parent="." unique_id=875656576]
 shape = SubResource("RectangleShape2D_l0yq7")
 
-[node name="Icon" type="Sprite2D" parent="."]
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("1_72ctr")
+[node name="Merchant" type="Sprite2D" parent="." unique_id=1845531695]
+scale = Vector2(5, 5)
+texture = ExtResource("2_owqti")
 
-[node name="Interaction Area" type="Area2D" parent="."]
+[node name="Interaction Area" type="Area2D" parent="." unique_id=655717697]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Interaction Area"]
-shape = SubResource("CircleShape2D_ss6c5")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interaction Area" unique_id=1266629049]
+position = Vector2(0, 80)
+shape = SubResource("RectangleShape2D_owqti")
+
+[node name="MerchantArea" type="Sprite2D" parent="." unique_id=1592089613]
+position = Vector2(0, 80.00001)
+scale = Vector2(5, 5)
+texture = ExtResource("3_0hxj3")
 
 [connection signal="body_entered" from="Interaction Area" to="." method="_on_interaction_area_body_entered"]
 [connection signal="body_exited" from="Interaction Area" to="." method="_on_interaction_area_body_exited"]

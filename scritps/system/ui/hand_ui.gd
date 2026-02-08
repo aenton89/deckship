@@ -38,7 +38,7 @@ func apply_card(card: Card) -> void:
 	remove_card(card)
 
 func update_card_positions():
-	var n = cards.size()
+	var n: int = cards.size()
 	var start: float
 	
 	# np. dla 4 kart: start = -1.5
@@ -48,11 +48,11 @@ func update_card_positions():
 	else:
 		start = -floor(n / 2)
 	
-	var i = start
+	i = start
 	for card in cards:
-		var angle = angle_offset * i
-		var x_offset = x_offset_diff * i
-		var y_offset = y_offset_diff * i * i
+		var angle: float = angle_offset * i
+		var x_offset: float = x_offset_diff * i
+		var y_offset: float = y_offset_diff * i * i
 		
 		card.base_y = size.y - y_default + y_offset
 		card.position = Vector2(size.x/2 + x_offset, card.base_y)

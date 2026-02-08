@@ -149,17 +149,17 @@ func set_movement_state(state: EnemyStateMachine.EnemyMovementState) -> void:
 
 
 func rotate_towards_player(delta: float) -> void:
-	var current_angle = rotation
-	var desired_angle = (Global.player.global_position - global_position).angle()
+	var current_angle: float = rotation
+	var desired_angle: float = (Global.player.global_position - global_position).angle()
 	
 	# offset o 90 stopni, bo sprite ma przód na osi Y zamiast X
 	desired_angle += PI/2
 	
 	# różnica kątów znormalizowana do przedziału [-PI, PI]
-	var angle_diff = wrapf(desired_angle - current_angle, -PI, PI)
+	var angle_diff: float = wrapf(desired_angle - current_angle, -PI, PI)
 	# ogranicz prędkość obrotu
-	var max_step = stats.rotate_speed * delta
-	var angle_step = clamp(angle_diff, -max_step, max_step)
+	var max_step: float = stats.rotate_speed * delta
+	var angle_step: float = clamp(angle_diff, -max_step, max_step)
 	
 	rotation += angle_step
 
@@ -184,11 +184,11 @@ func apply_movement(delta: float) -> void:
 		movement_force = Vector2.ZERO
 
 func move_away() -> void:
-	var direction_away = global_position - Global.player.global_position
+	var direction_away: Vector2 = global_position - Global.player.global_position
 	movement_force = direction_away
 	
 	# aktualizuj kierunek
-	var current_player_direction = Vector2.ZERO
+	var current_player_direction: Vector2 = Vector2.ZERO
 	if Global.player.linear_velocity.length() > 0:
 		current_player_direction = Global.player.linear_velocity.normalized()
 	last_player_direction = current_player_direction
@@ -199,12 +199,12 @@ func move_away() -> void:
 
 func chase() -> void:
 	# aktualny kierunek gracza (znormalizowany wektor prędkości)
-	var current_player_direction = Vector2.ZERO
+	var current_player_direction: Vector2 = Vector2.ZERO
 	if Global.player.linear_velocity.length() > 0:
 		current_player_direction = Global.player.linear_velocity.normalized()
 	
 	# czy kierunek gracza się zmienił
-	var direction_changed = current_player_direction.distance_to(last_player_direction) > 0.1
+	var direction_changed: bool = current_player_direction.distance_to(last_player_direction) > 0.1
 	# aktualizacja ostatniego kierunku
 	last_player_direction = current_player_direction
 	
@@ -216,7 +216,7 @@ func chase() -> void:
 		else:
 			target_point = Global.player.global_position + Global.player.linear_velocity
 		# kierunek do punktu docelowego - narazie nieznormalizowany w sumie
-		var direction_to_target = target_point - global_position
+		var direction_to_target: Vector2 = target_point - global_position
 		
 		# ustawianie siły
 		movement_force = direction_to_target
@@ -228,13 +228,13 @@ func shoot() -> void:
 	if not Global.player or not bullet_scene or not shooting_marker:
 		return
 	
-	var dir = (Global.player.global_position - global_position).normalized()
-	var forward = (shooting_marker.global_position - global_position).normalized()
-	var angle = forward.angle_to(dir)
+	var dir: Vector2 = (Global.player.global_position - global_position).normalized()
+	var forward: Vector2 = (shooting_marker.global_position - global_position).normalized()
+	var angle: float = forward.angle_to(dir)
 	
 	# ograniczenie kąta strzału
 	if abs(angle) > stats.shooting_angle:
-		var bounded_angle = sign(angle) * stats.shooting_angle
+		var bounded_angle: float = sign(angle) * stats.shooting_angle
 		dir = forward.rotated(bounded_angle)
 	
 	var bt: Bullet = bullet_scene.instantiate()
@@ -286,11 +286,11 @@ func _draw():
 			
 			# rysowanie linii do gracza
 			if movement_state == EnemyStateMachine.EnemyMovementState.FOLLOWING_FAR or movement_state == EnemyStateMachine.EnemyMovementState.FOLLOWING_MID:
-				var distance = global_position.distance_to(Global.player.global_position)
+				var distance: float = global_position.distance_to(Global.player.global_position)
 				if distance <= detection_range:
-					var local_player_pos = to_local(Global.player.global_position)
+					var local_player_pos: Vector2 = to_local(Global.player.global_position)
 					draw_line(Vector2.ZERO, local_player_pos, Color.YELLOW, 2.0)
 					
 					# punkt docelowy - punkt, do którego chcemy się dostać
-					var local_target = to_local(target_point)
+					var local_target: Vector2 = to_local(target_point)
 					draw_circle(local_target, 5, Color.WHITE, true)

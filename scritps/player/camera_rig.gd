@@ -20,6 +20,6 @@ func shake_camera() -> void:
 	var tween: Tween = create_tween()
 	
 	for i in range(10):
-		var offset = Vector2(randf_range(-1, 1), randf_range(-1, 1)) * shake_magnitude
+		var offset: Vector2 = Vector2(randf_range(-1, 1), randf_range(-1, 1)) * shake_magnitude
 		tween.tween_property(self, "position", offset, shake_duration / 10)
 	tween.tween_property(self, "position", Vector2.ZERO, shake_duration / 10)

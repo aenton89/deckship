@@ -43,7 +43,7 @@ func setup(preset: Dictionary) -> void:
 	# ustaw bonusy
 	bonuses = []
 	for bonus_data in preset["bonuses"]:
-		var b = CardBonus.new(bonus_data["type"], bonus_data["value"])
+		var b: CardBonus = CardBonus.new(bonus_data["type"], bonus_data["value"])
 		bonuses.append(b)
 	
 	# ustaw grafikę

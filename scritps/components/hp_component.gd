@@ -25,7 +25,6 @@ func heal(amount: float) -> void:
 	add_component_label(amount, Color.LIME_GREEN)
 	health = clamp(health + amount, 0.0, max_health)
 	
-	
 	if parent is Player:
 		emit_signal("player_healed")
 
@@ -48,7 +47,7 @@ func damage(amount: float, is_crit: bool) -> void:
 
 func add_component_label(amount: float, color: Color) -> void:
 	# label od utraty hp
-	var label = Label.new()
+	var label: Label = Label.new()
 	if amount >= 0:
 		label.text = "+" + str(amount)
 	else:
@@ -66,7 +65,7 @@ func add_component_label(amount: float, color: Color) -> void:
 	label.add_theme_color_override("font_color", color)
 	
 	# czas życia label'a
-	var timer = Timer.new()
+	var timer: Timer = Timer.new()
 	timer.wait_time = 0.5
 	timer.one_shot = true
 	timer.autostart = true

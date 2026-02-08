@@ -72,40 +72,33 @@ func _physics_process(delta: float) -> void:
 	apply_brake(delta)
 
 func _input(event: InputEvent) -> void:
-	if is_multiplayer_authority():
-		# debug
-		if Input.is_action_just_pressed("debug_toogle"):
-			pass
-		# dev exit game
-		if Input.is_action_just_pressed("exit"):
-			get_tree().quit()
-		# begin movement or shoot
-		if Input.is_action_just_pressed("shoot_and_move") and !Input.is_action_pressed("cards_interactions"):
-			# movement direction
-			if is_mouse_inside:
-				was_lmb_pressed = true
-			# shooting
-			else:
-				shoot()
-		# apply movement force
-		if Input.is_action_just_released("shoot_and_move") and !Input.is_action_pressed("cards_interactions"):
-			if was_lmb_pressed:
-				shoot_force = global_position - get_global_mouse_position()
-				was_lmb_pressed = false
-		# rotation
-		if Input.is_action_just_pressed("rotate"):
-			rotate_to_mouse = true
-		if Input.is_action_just_released("rotate"):
-			rotate_to_mouse = false
-		# dodging
-		if Input.is_action_just_pressed("dodge_left"):
-			dodge(Vector2.LEFT)
-		if Input.is_action_just_pressed("dodge_right"):
-			dodge(Vector2.RIGHT)
-		if Input.is_action_just_pressed("dodge_up"):
-			dodge(Vector2.UP)
-		if Input.is_action_just_pressed("dodge_down"):
-			dodge(Vector2.DOWN)
+	# begin movement or shoot
+	if Input.is_action_just_pressed("shoot_and_move") and !Input.is_action_pressed("cards_interactions"):
+		# movement direction
+		if is_mouse_inside:
+			was_lmb_pressed = true
+		# shooting
+		else:
+			shoot()
+	# apply movement force
+	if Input.is_action_just_released("shoot_and_move") and !Input.is_action_pressed("cards_interactions"):
+		if was_lmb_pressed:
+			shoot_force = global_position - get_global_mouse_position()
+			was_lmb_pressed = false
+	# rotation
+	if Input.is_action_just_pressed("rotate"):
+		rotate_to_mouse = true
+	if Input.is_action_just_released("rotate"):
+		rotate_to_mouse = false
+	# dodging
+	if Input.is_action_just_pressed("dodge_left"):
+		dodge(Vector2.LEFT)
+	if Input.is_action_just_pressed("dodge_right"):
+		dodge(Vector2.RIGHT)
+	if Input.is_action_just_pressed("dodge_up"):
+		dodge(Vector2.UP)
+	if Input.is_action_just_pressed("dodge_down"):
+		dodge(Vector2.DOWN)
 
 
 
@@ -130,12 +123,12 @@ func _on_dodge_cooldown() -> void:
 
 
 func shoot() -> void:
-	var dir = (get_global_mouse_position() - global_position).normalized()
-	var angle = normal.angle_to(dir)
+	var dir: Vector2 = (get_global_mouse_position() - global_position).normalized()
+	var angle: float = normal.angle_to(dir)
 	
 	# ograniczenie kąta strzału
 	if abs(angle) > stats.shooting_angle:
-		var bounded_angle = sign(angle) * stats.shooting_angle
+		var bounded_angle: float = sign(angle) * stats.shooting_angle
 		dir = normal.rotated(bounded_angle)
 	
 	var bt: Bullet = bullet_scene.instantiate()
@@ -153,12 +146,12 @@ func shoot() -> void:
 
 func rotate_ship(delta: float) -> void:
 	if rotate_to_mouse:
-		var to_mouse_angle = (get_global_mouse_position() - global_position).angle()
-		var angle_diff = wrapf(to_mouse_angle - rotation + PI/2, -PI, PI)
-		var max_step = stats.rotate_speed * delta
+		var to_mouse_angle: float = (get_global_mouse_position() - global_position).angle()
+		var angle_diff: float = wrapf(to_mouse_angle - rotation + PI/2, -PI, PI)
+		var max_step: float = stats.rotate_speed * delta
 		
 		# clamp to max_step so it seems smooth?
-		var rotate_step = clamp(angle_diff, -max_step, max_step)
+		var rotate_step: float = clamp(angle_diff, -max_step, max_step)
 		rotate(rotate_step)
 
 func apply_movement() -> void:
