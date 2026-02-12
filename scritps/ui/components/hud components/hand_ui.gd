@@ -11,7 +11,7 @@ class_name HandControl
 
 @onready var even: bool = false
 var y_default: float = 50
-var i: int = 0
+var i: float = 0.0
 var cards: Array[Card] = []
 
 
@@ -34,6 +34,8 @@ func apply_card(card: Card) -> void:
 		match bonus.stat:
 			CardBonus.StatBoosts.DMG:
 				Global.player.stats.dmg += bonus.value
+			CardBonus.StatBoosts.CRIT_CHANCE:
+				Global.player.stats.crit_chance += bonus.value
 	
 	remove_card(card)
 

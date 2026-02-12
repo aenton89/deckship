@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bf4d0ynycabq3"]
+[gd_scene format=3 uid="uid://bf4d0ynycabq3"]
 
 [ext_resource type="Script" uid="uid://doxxk24jps7id" path="res://scritps/npc/merchant.gd" id="1_ss6c5"]
 [ext_resource type="Texture2D" uid="uid://domyxg7akyl7g" path="res://assets/npc/merchant/merchant.png" id="2_owqti"]
@@ -15,21 +15,23 @@ script = ExtResource("1_ss6c5")
 interaction_area = NodePath("Interaction Area")
 
 [node name="Merchant Collision" type="CollisionShape2D" parent="." unique_id=875656576]
+scale = Vector2(2, 2)
 shape = SubResource("RectangleShape2D_l0yq7")
 
 [node name="Merchant" type="Sprite2D" parent="." unique_id=1845531695]
-scale = Vector2(5, 5)
+scale = Vector2(10, 10)
 texture = ExtResource("2_owqti")
 
 [node name="Interaction Area" type="Area2D" parent="." unique_id=655717697]
+scale = Vector2(2, 2)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Interaction Area" unique_id=1266629049]
 position = Vector2(0, 80)
 shape = SubResource("RectangleShape2D_owqti")
 
 [node name="MerchantArea" type="Sprite2D" parent="." unique_id=1592089613]
-position = Vector2(0, 80.00001)
-scale = Vector2(5, 5)
+position = Vector2(0, 160)
+scale = Vector2(10, 10)
 texture = ExtResource("3_0hxj3")
 
 [connection signal="body_entered" from="Interaction Area" to="." method="_on_interaction_area_body_entered"]

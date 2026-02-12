@@ -39,7 +39,7 @@ func pick_random_preset() -> Dictionary:
 func _on_body_entered(body: Node2D) -> void:
 	if body is Player:
 		var preset: Dictionary = pick_random_preset()
-		Global.UI.hand_control.add_card(preset)
+		Global.UI.hud.hand_control.add_card(preset)
 	
 		# debug bonusów:
 		for bonus_data in preset["bonuses"]:

@@ -8,6 +8,7 @@ class_name Card
 @export var sprite: Sprite2D
 @export_category("Hoover Actions")
 @export var y_change: float = 80.0
+@export var is_shop_card: bool = false
 @export_category("Tween")
 @export var up_duration: float = 0.2
 @export var down_duration: float = 0.4
@@ -15,6 +16,7 @@ class_name Card
 @export var ease: Tween.EaseType = Tween.EASE_IN_OUT
 
 var bonuses: Array[CardBonus] = []
+var curr_preset: Dictionary
 var current_tween: Tween = null
 var base_y: float
 var hovered: bool = false
@@ -24,22 +26,30 @@ var hovered: bool = false
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("shoot_and_move") and Input.is_action_pressed("cards_interactions") and hovered:
 		print("card pressed")
-		Global.UI.hand_control.apply_card(self)
+		Global.UI.hud.hand_control.apply_card(self)
 
 
 
 func _on_area_2d_mouse_entered() -> void:
 	hovered = true
-	if Input.is_action_pressed("cards_interactions"):
-		animate_to(base_y - y_change, up_duration)
+	if is_shop_card:
+		pass
+	else:
+		if Input.is_action_pressed("cards_interactions"):
+			animate_to(base_y - y_change, up_duration)
 
 func _on_area_2d_mouse_exited() -> void:
 	hovered = false
-	animate_to(base_y, down_duration)
+	if is_shop_card:
+		pass
+	else:
+		animate_to(base_y, down_duration)
 
 
 
 func setup(preset: Dictionary) -> void:
+	curr_preset = preset
+	
 	# ustaw bonusy
 	bonuses = []
 	for bonus_data in preset["bonuses"]:

@@ -1,21 +1,20 @@
-[gd_scene load_steps=4 format=3 uid="uid://c48r4x286v3uu"]
+[gd_scene format=3 uid="uid://c48r4x286v3uu"]
 
-[ext_resource type="Script" uid="uid://tgtu4juu7jwt" path="res://scritps/items/collectables/money.gd" id="1_d52mv"]
-[ext_resource type="Texture2D" uid="uid://bg28d7fqbw2vh" path="res://assets/icon.svg" id="1_hipif"]
+[ext_resource type="Script" uid="uid://cwot2ulsjgim8" path="res://scritps/items/collectables/money.gd" id="1_d52mv"]
+[ext_resource type="Texture2D" uid="uid://rtpv556weirx" path="res://assets/world/coin.png" id="2_d52mv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d52mv"]
-size = Vector2(64, 64)
+size = Vector2(56, 56)
 
 [node name="Money" type="Node2D" unique_id=882739036 node_paths=PackedStringArray("sprite")]
 script = ExtResource("1_d52mv")
 sprite = NodePath("Icon")
 
 [node name="Icon" type="Sprite2D" parent="." unique_id=2123985582]
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("1_hipif")
+scale = Vector2(4, 4)
+texture = ExtResource("2_d52mv")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=412374210]
-scale = Vector2(0.5, 0.5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1638326395]
 shape = SubResource("RectangleShape2D_d52mv")

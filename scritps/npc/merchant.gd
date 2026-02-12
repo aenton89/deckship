@@ -13,10 +13,29 @@ class_name Merchant
 # osobna scena na której jest cały sklep?
 
 
+
 @export_category("References")
 @export var interaction_area: Area2D
+@export_category("Imports")
+@export var card_scene: PackedScene = preload("res://scenes/items/card.tscn")
+@export_category("Shop ware")
+@export var card_stock: int = 5
+@export var single_bonus_chance: float = 0.6
 
-@onready var in_shop: bool = false
+@onready var card_comodities: Array[Card] = []
+@onready var player_in_shop: bool = false
+
+
+
+# generate_stock() - losuje jakieś karty
+# pass_to_display() - przekazuje do ui, co ma być instantiate'ed
+# delete_stock() - usuwa kartę, wywoływane przez shop_screen_ui
+
+
+
+func _ready() -> void:
+	# wylosować zestaw kart w obecnym sklepie
+	pass
 
 
 
@@ -24,10 +43,12 @@ func _on_interaction_area_body_entered(body: Node2D) -> void:
 	if body is Player:
 		# if !Global.player.in_combat:
 			# Global.player.can_shop = true
-		pass
+		Global.UI.shop_ui.visible = true
+		player_in_shop = true
 
 func _on_interaction_area_body_exited(body: Node2D) -> void:
 	if body is Player:
 		# if !Global.player.in_combat:
 			# Global.player.can_shop = false
-		pass
+		Global.UI.shop_ui.visible = false
+		player_in_shop = false

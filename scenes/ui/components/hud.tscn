@@ -1,0 +1,149 @@
+[gd_scene format=3 uid="uid://7em2dei4j6h6"]
+
+[ext_resource type="Script" uid="uid://crv3k6t1trynw" path="res://scritps/ui/components/hud.gd" id="1_6lbu6"]
+[ext_resource type="Texture2D" uid="uid://bgjxehteuqdm6" path="res://assets/ui/hp_bar_under.png" id="2_s1n8u"]
+[ext_resource type="Texture2D" uid="uid://dctg37thv2o8" path="res://assets/ui/hp_bar_over.png" id="3_o4rg1"]
+[ext_resource type="Texture2D" uid="uid://b2dwfaer0w2s5" path="res://assets/ui/hp_bar_progress.png" id="4_qotxw"]
+[ext_resource type="Script" uid="uid://dtypc2rixloh" path="res://scritps/ui/components/hud components/hp_bar.gd" id="5_xwflt"]
+[ext_resource type="Script" uid="uid://wonofp2pq1jh" path="res://scritps/ui/components/hud components/compass_ui.gd" id="6_tvw8k"]
+[ext_resource type="Shader" uid="uid://3bnb6msr6wmb" path="res://resources/ui/compass_strip.gdshader" id="7_3svfe"]
+[ext_resource type="Texture2D" uid="uid://xnfcoq3111kf" path="res://assets/ui/compass_v2.png" id="8_ae4b1"]
+[ext_resource type="Texture2D" uid="uid://b86abri080k67" path="res://assets/ui/compass_needle.png" id="9_n1jy2"]
+[ext_resource type="Script" uid="uid://dh6a4q3814tbi" path="res://scritps/ui/components/hud components/hand_ui.gd" id="10_h0vwk"]
+[ext_resource type="Script" uid="uid://clfaip21h4tya" path="res://scritps/ui/components/hud components/arrow_container_ui.gd" id="11_k2wk4"]
+[ext_resource type="Script" uid="uid://dgsrtbg7plhyj" path="res://scritps/ui/components/hud components/money_ui.gd" id="12_spwpx"]
+[ext_resource type="LabelSettings" uid="uid://cr1046skf4tlm" path="res://resources/ui/money_label_settings.tres" id="13_45eo3"]
+[ext_resource type="Script" uid="uid://c8nnopui2gud1" path="res://scritps/ui/components/hud components/dodge_ui.gd" id="14_qbvyc"]
+[ext_resource type="Texture2D" uid="uid://c8l1xolxeypaj" path="res://assets/ui/dodge_under.png" id="15_sdsla"]
+[ext_resource type="Texture2D" uid="uid://bdiu1wi3w3cl3" path="res://assets/ui/dodge_over.png" id="16_rvf4t"]
+[ext_resource type="Texture2D" uid="uid://vchwtu6amdgq" path="res://assets/ui/dodge_progress.png" id="17_dxj7u"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1n82y"]
+shader = ExtResource("7_3svfe")
+shader_parameter/offset_x = 0.0
+shader_parameter/visible_portion = 0.5
+shader_parameter/fade_width = 0.1
+
+[node name="HUD" type="Control" unique_id=616395290 node_paths=PackedStringArray("hp_bar", "hand_control", "arrow_container", "compass_ui", "money_ui", "dodge_ui")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_6lbu6")
+hp_bar = NodePath("HP Bar")
+hand_control = NodePath("Hand")
+arrow_container = NodePath("ArrowContainer")
+compass_ui = NodePath("CompassUI")
+money_ui = NodePath("MoneyUI")
+dodge_ui = NodePath("DodgeUI")
+
+[node name="HP Bar" type="TextureProgressBar" parent="." unique_id=1325179205]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 148.0
+offset_bottom = 36.0
+scale = Vector2(3, 3)
+texture_under = ExtResource("2_s1n8u")
+texture_over = ExtResource("3_o4rg1")
+texture_progress = ExtResource("4_qotxw")
+script = ExtResource("5_xwflt")
+
+[node name="CompassUI" type="Control" parent="." unique_id=1136131117 node_paths=PackedStringArray("compass", "needle")]
+anchors_preset = 0
+offset_left = 930.0
+offset_right = 930.0
+pivot_offset = Vector2(30, 0)
+script = ExtResource("6_tvw8k")
+compass = NodePath("Compass")
+needle = NodePath("Needle")
+
+[node name="Compass" type="TextureRect" parent="CompassUI" unique_id=1779331870]
+material = SubResource("ShaderMaterial_1n82y")
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_top = 36.0
+offset_right = 60.000244
+offset_bottom = 43.00002
+grow_horizontal = 2
+scale = Vector2(4, 4)
+pivot_offset = Vector2(30, 0)
+size_flags_horizontal = 0
+texture = ExtResource("8_ae4b1")
+
+[node name="Needle" type="TextureRect" parent="CompassUI" unique_id=1121786113]
+layout_mode = 0
+offset_left = 26.0
+offset_top = 14.0
+offset_right = 34.0
+offset_bottom = 22.0
+scale = Vector2(2, 2)
+pivot_offset = Vector2(4, 0)
+texture = ExtResource("9_n1jy2")
+
+[node name="Hand" type="Control" parent="." unique_id=914996434]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("10_h0vwk")
+
+[node name="ArrowContainer" type="Control" parent="." unique_id=569897061]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 1
+script = ExtResource("11_k2wk4")
+
+[node name="MoneyUI" type="Control" parent="." unique_id=137589031 node_paths=PackedStringArray("label", "change_label")]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("12_spwpx")
+label = NodePath("MoneyLabel")
+change_label = NodePath("MoneyLabel/MoneyChangeLabel")
+
+[node name="MoneyLabel" type="Label" parent="MoneyUI" unique_id=1320657178]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 120.0
+offset_right = 85.0
+offset_bottom = 165.00002
+text = "129"
+label_settings = ExtResource("13_45eo3")
+
+[node name="MoneyChangeLabel" type="Label" parent="MoneyUI/MoneyLabel" unique_id=637311782]
+layout_mode = 0
+offset_left = 95.0
+offset_right = 150.0
+offset_bottom = 45.0
+text = "321"
+label_settings = ExtResource("13_45eo3")
+
+[node name="DodgeUI" type="Control" parent="." unique_id=2034538003 node_paths=PackedStringArray("cooldown_bar")]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("14_qbvyc")
+cooldown_bar = NodePath("Cooldown Bar")
+
+[node name="Cooldown Bar" type="TextureProgressBar" parent="DodgeUI" unique_id=274140257]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 72.0
+offset_right = 44.000023
+offset_bottom = 88.00001
+scale = Vector2(3, 3)
+value = 100.0
+fill_mode = 3
+texture_under = ExtResource("15_sdsla")
+texture_over = ExtResource("16_rvf4t")
+texture_progress = ExtResource("17_dxj7u")

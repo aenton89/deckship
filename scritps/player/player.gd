@@ -114,11 +114,11 @@ func _on_took_dmg() -> void:
 
 func _on_dodge_cooldown() -> void:
 	dodges_available += 1
-	Global.UI.dodge_ui.add_bars(1)
+	Global.UI.hud.dodge_ui.add_bars(1)
 	
 	if dodges_available < stats.dodge_amount:
 		dodge_timer.start(stats.dodge_cooldown)
-		Global.UI.dodge_ui.start_cooldown()
+		Global.UI.hud.dodge_ui.start_cooldown()
 
 
 
@@ -171,9 +171,9 @@ func dodge(direction: Vector2) -> void:
 			await get_tree().create_timer(0.1).timeout
 		
 		dodges_available -= 1
-		Global.UI.dodge_ui.remove_bars(1)
+		Global.UI.hud.dodge_ui.remove_bars(1)
 		dodge_timer.start(stats.dodge_cooldown)
-		Global.UI.dodge_ui.start_cooldown()
+		Global.UI.hud.dodge_ui.start_cooldown()
 
 func spawn_ghost_trail():
 	var ghost: Sprite2D = Sprite2D.new()

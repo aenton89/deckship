@@ -1,7 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://cg2oma2ltfkkx"]
+[gd_scene format=3 uid="uid://cg2oma2ltfkkx"]
 
 [ext_resource type="Texture2D" uid="uid://u4s6adky3qmb" path="res://assets/world/loot_box.png" id="1_f1ba4"]
-[ext_resource type="Script" uid="uid://bmkf1hwdh2wma" path="res://scritps/items/reward.gd" id="1_iw13v"]
+[ext_resource type="Script" uid="uid://cq60inok5wa20" path="res://scritps/items/collectables/reward.gd" id="1_iw13v"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f1ba4"]
 size = Vector2(76, 122)
@@ -42,17 +42,17 @@ animations = [{
 "speed": 4.0
 }]
 
-[node name="Reward" type="Node2D" node_paths=PackedStringArray("animated_sprite")]
+[node name="Reward" type="Node2D" unique_id=1772305779 node_paths=PackedStringArray("animated_sprite")]
 script = ExtResource("1_iw13v")
 animated_sprite = NodePath("AnimatedSprite2D")
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="." unique_id=1114967004]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=2053475312]
 position = Vector2(1, -1)
 shape = SubResource("RectangleShape2D_f1ba4")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=910078454]
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_vsjww")
 animation = &"idle"

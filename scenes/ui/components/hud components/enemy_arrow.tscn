@@ -1,10 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://levfsgaunyl6"]
+[gd_scene format=3 uid="uid://levfsgaunyl6"]
 
 [ext_resource type="Texture2D" uid="uid://bgqdcpm33vjm6" path="res://assets/ui/enemy arrow.png" id="1_nufyn"]
 
-[node name="EnemyArrow" type="Node2D"]
+[node name="EnemyArrow" type="Node2D" unique_id=566041757]
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=240700499]
 texture_filter = 1
 texture_repeat = 1
 scale = Vector2(3, 3)

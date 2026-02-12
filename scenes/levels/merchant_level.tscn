@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://bjgk8f8cntvna"]
+[gd_scene format=3 uid="uid://bjgk8f8cntvna"]
 
 [ext_resource type="PackedScene" uid="uid://bf4d0ynycabq3" path="res://scenes/npc/merchant.tscn" id="1_3psn6"]
 [ext_resource type="PackedScene" uid="uid://c48r4x286v3uu" path="res://scenes/items/collectables/money.tscn" id="2_58o70"]
@@ -8,12 +8,13 @@
 [node name="Merchant" parent="." unique_id=1524075770 instance=ExtResource("1_3psn6")]
 
 [node name="Money Rewards" type="Node2D" parent="." unique_id=165400140]
+position = Vector2(486, 146)
 
 [node name="Money" parent="Money Rewards" unique_id=882739036 instance=ExtResource("2_58o70")]
-position = Vector2(271, 225)
+position = Vector2(138, 418)
 
 [node name="Money2" parent="Money Rewards" unique_id=491223130 instance=ExtResource("2_58o70")]
 position = Vector2(138, 232)
 
 [node name="Money3" parent="Money Rewards" unique_id=958802721 instance=ExtResource("2_58o70")]
-position = Vector2(245, 154)
+position = Vector2(354, 326)

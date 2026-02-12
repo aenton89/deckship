@@ -27,9 +27,9 @@ func _on_player_died() -> void:
 		animation_player.play("death_screen_fade")
 		
 		# pousuwaj pozostały HUD
-		Global.UI.arrow_container.visible = false
-		Global.UI.hp_bar.visible = false
-		Global.UI.hand_control.visible = false
-		Global.UI.compass_ui.visible = false
-		Global.UI.money_ui.visible = false
-		Global.UI.dodge_ui.visible = false
+		Global.UI.hud.arrow_container.visible = false
+		Global.UI.hud.hp_bar.visible = false
+		Global.UI.hud.hand_control.visible = false
+		Global.UI.hud.compass_ui.visible = false
+		Global.UI.hud.money_ui.visible = false
+		Global.UI.hud.dodge_ui.visible = false

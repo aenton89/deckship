@@ -1,8 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://b55cq8460wwgo"]
+[gd_scene format=3 uid="uid://b55cq8460wwgo"]
 
-[ext_resource type="Script" uid="uid://bab0f1ap0m661" path="res://scritps/system/main.gd" id="1_5m258"]
+[ext_resource type="Script" uid="uid://dxrrf3so75xou" path="res://scritps/system/main.gd" id="1_5m258"]
 [ext_resource type="PackedScene" uid="uid://2bbk1qjegcs4" path="res://scenes/player/player.tscn" id="1_6awnf"]
-[ext_resource type="PackedScene" uid="uid://ccbd3vi5s7y35" path="res://scenes/levels/test_level.tscn" id="5_628vv"]
+[ext_resource type="PackedScene" uid="uid://bjgk8f8cntvna" path="res://scenes/levels/merchant_level.tscn" id="3_xoti3"]
 [ext_resource type="Texture2D" uid="uid://bqgxx1xslxk1n" path="res://assets/world/space.png" id="6_uaibl"]
 [ext_resource type="Shader" uid="uid://0v2npn0m2iya" path="res://resources/environment/crt_shader.gdshader" id="7_uaibl"]
 
@@ -34,9 +34,12 @@ shader_parameter/vignette_opacity = 0.2
 script = ExtResource("1_5m258")
 player = NodePath("Player")
 
-[node name="TestLevel" parent="." unique_id=59530065 instance=ExtResource("5_628vv")]
+[node name="Levels" type="Node2D" parent="." unique_id=525184286]
+
+[node name="MerchantLevel" parent="Levels" unique_id=132274880 instance=ExtResource("3_xoti3")]
 
 [node name="Player" parent="." unique_id=1945939046 instance=ExtResource("1_6awnf")]
+position = Vector2(0, 655)
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="." unique_id=1257540869]
 

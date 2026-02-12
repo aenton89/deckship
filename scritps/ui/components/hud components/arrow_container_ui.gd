@@ -9,7 +9,7 @@ class_name ArrowContainer
 
 
 @export_category("Imports")
-@export var arrow_scene: PackedScene = preload("res://scenes/system/ui/enemy_arrow.tscn")
+@export var arrow_scene: PackedScene = preload("res://scenes/ui/components/hud components/enemy_arrow.tscn")
 @export_category("Detection")
 @export var detection_range: float = 4000.0
 

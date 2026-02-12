@@ -10,14 +10,16 @@ static var SINGLE_BONUS_PRESETS: Array = [
 		"bonuses": [
 			{"type": CardBonus.StatBoosts.DMG, "value": 10}
 		],
-		"sprite": "res://assets/cards/card_02.png"
+		"sprite": "res://assets/cards/card_02.png",
+		"price": 10
 	},
 	{
 		"name": "CRIT_CHANCE_DEFAULT",
 		"bonuses": [
 			{"type": CardBonus.StatBoosts.CRIT_CHANCE, "value": 0.1}
 		],
-		"sprite": "res://assets/cards/card_01.png"
+		"sprite": "res://assets/cards/card_01.png",
+		"price": 20
 	}
 ]
 
@@ -29,6 +31,7 @@ static var MULTI_BONUS_PRESETS: Array = [
 			{"type": CardBonus.StatBoosts.CRIT_CHANCE, "value": 0.05},
 			{"type": CardBonus.StatBoosts.DMG, "value": 5}
 		],
-		"sprite": "res://assets/cards/card_03.png"
+		"sprite": "res://assets/cards/card_03.png",
+		"price": 50
 	}
 ]
