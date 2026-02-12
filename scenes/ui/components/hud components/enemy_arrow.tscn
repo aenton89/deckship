@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://levfsgaunyl6"]
 
-[ext_resource type="Texture2D" uid="uid://bgqdcpm33vjm6" path="res://assets/ui/enemy arrow.png" id="1_nufyn"]
+[ext_resource type="Texture2D" uid="uid://bgqdcpm33vjm6" path="res://assets/ui/hud/enemy arrow.png" id="1_nufyn"]
 
 [node name="EnemyArrow" type="Node2D" unique_id=566041757]
 

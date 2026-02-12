@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://vchwtu6amdgq"
-path="res://.godot/imported/dodge_progress.png-46a78793946604b30631a989f7c73e21.ctex"
+uid="uid://xnfcoq3111kf"
+path="res://.godot/imported/compass_v2.png-a2d5c56425a300c46560789e2e92c02d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/dodge_progress.png"
-dest_files=["res://.godot/imported/dodge_progress.png-46a78793946604b30631a989f7c73e21.ctex"]
+source_file="res://assets/ui/hud/compass_v2.png"
+dest_files=["res://.godot/imported/compass_v2.png-a2d5c56425a300c46560789e2e92c02d.ctex"]
 
 [params]
 

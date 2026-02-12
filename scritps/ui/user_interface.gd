@@ -7,6 +7,7 @@ class_name UserInterface
 @export var hud: HUD
 @export var shop_ui: ShopScreen
 @export var death_screen: DeathScreen
+@export var menu: Menu
 
 
 

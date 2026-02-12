@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://xvsi58eqm0tf"]
+
+[ext_resource type="Script" uid="uid://6fy7sq1s83qo" path="res://scritps/level/levels/menu_level.gd" id="1_innd5"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_innd5"]
+
+[node name="MenuLevel" type="Node2D" unique_id=1049646142 node_paths=PackedStringArray("lvl_camera")]
+script = ExtResource("1_innd5")
+lvl_camera = NodePath("Camera2D")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1782954766]
+position = Vector2(-3, -3)
+
+[node name="Boundries" type="Node2D" parent="." unique_id=452155867]
+
+[node name="Bottom" type="StaticBody2D" parent="Boundries" unique_id=266771479]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundries/Bottom" unique_id=1405435769]
+position = Vector2(0, 540)
+shape = SubResource("WorldBoundaryShape2D_innd5")
+
+[node name="Right" type="StaticBody2D" parent="Boundries" unique_id=1796388815]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundries/Right" unique_id=1500860421]
+position = Vector2(960, 0)
+rotation = -1.5707964
+shape = SubResource("WorldBoundaryShape2D_innd5")
+
+[node name="Left" type="StaticBody2D" parent="Boundries" unique_id=1791544933]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundries/Left" unique_id=658511124]
+position = Vector2(-960, 0)
+rotation = 1.5707964
+shape = SubResource("WorldBoundaryShape2D_innd5")
+
+[node name="Upper" type="StaticBody2D" parent="Boundries" unique_id=1042393168]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundries/Upper" unique_id=2063330207]
+position = Vector2(0, -540)
+rotation = 3.1415927
+shape = SubResource("WorldBoundaryShape2D_innd5")

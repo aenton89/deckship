@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b86abri080k67"
-path="res://.godot/imported/compass_needle.png-4fa8acf6bd0310a22852b0860f25757f.ctex"
+uid="uid://bgjxehteuqdm6"
+path="res://.godot/imported/hp_bar_under.png-db64a25b385a894ab5704225ce9cf0f9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/compass_needle.png"
-dest_files=["res://.godot/imported/compass_needle.png-4fa8acf6bd0310a22852b0860f25757f.ctex"]
+source_file="res://assets/ui/hud/hp_bar_under.png"
+dest_files=["res://.godot/imported/hp_bar_under.png-db64a25b385a894ab5704225ce9cf0f9.ctex"]
 
 [params]
 

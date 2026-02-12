@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c8l1xolxeypaj"
-path="res://.godot/imported/dodge_under.png-8b9a2370edace18b9935a5ef1a7b3a1c.ctex"
+uid="uid://vchwtu6amdgq"
+path="res://.godot/imported/dodge_progress.png-be1a486e38b23f07e69e524a6389b26a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/dodge_under.png"
-dest_files=["res://.godot/imported/dodge_under.png-8b9a2370edace18b9935a5ef1a7b3a1c.ctex"]
+source_file="res://assets/ui/hud/dodge_progress.png"
+dest_files=["res://.godot/imported/dodge_progress.png-be1a486e38b23f07e69e524a6389b26a.ctex"]
 
 [params]
 
