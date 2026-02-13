@@ -30,6 +30,7 @@ position = Vector2(0, 80)
 shape = SubResource("RectangleShape2D_owqti")
 
 [node name="MerchantArea" type="Sprite2D" parent="." unique_id=1592089613]
+self_modulate = Color(1, 1, 1, 0.8235294)
 position = Vector2(0, 160)
 scale = Vector2(10, 10)
 texture = ExtResource("3_0hxj3")

@@ -1,9 +1,12 @@
 [gd_scene format=3 uid="uid://bjgk8f8cntvna"]
 
 [ext_resource type="PackedScene" uid="uid://bf4d0ynycabq3" path="res://scenes/npc/merchant.tscn" id="1_3psn6"]
+[ext_resource type="Script" uid="uid://crq3i3dkgsf35" path="res://scritps/level/levels/merchant_level.gd" id="1_u1bw7"]
 [ext_resource type="PackedScene" uid="uid://c48r4x286v3uu" path="res://scenes/items/collectables/money.tscn" id="2_58o70"]
 
 [node name="MerchantLevel" type="Node2D" unique_id=132274880]
+script = ExtResource("1_u1bw7")
+level_name = "MerchantLevel"
 
 [node name="Merchant" parent="." unique_id=1524075770 instance=ExtResource("1_3psn6")]
 

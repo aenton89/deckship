@@ -4,6 +4,7 @@ extends Node2D
 
 @export_category("References")
 @export var player: Player
+@export var shader: CanvasLayer
 
 var fps_label: Label
 

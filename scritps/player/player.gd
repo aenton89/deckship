@@ -35,6 +35,7 @@ class_name Player
 @onready var shoot_force: Vector2 = Vector2.ZERO
 # dodge cooldown
 @onready var dodges_available: int = stats.dodge_amount
+@onready var can_shoot: bool = true
 
 
 
@@ -123,6 +124,9 @@ func _on_dodge_cooldown() -> void:
 
 
 func shoot() -> void:
+	if !can_shoot:
+		return
+	
 	var dir: Vector2 = (get_global_mouse_position() - global_position).normalized()
 	var angle: float = normal.angle_to(dir)
 	

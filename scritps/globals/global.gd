@@ -19,3 +19,4 @@ var player: Player
 var main: Node2D
 var UI: UserInterface
 var camera: Camera2D
+var lvl_manager: LevelManager

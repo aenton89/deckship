@@ -43,6 +43,7 @@ func _on_interaction_area_body_entered(body: Node2D) -> void:
 	if body is Player:
 		# if !Global.player.in_combat:
 			# Global.player.can_shop = true
+		Global.player.can_shoot = false
 		Global.UI.shop_ui.visible = true
 		player_in_shop = true
 
@@ -50,5 +51,6 @@ func _on_interaction_area_body_exited(body: Node2D) -> void:
 	if body is Player:
 		# if !Global.player.in_combat:
 			# Global.player.can_shop = false
+		Global.player.can_shoot = true
 		Global.UI.shop_ui.visible = false
 		player_in_shop = false

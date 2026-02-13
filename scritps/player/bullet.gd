@@ -15,6 +15,7 @@ class_name Bullet
 @export_category("Bullet Details")
 # life time of bullet
 @export var life_span: float = 3.0
+@export var fade_time: float = 0.3
 @export var raycast_margin: float = 2.0
 
 # specifies if bullet should bounce after collision
@@ -84,7 +85,7 @@ func init(direction: Vector2, position: Vector2, texture: Texture2D = null, scal
 	
 	rotation = direction.angle() + PI/2
 	life_timer.one_shot = true
-	life_timer.start(life_span)
+	life_timer.start(life_span - fade_time)
 
 
 func hit_target(body: Node2D) -> void:
@@ -131,8 +132,13 @@ func apply_explosion_force(body: Node2D) -> void:
 		var dir_from_bullet: Vector2 = (body.global_position - global_position).normalized()
 		body.apply_impulse(dir_from_bullet * explosion_force)
 
+func fade_and_destroy() -> void:
+	var tween = create_tween()
+	tween.tween_property(sprite, "modulate:a", 0.0, fade_time)
+	tween.tween_callback(queue_free)
+
 
 
 # pocisk nie może istnieć w nieskończoność
 func _on_life_timer_timeout() -> void:
-	queue_free()
+	fade_and_destroy()

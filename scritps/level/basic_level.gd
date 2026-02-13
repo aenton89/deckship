@@ -3,8 +3,15 @@ class_name Level
 
 
 
-func on_level_entered() -> void:
-	pass
+signal level_entered
+signal level_exited
 
-func on_level_exited() -> void:
-	pass
+@export var level_name: String = ""
+
+
+
+func enter_level() -> void:
+	level_entered.emit()
+
+func exit_level() -> void:
+	level_exited.emit()

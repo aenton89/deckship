@@ -7,9 +7,9 @@
 [node name="MenuLevel" type="Node2D" unique_id=1049646142 node_paths=PackedStringArray("lvl_camera")]
 script = ExtResource("1_innd5")
 lvl_camera = NodePath("Camera2D")
+level_name = "MenuLevel"
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1782954766]
-position = Vector2(-3, -3)
 
 [node name="Boundries" type="Node2D" parent="." unique_id=452155867]
 

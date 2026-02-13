@@ -31,17 +31,19 @@ shader_parameter/clip_warp = false
 shader_parameter/vignette_intensity = 0.4
 shader_parameter/vignette_opacity = 0.2
 
-[node name="Main Scene" type="Node2D" unique_id=937035620 node_paths=PackedStringArray("player")]
+[node name="Main Scene" type="Node2D" unique_id=937035620 node_paths=PackedStringArray("player", "shader")]
 script = ExtResource("1_5m258")
 player = NodePath("Player")
+shader = NodePath("Shader Layer")
 
-[node name="Level Manager" type="Node2D" parent="." unique_id=525184286 node_paths=PackedStringArray("curr_level")]
+[node name="Level Manager" type="Node2D" parent="." unique_id=525184286 node_paths=PackedStringArray("starting_level")]
 script = ExtResource("2_xoti3")
-curr_level = NodePath("MenuLevel")
+starting_level = NodePath("MenuLevel")
 
 [node name="MenuLevel" parent="Level Manager" unique_id=1049646142 instance=ExtResource("3_xoti3")]
 
 [node name="Player" parent="." unique_id=1945939046 instance=ExtResource("1_6awnf")]
+position = Vector2(0, -150)
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="." unique_id=1257540869]
 
@@ -59,7 +61,6 @@ region_rect = Rect2(0, 0, 7680, 4320)
 
 [node name="Shader Layer" type="CanvasLayer" parent="." unique_id=642498250]
 layer = 128
-visible = false
 
 [node name="ColorRect" type="ColorRect" parent="Shader Layer" unique_id=226878678]
 material = SubResource("ShaderMaterial_t1oto")
@@ -68,4 +69,4 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 1
+mouse_filter = 2
