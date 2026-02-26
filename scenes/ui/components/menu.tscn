@@ -1,13 +1,56 @@
 [gd_scene format=3 uid="uid://b3tgugkqk8m1p"]
 
 [ext_resource type="Script" uid="uid://vq41ac5odmb" path="res://scritps/ui/components/menu.gd" id="1_d8lti"]
+[ext_resource type="Shader" uid="uid://buej047bae8t7" path="res://resources/ui/menu_blur.gdshader" id="2_2eb68"]
 [ext_resource type="Texture2D" uid="uid://bua26f5n0wus" path="res://assets/ui/menu/start_menu.png" id="2_prouo"]
 [ext_resource type="Texture2D" uid="uid://ds3s6eivna7q4" path="res://assets/ui/menu/settings_menu.png" id="3_x3kic"]
 [ext_resource type="Texture2D" uid="uid://cgsue5m4mq6b4" path="res://assets/ui/menu/quit_menu.png" id="4_5tjvv"]
 [ext_resource type="Texture2D" uid="uid://bswrxbpyg1b4t" path="res://assets/ui/menu/settings/crt_effect_menu.png" id="5_x3kic"]
 [ext_resource type="Texture2D" uid="uid://cviuhwwjw7iyw" path="res://assets/ui/menu/settings/back_menu.png" id="6_5tjvv"]
 
-[node name="Menu" type="Control" unique_id=564669763 node_paths=PackedStringArray("main_menu", "settings_menu")]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_aux2w"]
+shader = ExtResource("2_2eb68")
+shader_parameter/blur_strength = 0.0
+
+[sub_resource type="Animation" id="Animation_2eb68"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/blur_strength")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_5tjvv"]
+resource_name = "blur"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/blur_strength")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.8800000418]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2eb68"]
+_data = {
+&"RESET": SubResource("Animation_2eb68"),
+&"blur": SubResource("Animation_5tjvv")
+}
+
+[node name="Menu" type="Control" unique_id=564669763 node_paths=PackedStringArray("main_menu", "settings_menu", "animation_player")]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -17,6 +60,16 @@ grow_vertical = 2
 script = ExtResource("1_d8lti")
 main_menu = NodePath("Main VBox")
 settings_menu = NodePath("Settings VBox")
+animation_player = NodePath("AnimationPlayer")
+
+[node name="Blur Effect" type="ColorRect" parent="." unique_id=276768369]
+material = SubResource("ShaderMaterial_aux2w")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Main VBox" type="VBoxContainer" parent="." unique_id=1959470463]
 layout_mode = 1
@@ -83,6 +136,10 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 texture_normal = ExtResource("6_5tjvv")
 stretch_mode = 0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=179455736]
+root_node = NodePath("../Blur Effect")
+libraries/ = SubResource("AnimationLibrary_2eb68")
 
 [connection signal="pressed" from="Main VBox/Start Button" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="Main VBox/Settings Button" to="." method="_on_settings_button_pressed"]

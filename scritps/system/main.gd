@@ -30,10 +30,10 @@ func _process(_delta: float) -> void:
 		fps_label.text = "FPS: %d" % Engine.get_frames_per_second()
 
 func _input(event: InputEvent) -> void:
-	if Input.is_action_just_pressed("debug_toogle"):
+	if Input.is_action_just_pressed("dev_debug_toogle"):
 		Global.draw_debug = !Global.draw_debug
 		fps_label.visible = !fps_label.visible
-	if Input.is_action_just_pressed("exit"):
+	if Input.is_action_just_pressed("dev_exit"):
 		get_tree().quit()
 
 
