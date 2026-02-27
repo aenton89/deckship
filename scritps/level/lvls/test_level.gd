@@ -2,6 +2,11 @@ extends Level
 
 
 
+func _ready() -> void:
+	level_name = "TestLevel"
+
+
+
 func enter_level() -> void:
 	super.enter_level()
 

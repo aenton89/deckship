@@ -6,7 +6,9 @@ class_name Level
 signal level_entered
 signal level_exited
 
-@export var level_name: String = ""
+@export var level_name: String = "LoremIpsum"
+@export var next_level: PackedScene = preload("res://scenes/level/lvls/menu_level.tscn")
+@export var spawn_point: SpawnPoint = null
 
 
 

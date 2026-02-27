@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://l8fyderrn8e8"]
 
-[ext_resource type="Script" uid="uid://c8l5dm3vydatu" path="res://scritps/ui/user_interface.gd" id="1_rd21x"]
+[ext_resource type="Script" uid="uid://dvrei5l3bsr6" path="res://scritps/ui/user_interface.gd" id="1_rd21x"]
 [ext_resource type="PackedScene" uid="uid://cl8ughscmv56t" path="res://scenes/ui/components/death_screen.tscn" id="2_yvpgs"]
 [ext_resource type="PackedScene" uid="uid://ca0aw1cnclftf" path="res://scenes/ui/components/shop.tscn" id="3_cpwcr"]
 [ext_resource type="PackedScene" uid="uid://7em2dei4j6h6" path="res://scenes/ui/components/hud.tscn" id="3_s5p0m"]
@@ -17,6 +17,6 @@ menu = NodePath("Menu")
 
 [node name="Shop" parent="." unique_id=2131773830 instance=ExtResource("3_cpwcr")]
 
-[node name="HUD" parent="." unique_id=616395290 instance=ExtResource("3_s5p0m")]
-
 [node name="Menu" parent="." unique_id=564669763 instance=ExtResource("5_vnpvo")]
+
+[node name="HUD" parent="." unique_id=616395290 instance=ExtResource("3_s5p0m")]

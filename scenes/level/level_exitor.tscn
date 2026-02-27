@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://spcsrrpcykxa"]
+
+[ext_resource type="Script" uid="uid://cfas6h8o2frnx" path="res://scritps/level/level_exitor.gd" id="1_o3kgq"]
+[ext_resource type="Texture2D" uid="uid://j1c08d3rhp7k" path="res://assets/world/exit.png" id="2_1wja6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1wja6"]
+size = Vector2(180, 100)
+
+[node name="LevelExitor" type="Node2D" unique_id=990177438]
+script = ExtResource("1_o3kgq")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1806362233]
+scale = Vector2(10, 10)
+texture = ExtResource("2_1wja6")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=160840907]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1830209729]
+shape = SubResource("RectangleShape2D_1wja6")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_body_entered"]

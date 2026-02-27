@@ -33,6 +33,7 @@ func resume() -> void:
 func pause() -> void:
 	get_tree().paused = true
 	visible = true
+	move_to_front()
 	animation_player.play("blur")
 
 

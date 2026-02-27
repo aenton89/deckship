@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://xvsi58eqm0tf"]
 
-[ext_resource type="Script" uid="uid://6fy7sq1s83qo" path="res://scritps/level/levels/menu_level.gd" id="1_innd5"]
+[ext_resource type="Script" uid="uid://bomigxxajegdh" path="res://scritps/level/lvls/menu_level.gd" id="1_innd5"]
+[ext_resource type="PackedScene" uid="uid://bjgk8f8cntvna" path="res://scenes/level/lvls/merchant_level.tscn" id="2_p36d1"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_innd5"]
 
@@ -8,6 +9,7 @@
 script = ExtResource("1_innd5")
 lvl_camera = NodePath("Camera2D")
 level_name = "MenuLevel"
+next_level = ExtResource("2_p36d1")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1782954766]
 

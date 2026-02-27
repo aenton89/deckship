@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ca0aw1cnclftf"]
 
-[ext_resource type="Script" uid="uid://ovjtsgle2ueg" path="res://scritps/ui/components/shop_screen_ui.gd" id="1_ymjum"]
+[ext_resource type="Script" uid="uid://dentuumysclvk" path="res://scritps/ui/components/shop_screen_ui.gd" id="1_ymjum"]
 [ext_resource type="Texture2D" uid="uid://t0dvnvuvc76t" path="res://assets/npc/merchant/shop_sheet.png" id="2_up006"]
 
 [node name="Shop" type="Control" unique_id=2131773830 node_paths=PackedStringArray("background", "card_container")]
@@ -16,6 +16,7 @@ background = NodePath("Background")
 card_container = NodePath("Card Display")
 
 [node name="Background" type="TextureRect" parent="." unique_id=821458891]
+modulate = Color(0.5409905, 0.5409905, 0.5409905, 1)
 self_modulate = Color(1, 1, 1, 0.74509805)
 layout_mode = 1
 anchors_preset = 8

@@ -6,13 +6,17 @@ extends Level
 
 
 
+func _ready() -> void:
+	level_name = "MenuLevel"
+
+
+
 func enter_level() -> void:
 	Global.UI.hud.visible = false
 	Global.UI.menu.visible = true
 	lvl_camera.make_current()
 	
 	super.enter_level()
-
 
 func exit_level() -> void:
 	Global.UI.menu.visible = false
