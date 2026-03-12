@@ -17,6 +17,9 @@ spawn_point = NodePath("SpawnPoint")
 position = Vector2(-80, 632)
 
 [node name="Merchant" parent="." unique_id=1524075770 instance=ExtResource("1_3psn6")]
+card_scene = null
+card_stock_amount = null
+multi_chance = null
 
 [node name="Money Rewards" type="Node2D" parent="." unique_id=165400140]
 position = Vector2(486, 146)

@@ -61,6 +61,7 @@ region_rect = Rect2(0, 0, 7680, 4320)
 
 [node name="Shader Layer" type="CanvasLayer" parent="." unique_id=642498250]
 layer = 128
+visible = false
 
 [node name="ColorRect" type="ColorRect" parent="Shader Layer" unique_id=226878678]
 material = SubResource("ShaderMaterial_t1oto")

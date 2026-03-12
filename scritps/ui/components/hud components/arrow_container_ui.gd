@@ -13,7 +13,6 @@ class_name ArrowContainer
 @export_category("Detection")
 @export var detection_range: float = 4000.0
 
-@onready var enemies: Array[Node] = []
 @onready var arrows = {}
 
 var screen_size: Vector2
@@ -33,13 +32,12 @@ func _process(_delta: float) -> void:
 	
 	var visible_rect: Rect2 = Rect2(Vector2.ZERO, screen_size)
 	
-	for enemy in enemies.duplicate():
+	for enemy in Global.lvl_manager.curr_level.enemies:
+		print("NO ARROW?")
 		if !is_instance_valid(enemy):
-			if arrows.has(enemy):
-				arrows[enemy].queue_free()
-				arrows.erase(enemy)
-			enemies.erase(enemy)
+			remove_arrow(enemy)
 			continue
+		print("NO ARROW? 1")
 		
 		var to_enemy: Vector2 = enemy.global_position - Global.player.global_position
 		var dist: float = to_enemy.length()
@@ -48,7 +46,7 @@ func _process(_delta: float) -> void:
 		if dist > detection_range:
 			remove_arrow(enemy)
 			continue
-		
+		print("NO ARROW? 2")
 		# pozycja wroga na ekranie
 		var screen_pos: Vector2 = world_to_screen(enemy.global_position)
 		
@@ -56,7 +54,7 @@ func _process(_delta: float) -> void:
 			# wróg jest na ekranie - usuń strzałkę
 			remove_arrow(enemy)
 			continue
-		
+		print("NO ARROW?3")
 		# poza ekranem - pokaż strzałkę
 		var arrow: Node2D = get_or_create_arrow(enemy)
 		# wektor od środka ekranu do pozycji wroga

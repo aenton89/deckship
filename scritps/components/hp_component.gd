@@ -43,6 +43,9 @@ func damage(amount: float, is_crit: bool) -> void:
 		if health <= 0:
 			if parent.is_in_group("has_money"):
 				Global.player.money_component.add_money(parent.money_component.money)
+			if parent.is_in_group("enemies"):
+				Global.lvl_manager.curr_level.enemies.erase(self)
+			
 			parent.queue_free()
 
 func add_component_label(amount: float, color: Color) -> void:

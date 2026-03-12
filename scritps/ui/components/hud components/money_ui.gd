@@ -10,6 +10,8 @@ class_name MoneyUI
 @export var spacing: float = 40.0
 @export var change_time: float = 0.5
 
+@onready var in_shop = false
+
 
 
 func _ready() -> void:
@@ -19,6 +21,16 @@ func _ready() -> void:
 	change_label.text = ""
 	label.text = "0"
 	change_label.position.x = label.size.x + spacing
+
+
+
+func show_money_ui() -> void:
+	label.visible = true
+	in_shop = true
+
+func hide_money_ui() -> void:
+	label.visible = false
+	in_shop = false
 
 
 
@@ -53,5 +65,6 @@ func _on_money_changed(amount: int) -> void:
 	
 	label.text = str(Global.player.money_component.money)
 	
-	await get_tree().create_timer(1.5).timeout
-	label.visible = false
+	if !in_shop:
+		await get_tree().create_timer(1.5).timeout
+		label.visible = false

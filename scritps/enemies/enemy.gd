@@ -22,7 +22,7 @@ class_name Enemy
 @export var money_component: MoneyComponent
 @export var state_chart: StateChart
 @export_category("Imports")
-@export var bullet_scene: PackedScene = preload("res://scenes/player/bullet.tscn")
+#@export var bullet_scene: PackedScene = preload("res://scenes/player/bullet.tscn")
 @export var bullet_icon: CompressedTexture2D = preload("res://assets/enemies/bullet_enemy.png")
 
 # TODO:
@@ -225,7 +225,7 @@ func chase() -> void:
 		movement_timer.start()
 
 func shoot() -> void:
-	if not Global.player or not bullet_scene or not shooting_marker:
+	if !Global.player or !Global.bullet_scene or !shooting_marker:
 		return
 	
 	var dir: Vector2 = (Global.player.global_position - global_position).normalized()
@@ -237,7 +237,7 @@ func shoot() -> void:
 		var bounded_angle: float = sign(angle) * stats.shooting_angle
 		dir = forward.rotated(bounded_angle)
 	
-	var bt: Bullet = bullet_scene.instantiate()
+	var bt: Bullet = Global.bullet_scene.instantiate()
 	get_tree().current_scene.add_child(bt)
 	bt.init(
 		dir,

@@ -18,12 +18,12 @@ func _ready() -> void:
 
 
 
-func generate_from_preset(preset: Dictionary) -> Array[CardBonus]:
-	var result: Array[CardBonus] = []
-	for bonus_data in preset["bonuses"]:
-		var b: CardBonus = CardBonus.new(bonus_data["type"], bonus_data["value"])
-		result.append(b)
-	return result
+#func generate_from_preset(preset: Dictionary) -> Array[CardBonus]:
+	#var result: Array[CardBonus] = []
+	#for bonus_data in preset["bonuses"]:
+		#var b: CardBonus = CardBonus.new(bonus_data["type"], bonus_data["value"])
+		#result.append(b)
+	#return result
 
 func pick_random_preset() -> Dictionary:
 	# losowanie czy bierzemy single czy multi

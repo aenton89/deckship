@@ -22,8 +22,6 @@ class_name Player
 @export_subgroup("Components")
 @export var hp_component: HPComponent
 @export var money_component: MoneyComponent
-@export_category("Imports")
-@export var bullet_scene: PackedScene = preload("res://scenes/player/bullet.tscn")
 
 # normal vector - ship's facing direction
 @onready var normal: Vector2 = Vector2.ZERO
@@ -36,6 +34,7 @@ class_name Player
 # dodge cooldown
 @onready var dodges_available: int = stats.dodge_amount
 @onready var can_shoot: bool = true
+@onready var can_move: bool = true
 
 
 
@@ -135,7 +134,7 @@ func shoot() -> void:
 		var bounded_angle: float = sign(angle) * stats.shooting_angle
 		dir = normal.rotated(bounded_angle)
 	
-	var bt: Bullet = bullet_scene.instantiate()
+	var bt: Bullet = Global.bullet_scene.instantiate()
 	get_tree().current_scene.add_child(bt)
 	bt.init(
 		dir,
@@ -159,6 +158,9 @@ func rotate_ship(delta: float) -> void:
 		rotate(rotate_step)
 
 func apply_movement() -> void:
+	if !can_move:
+		return
+	
 	if shoot_force != Vector2.ZERO:
 		if Global.draw_debug:
 			print("PLAYER applied force: ", shoot_force * 20)

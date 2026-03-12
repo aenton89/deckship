@@ -19,23 +19,59 @@ class_name Merchant
 @export_category("Imports")
 @export var card_scene: PackedScene = preload("res://scenes/items/card.tscn")
 @export_category("Shop ware")
-@export var card_stock: int = 5
-@export var single_bonus_chance: float = 0.6
+@export var card_stock_amount: int = 3
+@export var multi_chance: float = 0.5
 
-@onready var card_comodities: Array[Card] = []
-@onready var player_in_shop: bool = false
-
-
-
-# generate_stock() - losuje jakieś karty
-# pass_to_display() - przekazuje do ui, co ma być instantiate'ed
-# delete_stock() - usuwa kartę, wywoływane przez shop_screen_ui
+@onready var card_comodities: Array[Dictionary] = []
 
 
 
 func _ready() -> void:
+	Global.current_merchant = self
+	
+	randomize()
 	# wylosować zestaw kart w obecnym sklepie
-	pass
+	generate_stock()
+
+
+
+func pick_random_preset() -> Dictionary:
+	# losowanie czy bierzemy single czy multi
+	var use_multi: float = randf()
+	
+	if use_multi < multi_chance:
+		return CardPresets.MULTI_BONUS_PRESETS[randi() % CardPresets.MULTI_BONUS_PRESETS.size()]
+	else:
+		return CardPresets.SINGLE_BONUS_PRESETS[randi() % CardPresets.SINGLE_BONUS_PRESETS.size()]
+	return CardPresets.SINGLE_BONUS_PRESETS[randi() % CardPresets.SINGLE_BONUS_PRESETS.size()]
+
+func generate_stock() -> void:
+	for i in card_stock_amount:
+		var preset: Dictionary = pick_random_preset()
+		card_comodities.append(preset)
+
+func enter_shop() -> void:
+	Global.UI.hud.money_ui.show_money_ui()
+	Global.UI.hud.money_ui.visible = true
+	Global.UI.shop_ui.visible = true
+	
+	Global.UI.shop_ui.add_cards()
+
+func exit_shop() -> void:
+	Global.UI.hud.money_ui.hide_money_ui()
+	Global.UI.shop_ui.visible = false
+	
+	Global.UI.shop_ui.clear_shop()
+
+func stock_sold(preset: Dictionary) -> void:
+	card_comodities.erase(preset)
+
+func attempt_buy(preset: Dictionary) -> bool:
+	if Global.player.money_component.pay(preset["price"]):
+		card_comodities.erase(preset)
+		return true
+	
+	return false
 
 
 
@@ -44,13 +80,15 @@ func _on_interaction_area_body_entered(body: Node2D) -> void:
 		# if !Global.player.in_combat:
 			# Global.player.can_shop = true
 		Global.player.can_shoot = false
-		Global.UI.shop_ui.visible = true
-		player_in_shop = true
+		Global.player.can_move = false
+		
+		enter_shop()
 
 func _on_interaction_area_body_exited(body: Node2D) -> void:
 	if body is Player:
 		# if !Global.player.in_combat:
 			# Global.player.can_shop = false
 		Global.player.can_shoot = true
-		Global.UI.shop_ui.visible = false
-		player_in_shop = false
+		Global.player.can_move = true
+		
+		exit_shop()

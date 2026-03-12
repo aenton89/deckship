@@ -24,7 +24,7 @@ var hovered: bool = false
 
 
 func _input(event: InputEvent) -> void:
-	if Input.is_action_just_pressed("shoot_and_move") and Input.is_action_pressed("cards_interactions") and hovered:
+	if Input.is_action_just_pressed("card_press") and Input.is_action_pressed("cards_interactions") and hovered:
 		print("card pressed")
 		Global.UI.hud.hand_control.apply_card(self)
 

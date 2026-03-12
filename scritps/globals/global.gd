@@ -11,6 +11,8 @@ extends Node
 
 signal player_ready(player)
 
+@onready var bullet_scene: PackedScene = preload("res://scenes/player/bullet.tscn")
+
 # test purposes
 var game_paused: bool = false
 var draw_debug: bool = false
@@ -20,3 +22,4 @@ var main: Node2D
 var UI: UserInterface
 var camera: Camera2D
 var lvl_manager: LevelManager
+var current_merchant: Merchant
