@@ -22,7 +22,7 @@ class_name Merchant
 @export var card_stock_amount: int = 3
 @export var multi_chance: float = 0.5
 
-@onready var card_comodities: Array[Dictionary] = []
+@onready var card_commodities: Array[Dictionary] = []
 
 
 
@@ -48,7 +48,7 @@ func pick_random_preset() -> Dictionary:
 func generate_stock() -> void:
 	for i in card_stock_amount:
 		var preset: Dictionary = pick_random_preset()
-		card_comodities.append(preset)
+		card_commodities.append(preset)
 
 func enter_shop() -> void:
 	Global.UI.hud.money_ui.show_money_ui()
@@ -64,11 +64,11 @@ func exit_shop() -> void:
 	Global.UI.shop_ui.clear_shop()
 
 func stock_sold(preset: Dictionary) -> void:
-	card_comodities.erase(preset)
+	card_commodities.erase(preset)
 
 func attempt_buy(preset: Dictionary) -> bool:
 	if Global.player.money_component.pay(preset["price"]):
-		card_comodities.erase(preset)
+		card_commodities.erase(preset)
 		return true
 	
 	return false

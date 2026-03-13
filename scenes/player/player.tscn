@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://2bbk1qjegcs4"]
 
-[ext_resource type="Script" uid="uid://3lv63kejaqb6" path="res://scritps/player/player.gd" id="1_g2els"]
+[ext_resource type="Script" uid="uid://c8j51qqugnliv" path="res://scritps/player/player.gd" id="1_g2els"]
 [ext_resource type="Texture2D" uid="uid://dlp4yjuopowty" path="res://assets/player/ship.png" id="2_g2els"]
 [ext_resource type="Script" uid="uid://bijd3qgfuctjh" path="res://scritps/player/camera_rig.gd" id="3_75vfm"]
 [ext_resource type="Script" uid="uid://b5ualig7snhtx" path="res://scritps/components/components.gd" id="3_lvxji"]
@@ -73,7 +73,6 @@ script = ExtResource("3_qhqgy")
 
 [node name="MoneyComponent" type="Node" parent="Components" unique_id=375919873]
 script = ExtResource("6_0owmy")
-money = 0
 
 [node name="User Interface" parent="." unique_id=1979265604 instance=ExtResource("5_p47bc")]
 

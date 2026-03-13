@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bf4d0ynycabq3"]
 
-[ext_resource type="Script" uid="uid://cup7xq340autc" path="res://scritps/npc/merchant.gd" id="1_ss6c5"]
+[ext_resource type="Script" uid="uid://doxxk24jps7id" path="res://scritps/npc/merchant.gd" id="1_ss6c5"]
 [ext_resource type="Texture2D" uid="uid://domyxg7akyl7g" path="res://assets/npc/merchant/merchant.png" id="2_owqti"]
 [ext_resource type="Texture2D" uid="uid://c80qn6bflis1q" path="res://assets/npc/merchant/merchant_area.png" id="3_0hxj3"]
 

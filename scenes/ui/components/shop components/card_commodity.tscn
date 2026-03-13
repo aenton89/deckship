@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://xco03xjf3x4e"]
+
+[ext_resource type="Script" uid="uid://cqtk6isuyspsg" path="res://scritps/ui/components/shop components/card_commodity.gd" id="1_34hmm"]
+[ext_resource type="Texture2D" uid="uid://boacfv5j4d1ge" path="res://assets/cards/card_placeholder.png" id="2_ijthf"]
+[ext_resource type="Texture2D" uid="uid://rtpv556weirx" path="res://assets/world/coin.png" id="2_vptfb"]
+[ext_resource type="LabelSettings" uid="uid://cr1046skf4tlm" path="res://resources/ui/money_label_settings.tres" id="3_ijthf"]
+
+[node name="CardCommodity" type="Button" unique_id=1081399565 node_paths=PackedStringArray("card_texture", "price_label", "coin_texture")]
+anchors_preset = -1
+anchor_right = 0.098000005
+anchor_bottom = 0.27800003
+offset_right = -0.16000366
+offset_bottom = -0.24002075
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+flat = true
+script = ExtResource("1_34hmm")
+card_texture = NodePath("VBoxContainer/TextureRect")
+price_label = NodePath("VBoxContainer/HBoxContainer/Label")
+coin_texture = NodePath("VBoxContainer/HBoxContainer/TextureRect")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1220911696]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -94.0
+offset_top = -150.0
+offset_right = 94.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer" unique_id=493965793]
+layout_mode = 2
+texture = ExtResource("2_ijthf")
+expand_mode = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=625382536]
+layout_mode = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer" unique_id=1182903298]
+layout_mode = 2
+texture = ExtResource("2_vptfb")
+expand_mode = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer" unique_id=1383852417]
+layout_mode = 2
+text = "0"
+label_settings = ExtResource("3_ijthf")
