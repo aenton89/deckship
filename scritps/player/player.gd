@@ -1,4 +1,4 @@
-extends RigidBody2D
+extends DamagableRB
 class_name Player
 ### TODO:
 # health, damage system
@@ -17,10 +17,10 @@ class_name Player
 @export var UI: UserInterface
 @export var interaction_area: Area2D
 @export var dodge_timer: Timer
-@export var sprite: Sprite2D
+#@export var sprite: Sprite2D
 @export var braking_sprite: Sprite2D
 @export_subgroup("Components")
-@export var hp_component: HPComponent
+#@export var hp_component: HPComponent
 @export var money_component: MoneyComponent
 
 # normal vector - ship's facing direction
@@ -39,6 +39,8 @@ class_name Player
 
 
 func _ready() -> void:
+	super._ready()
+	
 	Global.player = self
 	set_gravity_scale(0.0)
 	

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cw2ssyc8aolmn"
-path="res://.godot/imported/bullet_enemy.png-fdf03799c5fec69c2684aea894356420.ctex"
+uid="uid://crwkh502jvqm0"
+path="res://.godot/imported/muzzle.png-3b6d2db3142e1e27f6a7b40471fdd5dc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/enemies/bullet_enemy.png"
-dest_files=["res://.godot/imported/bullet_enemy.png-fdf03799c5fec69c2684aea894356420.ctex"]
+source_file="res://assets/shooting/muzzle.png"
+dest_files=["res://.godot/imported/muzzle.png-3b6d2db3142e1e27f6a7b40471fdd5dc.ctex"]
 
 [params]
 

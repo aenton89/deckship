@@ -1,4 +1,4 @@
-extends RigidBody2D
+extends DamagableRB
 class_name Rock
 
 ### TODO:
@@ -10,12 +10,13 @@ class_name Rock
 
 @export_category("Rock Details")
 @export var hp: float = 20.0
-@export_category("References")
-@export var hp_component: HPComponent
+#@export_category("References")
+#@export var hp_component: HPComponent
 
 
 
 func _ready() -> void:
+	super._ready()
 	set_gravity_scale(0.0)
 	hp_component.max_health = hp
 	hp_component.health = hp

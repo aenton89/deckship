@@ -1,7 +1,8 @@
-[gd_scene format=3 uid="uid://xvsi58eqm0tf"]
+[gd_scene load_steps=5 format=3 uid="uid://xvsi58eqm0tf"]
 
-[ext_resource type="Script" uid="uid://bomigxxajegdh" path="res://scritps/level/lvls/menu_level.gd" id="1_innd5"]
+[ext_resource type="Script" uid="uid://b7km1ftq1nsj0" path="res://scritps/level/lvls/menu_level.gd" id="1_innd5"]
 [ext_resource type="PackedScene" uid="uid://bjgk8f8cntvna" path="res://scenes/level/lvls/merchant_level.tscn" id="2_p36d1"]
+[ext_resource type="PackedScene" uid="uid://c5otxn8jswrwk" path="res://scenes/obstacles/rock.tscn" id="3_jsgyf"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_innd5"]
 
@@ -41,3 +42,12 @@ shape = SubResource("WorldBoundaryShape2D_innd5")
 position = Vector2(0, -540)
 rotation = 3.1415927
 shape = SubResource("WorldBoundaryShape2D_innd5")
+
+[node name="Rock" parent="." unique_id=1469771967 instance=ExtResource("3_jsgyf")]
+position = Vector2(304, 241)
+
+[node name="Rock2" parent="." unique_id=1446270767 instance=ExtResource("3_jsgyf")]
+position = Vector2(-80, 270)
+
+[node name="Rock3" parent="." unique_id=335893572 instance=ExtResource("3_jsgyf")]
+position = Vector2(162, 382)

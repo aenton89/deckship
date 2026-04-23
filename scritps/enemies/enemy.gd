@@ -1,4 +1,4 @@
-extends RigidBody2D
+extends DamagableRB
 class_name Enemy
 ### TODO:
 ## obracanie się do gracza (ale też z określoną prędkością)
@@ -18,17 +18,12 @@ class_name Enemy
 @export var move_away_shape: CollisionShape2D
 @export var perfect_distance_shape: CollisionShape2D
 @export var shooting_marker: Marker2D
-@export var hp_component: HPComponent
+#@export var hp_component: HPComponent
 @export var money_component: MoneyComponent
 @export var state_chart: StateChart
 @export_category("Imports")
 #@export var bullet_scene: PackedScene = preload("res://scenes/player/bullet.tscn")
-@export var bullet_icon: CompressedTexture2D = preload("res://assets/enemies/bullet_enemy.png")
-
-# TODO:
-#@export_category("Health")
-#@export var max_hp: float = 50.0
-
+@export var bullet_icon: CompressedTexture2D = preload("res://assets/shooting/bullet_enemy.png")
 @export_category("Movement Stats")
 @export_subgroup("Movement Defaults")
 # bo normalnie by było lekko za wolno
@@ -37,11 +32,6 @@ class_name Enemy
 @export var movement_cooldown: float = 1.0
 # treshold poniżej którego enemy dolatuje prosto do położenia gracza, a nie końca jego wektora prędkości
 @export var player_vel_treshold: float = 30.0
-
-# TODO:
-# radiany/sekunde
-#@export var max_angular_speed: float = 3.0
-
 @export_subgroup("Following Far")
 @export var detection_range: float = 1000.0
 @export var max_speed_following_far: float = 8000.0
@@ -51,14 +41,9 @@ class_name Enemy
 @export_subgroup("Moving Away")
 @export var move_away_range: float = 300.0
 @export var max_speed_moving_away: float = 2000.0
-
 @export_category("Shooting Stats")
 @export_subgroup("Shooting Defaults")
 @export var shooting_cooldown: float = 2.0
-
-# TODO:
-#@export var shooting_angle: float = PI / 4
-
 @export_subgroup("Move Away Firing")
 @export var firing_cooldown: float = 0.1
 @export var firing_amount: int = 5
@@ -66,12 +51,10 @@ class_name Enemy
 # stan z maszyny stanów
 @onready var attacking_state: EnemyStateMachine.EnemyAtackingState = EnemyStateMachine.EnemyAtackingState.NOT_SHOOTING
 @onready var movement_state: EnemyStateMachine.EnemyMovementState = EnemyStateMachine.EnemyMovementState.IDLE
-
 # zwiaszane z ruchem
 @onready var max_speed: float = max_speed_following_far
 @onready var movement_force: Vector2 = Vector2.ZERO
 @onready var can_move_on_own: bool = false
-
 # zmienne do śledzenia kierunku gracza
 @onready var last_player_direction: Vector2 = Vector2.ZERO
 @onready var shooting_timer: Timer = Timer.new()
@@ -84,6 +67,8 @@ var target_point: Vector2
 
 
 func _ready() -> void:
+	super._ready()
+	
 	set_gravity_scale(0.0)
 	
 	if stats == null:

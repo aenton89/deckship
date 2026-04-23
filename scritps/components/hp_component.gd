@@ -29,6 +29,9 @@ func heal(amount: float) -> void:
 		emit_signal("player_healed")
 
 func damage(amount: float, is_crit: bool) -> void:
+	if parent is DamagableRB:
+		parent.flash()
+	
 	if is_crit:
 		add_component_label(-amount, Color.DARK_RED)
 	else:

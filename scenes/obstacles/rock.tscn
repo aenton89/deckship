@@ -1,29 +1,32 @@
-[gd_scene load_steps=6 format=3 uid="uid://c5otxn8jswrwk"]
+[gd_scene load_steps=7 format=3 uid="uid://c5otxn8jswrwk"]
 
-[ext_resource type="Script" uid="uid://dnqhbxgnfjo8a" path="res://scritps/obstacles/rock.gd" id="1_mek2u"]
+[ext_resource type="Script" uid="uid://6apqcje8f2va" path="res://scritps/obstacles/rock.gd" id="1_mek2u"]
 [ext_resource type="Texture2D" uid="uid://cy45qrte7tapy" path="res://assets/world/rock.png" id="2_872ht"]
-[ext_resource type="Script" uid="uid://hq1bo2dtf216" path="res://scritps/components/components.gd" id="3_n8xt6"]
-[ext_resource type="Script" uid="uid://c72xg0cl1g6l2" path="res://scritps/components/hp_component.gd" id="4_p2d0s"]
+[ext_resource type="Shader" uid="uid://c47waqporfw2d" path="res://resources/effects/flash_material.gdshader" id="2_vnyxm"]
+[ext_resource type="Script" uid="uid://b1ual06tou7g" path="res://scritps/components/components.gd" id="3_n8xt6"]
+[ext_resource type="Script" uid="uid://cagl3ub6otl26" path="res://scritps/components/hp_component.gd" id="4_p2d0s"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mek2u"]
 size = Vector2(13, 13.5)
 
-[node name="Rock" type="RigidBody2D" node_paths=PackedStringArray("hp_component") groups=["destructable"]]
+[node name="Rock" type="RigidBody2D" unique_id=1469771967 node_paths=PackedStringArray("hp_component", "sprite") groups=["destructable"]]
 script = ExtResource("1_mek2u")
 hp_component = NodePath("Components/HP Component")
+sprite = NodePath("Sprite")
+flash_shader = ExtResource("2_vnyxm")
+metadata/_custom_type_script = "uid://bqnjnm53ruufl"
 
-[node name="Sprite" type="Sprite2D" parent="."]
+[node name="Sprite" type="Sprite2D" parent="." unique_id=79033025]
 texture_filter = 1
 texture = ExtResource("2_872ht")
 
-[node name="Collision Shape" type="CollisionShape2D" parent="."]
+[node name="Collision Shape" type="CollisionShape2D" parent="." unique_id=975194587]
 position = Vector2(0, 0.5)
 scale = Vector2(2, 2)
 shape = SubResource("RectangleShape2D_mek2u")
 
-[node name="Components" type="Node" parent="."]
+[node name="Components" type="Node" parent="." unique_id=355380702]
 script = ExtResource("3_n8xt6")
-metadata/_custom_type_script = "uid://hq1bo2dtf216"
 
-[node name="HP Component" type="Node" parent="Components"]
+[node name="HP Component" type="Node" parent="Components" unique_id=184052722]
 script = ExtResource("4_p2d0s")

@@ -1,7 +1,8 @@
-[gd_scene format=3 uid="uid://xgc080aq5ram"]
+[gd_scene load_steps=5 format=3 uid="uid://xgc080aq5ram"]
 
-[ext_resource type="Script" uid="uid://dt575jh720rjc" path="res://scritps/player/bullet.gd" id="1_j5eos"]
-[ext_resource type="Texture2D" uid="uid://cfren1fuj5u2c" path="res://assets/player/bullet.png" id="2_0td6m"]
+[ext_resource type="Script" uid="uid://33u5wnbt4idd" path="res://scritps/player/bullet.gd" id="1_j5eos"]
+[ext_resource type="Texture2D" uid="uid://cfren1fuj5u2c" path="res://assets/shooting/bullet.png" id="2_0td6m"]
+[ext_resource type="Texture2D" uid="uid://crwkh502jvqm0" path="res://assets/shooting/muzzle.png" id="2_oklhc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mkf8s"]
 size = Vector2(40, 80)
@@ -13,6 +14,7 @@ angular_damp = 0.0
 script = ExtResource("1_j5eos")
 shape = NodePath("Collision Shape")
 sprite = NodePath("Sprite")
+muzzle_texture = ExtResource("2_oklhc")
 life_timer = NodePath("Life Time")
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=1229413394]

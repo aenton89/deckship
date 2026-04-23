@@ -1,9 +1,10 @@
-[gd_scene format=3 uid="uid://bdoihx51gijw0"]
+[gd_scene load_steps=26 format=3 uid="uid://bdoihx51gijw0"]
 
-[ext_resource type="Script" uid="uid://bkt6j61n6egcw" path="res://scritps/enemies/enemy.gd" id="1_6xk8f"]
+[ext_resource type="Script" uid="uid://di0rjhjsc3jkv" path="res://scritps/enemies/enemy.gd" id="1_6xk8f"]
+[ext_resource type="Shader" uid="uid://c47waqporfw2d" path="res://resources/effects/flash_material.gdshader" id="2_4f0mh"]
 [ext_resource type="Texture2D" uid="uid://bnp80lbn4hnsq" path="res://assets/enemies/enemy.png" id="2_8e3ao"]
-[ext_resource type="Script" uid="uid://b5ualig7snhtx" path="res://scritps/components/components.gd" id="3_fcftc"]
-[ext_resource type="Script" uid="uid://dcx3aeax5ra07" path="res://scritps/components/hp_component.gd" id="4_lu5c6"]
+[ext_resource type="Script" uid="uid://b1ual06tou7g" path="res://scritps/components/components.gd" id="3_fcftc"]
+[ext_resource type="Script" uid="uid://cagl3ub6otl26" path="res://scritps/components/hp_component.gd" id="4_lu5c6"]
 [ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="5_lu5c6"]
 [ext_resource type="Script" uid="uid://b58h1q2hlgxjt" path="res://scritps/components/money_component.gd" id="5_maese"]
 [ext_resource type="Script" uid="uid://cn3mrucqx7uia" path="res://scritps/enemies/state machine/enemy_state_machine.gd" id="5_qch6t"]
@@ -33,7 +34,7 @@ radius = 300.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_38ino"]
 size = Vector2(52, 52)
 
-[node name="Enemy" type="RigidBody2D" unique_id=2056476605 node_paths=PackedStringArray("detection_area", "move_away_area", "detection_shape", "move_away_shape", "perfect_distance_shape", "shooting_marker", "hp_component", "money_component", "state_chart") groups=["destructable", "enemies", "has_money"]]
+[node name="Enemy" type="RigidBody2D" unique_id=546208942 node_paths=PackedStringArray("detection_area", "move_away_area", "detection_shape", "move_away_shape", "perfect_distance_shape", "shooting_marker", "money_component", "state_chart", "hp_component", "sprite") groups=["destructable", "enemies", "has_money"]]
 script = ExtResource("1_6xk8f")
 detection_area = NodePath("Detection Area")
 move_away_area = NodePath("Move Away Area")
@@ -41,9 +42,12 @@ detection_shape = NodePath("Detection Area/CollisionShape2D")
 move_away_shape = NodePath("Move Away Area/CollisionShape2D")
 perfect_distance_shape = NodePath("Perfect Area/CollisionShape2D")
 shooting_marker = NodePath("Shooting Marker")
-hp_component = NodePath("Components/HPComponent")
 money_component = NodePath("Components/MoneyComponent")
 state_chart = NodePath("StateChart")
+hp_component = NodePath("Components/HPComponent")
+sprite = NodePath("Sprite")
+flash_shader = ExtResource("2_4f0mh")
+metadata/_custom_type_script = "uid://bqnjnm53ruufl"
 
 [node name="Detection Area" type="Area2D" parent="." unique_id=1241544616]
 
@@ -64,7 +68,7 @@ debug_color = Color(0.21780396, 0.9140625, 0.5060985, 0.41960785)
 [node name="Collision Shape" type="CollisionShape2D" parent="." unique_id=380170884]
 shape = SubResource("RectangleShape2D_38ino")
 
-[node name="Icon" type="Sprite2D" parent="." unique_id=742035457]
+[node name="Sprite" type="Sprite2D" parent="." unique_id=742035457]
 scale = Vector2(2, 2)
 texture = ExtResource("2_8e3ao")
 

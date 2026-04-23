@@ -11,6 +11,7 @@ class_name Bullet
 @export_category("References")
 @export var shape: CollisionShape2D
 @export var sprite: Sprite2D
+@export var muzzle_texture: Texture2D
 @export var life_timer: Timer
 @export_category("Bullet Details")
 # life time of bullet
@@ -27,6 +28,8 @@ var crit_chance: float = 0.1
 var crit_amount: float = 1.2
 var dmg_amount: float
 var explosion_force: float = 400.0
+var muzzle_duration: float = 0.02
+var bullet_texture: Texture2D
 # direction vector
 var dir: Vector2 = Vector2.ZERO
 
@@ -67,7 +70,17 @@ func init(direction: Vector2, position: Vector2, texture: Texture2D = null, scal
 	global_position = position
 	
 	if texture:
-		sprite.texture = texture
+		bullet_texture = texture
+	else:
+		bullet_texture = sprite.texture
+	
+	# after some time change from muzzle to real bullet texture
+	if muzzle_texture:
+		sprite.texture = muzzle_texture
+		var tween = create_tween()
+		tween.tween_interval(muzzle_duration)
+		tween.tween_callback(func(): sprite.texture = bullet_texture)
+	
 	sprite.scale = scale
 	
 	if velocity >= 0:
